@@ -1,4 +1,4 @@
-20:51:26 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT1 ****
+20:56:07 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT1 ****
 make -j12 all 
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT1.elf
