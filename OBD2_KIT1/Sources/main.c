@@ -25,10 +25,95 @@
 
 /* Including necessary module. Cpu.h contains other modules needed for compiling.*/
 #include "Cpu.h"
+#include "string.h"
+#include "stdio.h"
+#include "stdlib.h"
 
   volatile int exit_code = 0;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+
+
+
+
+  /* Receive buffer size */
+	#define RX_BUFFER_SIZE 64
+
+  /* Buffer used to receive data from the console */
+	uint8_t rxByte;
+	uint8_t rxBuffer[RX_BUFFER_SIZE];
+	volatile uint8_t rxIndex = 0;
+
+
+  /*
+   * @brief : Initialize clocks, pins and power modes
+   */
+  void BoardInit(void)
+  {
+
+      /* Initialize and configure clocks
+       *  -   Setup system clocks, dividers
+       *  -   Configure FlexCAN clock, GPIO
+       *  -   see clock manager component for more details
+       */
+      CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
+                          g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
+      CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_FORCIBLE);
+
+      /* Initialize pins
+       *  -   Init FlexCAN and GPIO pins
+       *  -   See PinSettings component for more info
+       */
+      PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+  }
+
+
+  /* UART rx callback for continuous reception, byte by byte */
+void RxCallback(void *driverState, uart_event_t event, void *userData) {
+	(void) driverState;
+	(void) userData;
+
+
+	if (event == UART_EVENT_RX_FULL) {
+		// Store into Bufer
+
+		rxBuffer[rxIndex++] = rxByte;
+		// if received '\n'
+		if (rxByte == '\n') {
+			rxBuffer[rxIndex] = '\0'; // end string
+			rxIndex = 0; // reset
+
+			// handle messenger
+
+//			if (strcmp((char*) rxBuffer, "HELLO") == 0) {
+//				uint8_t str[16] = "hi\n";
+//				LPUART_DRV_SendData(INST_LPUART1, str, 3);
+//			} else {
+//				LPUART_DRV_SendData(INST_LPUART1, rxBuffer,
+//						strlen((char*) rxBuffer));
+//			}
+
+		}
+
+	}
+	LPUART_DRV_SetRxBuffer(INST_LPUART1, &rxByte, 1);
+}
+
+  /*
+   *
+   */
+  void LpuartInit(void)
+  {
+
+	  /* Initialize LPUART instance */
+	   LPUART_DRV_Init(INST_LPUART1, &lpuart1_State, &lpuart1_InitConfig0);
+	   /* Install the callback for rx events */
+	   LPUART_DRV_InstallRxCallback(INST_LPUART1, RxCallback, NULL);
+	   /*Start receive uart data */
+	   LPUART_DRV_ReceiveData(INST_LPUART1, &rxByte, 1);
+  }
+
+
 
 /*! 
   \brief The main function for the project.
@@ -47,6 +132,12 @@ int main(void)
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
+
+    BoardInit();
+    LpuartInit();
+
+
+
   /* For example: for(;;) { } */
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

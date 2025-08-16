@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-14, 20:47, # CodeGen: 0
+**     Date/Time   : 2025-08-16, 15:29, # CodeGen: 3
 **     Abstract    :
 **
 **     Settings    :
@@ -58,8 +58,8 @@
 **              Peripheral Type CAN                        : 
 **                Custom name                              : CAN0
 **                CAN0                                     : 
-**                  Receiver Input                         : <Automatic>
-**                  Transmitter Output                     : <Automatic>
+**                  Receiver Input                         : PTB0
+**                  Transmitter Output                     : PTB1
 **                Custom name                              : CAN1
 **                CAN1                                     : 
 **                  Receiver Input                         : <Automatic>
@@ -481,16 +481,16 @@
 **                LPUART1                                  : 
 **                  Clear to Send                          : <Automatic>
 **                  Request to Send                        : <Automatic>
-**                  Receive Data                           : <Automatic>
-**                  Transmit Data                          : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Receive Data                           : PTD13
+**                  Transmit Data                          : PTC7
+**                  Direction                              : Output
 **                Custom name                              : LPUART2
 **                LPUART2                                  : 
 **                  Clear to Send                          : <Automatic>
 **                  Request to Send                        : <Automatic>
-**                  Receive Data                           : <Automatic>
-**                  Transmit Data                          : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Receive Data                           : PTD6
+**                  Transmit Data                          : PTD7
+**                  Direction                              : Output
 **              Peripheral Type MCM                        : 
 **                Custom name                              : MCM
 **              Peripheral Type MPU                        : 
@@ -1582,7 +1582,11 @@
 #include "pins_driver.h"
 
 
-/*! @brief No pin was configured different with reset value */
+/*! @brief User number of configured pins */
+#define NUM_OF_CONFIGURED_PINS 6
+
+/*! @brief User configuration structure */
+extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];
 
 /* END pin_mux. */
 #endif /* #ifndef pin_mux_H */
