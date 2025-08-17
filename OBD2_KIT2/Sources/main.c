@@ -146,7 +146,7 @@ void Motor_Stop(int motor_id) {
 		int duty = (uint32_t) (motor->target_speed) * 0x7000U / 100;
 		while (duty > 0) {
 
-			duty -= 500;
+			duty -= 0x500U;
 			if (duty < 0)
 				duty = 0;
 
@@ -175,7 +175,7 @@ void stop() {
 
 	while (duty0 > 0 || duty1 > 0) {
 		if (duty0 > 0) {
-			duty0 -= 500;
+			duty0 -= 0x500;
 			if (duty0 < 0)
 				duty0 = 0;
 
@@ -186,7 +186,7 @@ void stop() {
 		}
 
 		if (duty1 > 0) {
-			duty1 -= 500;
+			duty1 -= 0x500;
 			if (duty1 < 0)
 				duty1 = 0;
 
@@ -239,6 +239,46 @@ void PwmInit(void){
 	FTM_DRV_InitPwm(INST_FLEXTIMER_PWM1, &flexTimer_pwm1_PwmConfig);
 }
 
+
+void PORTA_IRQHandler(void)
+{
+    uint32_t flags = PINS_DRV_GetPortIntFlag(PORTA);
+
+    // PA14
+    if (flags & (1 << 14)) {
+        // Xử lý ngắt từ PA14
+    	PINS_DRV_SetPins(PTA, 1 << 15U);
+    	delayCycles(4800);
+    	PINS_DRV_ClearPins(PTA, 1 << 15U);
+
+    	Motor_Stop(Left_motor);
+        // clear interrupt flag
+        PINS_DRV_ClearPinIntFlagCmd(PORTA, 14);
+    }
+
+
+
+    // PA16
+    if (flags & (1 << 16)) {
+        // Xử lý ngắt từ PA16
+    	PINS_DRV_SetPins(PTA, 1 << 17U);
+    	delayCycles(4800);
+    	PINS_DRV_ClearPins(PTA, 1 << 17U);
+
+    	Motor_Stop(Left_motor);
+
+    	// clear interrupt flag
+        PINS_DRV_ClearPinIntFlagCmd(PORTA, 16);
+    }
+
+
+}
+
+
+
+
+
+
 /*! 
   \brief The main function for the project.
   \details The startup initialization sequence is the following:
@@ -261,7 +301,26 @@ int main(void)
 
     PwmInit();
 
+
+    MotorControl_Init(Left_motor, INST_FLEXTIMER_PWM1, 0U,
+						Left_motor_forward_GPIO_port, Left_motor_forward_GPIO_PIN,
+						Left_motor_reverse_GPIO_port, Left_motor_reverse_GPIO_PIN);
+	MotorControl_Init(Right_motor, INST_FLEXTIMER_PWM1, 1U,
+						Right_motor_forward_GPIO_port, Right_motor_forward_GPIO_PIN,
+						Right_motor_reverse_GPIO_port, Right_motor_reverse_GPIO_PIN);
+
+
+	INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
+	INT_SYS_SetPriority(PORTA_IRQn, 2);
+	INT_SYS_EnableIRQ(PORTA_IRQn);
+
   /* For example: for(;;) { } */
+
+    while(1)
+    {
+
+    }
+
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

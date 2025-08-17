@@ -1,0 +1,348 @@
+/* ###################################################################
+**     Filename    : main.c
+**     Processor   : S32K1xx
+**     Abstract    :
+**         Main module.
+**         This module contains user's application code.
+**     Settings    :
+**     Contents    :
+**         No public methods
+**
+** ###################################################################*/
+/*!
+** @file main.c
+** @version 01.00
+** @brief
+**         Main module.
+**         This module contains user's application code.
+*/         
+/*!
+**  @addtogroup main_module main module documentation
+**  @{
+*/         
+/* MODULE main */
+
+
+/* Including necessary module. Cpu.h contains other modules needed for compiling.*/
+#include "Cpu.h"
+#include "math.h"
+
+  volatile int exit_code = 0;
+
+  /* User includes (#include below this line is not maintained by Processor Expert) */
+
+  /* Variables used to store PWM duty cycle */
+  ftm_state_t ftmStateStruct;
+
+#define Left_motor 1
+#define Right_motor 2
+
+#define Left_motor_forward_GPIO_port PTA
+#define Left_motor_forward_GPIO_PIN 0U
+#define Left_motor_reverse_GPIO_port PTA
+#define Left_motor_reverse_GPIO_PIN 1U
+
+#define Right_motor_forward_GPIO_port PTA
+#define Right_motor_forward_GPIO_PIN 2U
+#define Right_motor_reverse_GPIO_port PTA
+#define Right_motor_reverse_GPIO_PIN 3U
+
+#define direction_foward 1
+#define direction_reverse -1
+
+#define motor_number 2
+
+void delayCycles(volatile uint32_t cycles) {
+	while (cycles--) {
+	}
+}
+
+typedef struct {
+	int motor_id;
+
+	uint32_t PWM_instance;
+	uint8_t PWM_channel;
+
+	GPIO_Type *forward_GPIO_port;
+	pins_channel_type_t forward_GPIO_PIN;
+
+	GPIO_Type *reverse_GPIO_port;
+	pins_channel_type_t reverse_GPIO_PIN;
+
+	float current_speed;
+	float target_speed;
+	int direction;
+// 	PID_Controller *pid;
+} Motor_st;
+
+
+Motor_st motor[2] = { { .motor_id = Left_motor,
+// 				.pid = &(pid[0]),
+
+		}, { .motor_id = Right_motor,
+//  				.pid = &(pid[1]),
+		} };
+
+Motor_st* find_motor_by_id(int motor_id) {
+	for (int i = 0; i < motor_number; i++) {
+		if (motor_id == motor[i].motor_id)
+			return &motor[i];
+	}
+	return NULL;
+}
+
+void MotorControl_Init(int motor_id, uint32_t PWM_instance, uint8_t PWM_channel,
+		GPIO_Type *forward_GPIO_port, pins_channel_type_t forward_GPIO_PIN,
+		GPIO_Type *reverse_GPIO_port, pins_channel_type_t reverse_GPIO_PIN) {
+	Motor_st *motor = find_motor_by_id(motor_id);
+	if (motor != NULL) {
+		motor->PWM_instance = PWM_instance;
+		motor->PWM_channel = PWM_channel;
+		motor->forward_GPIO_port = forward_GPIO_port;
+		motor->forward_GPIO_PIN = forward_GPIO_PIN;
+		motor->reverse_GPIO_port = reverse_GPIO_port;
+		motor->reverse_GPIO_PIN = reverse_GPIO_PIN;
+	}
+
+}
+
+void set_speed_motor(int motor_id, float target_speed) {
+	Motor_st *motor = find_motor_by_id(motor_id);
+
+	if (motor != NULL) {
+
+		if (target_speed > 100.0f)
+			target_speed = 100.0f;
+		else if (target_speed < -100.0f)
+			target_speed = -100.0f;
+
+		motor->target_speed = fabsf(target_speed);
+
+		if (target_speed * motor->direction <= 0.0f) {
+
+			if (target_speed >= 0) {
+				motor->direction = direction_foward;
+				PINS_DRV_ClearPins(motor->reverse_GPIO_port,
+						1 << motor->reverse_GPIO_PIN);
+				PINS_DRV_SetPins(motor->forward_GPIO_port,
+						1 << motor->forward_GPIO_PIN);
+
+			} else {
+				motor->direction = direction_reverse;
+				PINS_DRV_ClearPins(motor->forward_GPIO_port,
+						1 << motor->forward_GPIO_PIN);
+				PINS_DRV_SetPins(motor->reverse_GPIO_port,
+						1 << motor->reverse_GPIO_PIN);
+			}
+		}
+
+	}
+}
+
+void Motor_Stop(int motor_id) {
+	Motor_st *motor = find_motor_by_id(motor_id);
+
+	if (motor != NULL) {
+		int duty = (uint32_t) (motor->target_speed) * 0x7000U / 100;
+		while (duty > 0) {
+
+			duty -= 0x500U;
+			if (duty < 0)
+				duty = 0;
+
+			FTM_DRV_UpdatePwmChannel(motor->PWM_instance, motor->PWM_channel,
+					FTM_PWM_UPDATE_IN_DUTY_CYCLE, duty, 0U, true);
+
+			delayCycles(48000);
+		}
+		set_speed_motor(motor_id, 0);
+	}
+
+}
+
+void Motor_Start(int motor_id) {
+	Motor_st *motor = find_motor_by_id(motor_id);
+	uint32_t duty = (uint32_t) (motor->target_speed) * 0x7000U / 100;
+	if (motor != NULL) {
+		FTM_DRV_UpdatePwmChannel(motor->PWM_instance, motor->PWM_channel,
+				FTM_PWM_UPDATE_IN_DUTY_CYCLE, duty, 0U, true);
+	}
+}
+
+void stop() {
+	int duty0 = (uint32_t) (motor[0].target_speed) * 0x7000U / 100;
+	int duty1 = (uint32_t) (motor[1].target_speed) * 0x7000U / 100;
+
+	while (duty0 > 0 || duty1 > 0) {
+		if (duty0 > 0) {
+			duty0 -= 0x500;
+			if (duty0 < 0)
+				duty0 = 0;
+
+			FTM_DRV_UpdatePwmChannel(motor[0].PWM_instance,
+					motor[0].PWM_channel, FTM_PWM_UPDATE_IN_DUTY_CYCLE,
+					(uint32_t) duty0, 0U, true);
+
+		}
+
+		if (duty1 > 0) {
+			duty1 -= 0x500;
+			if (duty1 < 0)
+				duty1 = 0;
+
+			FTM_DRV_UpdatePwmChannel(motor[1].PWM_instance,
+					motor[1].PWM_channel, FTM_PWM_UPDATE_IN_DUTY_CYCLE,
+					(uint32_t) duty1, 0U, true);
+		}
+
+		delayCycles(48000);
+	}
+
+	set_speed_motor(Left_motor, 0);
+	set_speed_motor(Right_motor, 0);
+}
+
+
+
+
+
+
+
+
+
+/*
+ * @brief : Initialize clocks, pins and power modes
+ */
+void BoardInit(void) {
+
+	/* Initialize and configure clocks
+	 *  -   Setup system clocks, dividers
+	 *  -   Configure FlexCAN clock, GPIO
+	 *  -   see clock manager component for more details
+	 */
+	CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
+			g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
+	CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_FORCIBLE);
+
+	/* Initialize pins
+	 *  -   Init FlexCAN and GPIO pins
+	 *  -   See PinSettings component for more info
+	 */
+	PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+}
+
+void PwmInit(void){
+	/* Init  pin pwm channel 0 PB12, channel 1 PB13) */
+	FTM_DRV_Init(INST_FLEXTIMER_PWM1, &flexTimer_pwm1_InitConfig,
+			&ftmStateStruct);
+	/* Initialize FTM PWM channel */
+	FTM_DRV_InitPwm(INST_FLEXTIMER_PWM1, &flexTimer_pwm1_PwmConfig);
+}
+
+
+void PORTA_IRQHandler(void)
+{
+    uint32_t flags = PINS_DRV_GetPortIntFlag(PORTA);
+
+    // PA14
+    if (flags & (1 << 14)) {
+        // Xử lý ngắt từ PA14
+    	PINS_DRV_SetPins(PTA, 15U);
+    	delayCycles(4800);
+    	PINS_DRV_ClearPins(PTA, 1 << 15U);
+
+    	Motor_Stop(Left_motor);
+        // clear interrupt flag
+        PINS_DRV_ClearPinIntFlagCmd(PORTA, 14);
+    }
+
+
+
+    // PA16
+    if (flags & (1 << 16)) {
+        // Xử lý ngắt từ PA16
+
+
+    	// clear interrupt flag
+        PINS_DRV_ClearPinIntFlagCmd(PORTA, 16);
+    }
+
+
+}
+
+
+
+
+
+
+/*! 
+  \brief The main function for the project.
+  \details The startup initialization sequence is the following:
+ * - startup asm routine
+ * - main()
+*/
+int main(void)
+{
+  /* Write your local variable definition here */
+
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  #ifdef PEX_RTOS_INIT
+    PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of Processor Expert internal initialization.                    ***/
+
+  /* Write your code here */
+
+    BoardInit();
+
+    PwmInit();
+
+
+    MotorControl_Init(Left_motor, INST_FLEXTIMER_PWM1, 0U,
+						Left_motor_forward_GPIO_port, Left_motor_forward_GPIO_PIN,
+						Left_motor_reverse_GPIO_port, Left_motor_reverse_GPIO_PIN);
+	MotorControl_Init(Right_motor, INST_FLEXTIMER_PWM1, 1U,
+						Right_motor_forward_GPIO_port, Right_motor_forward_GPIO_PIN,
+						Right_motor_reverse_GPIO_port, Right_motor_reverse_GPIO_PIN);
+
+
+	INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
+	INT_SYS_SetPriority(PORTA_IRQn, 2);
+	INT_SYS_EnableIRQ(PORTA_IRQn);
+
+  /* For example: for(;;) { } */
+
+    while(1)
+    {
+
+    }
+
+
+  /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
+  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+  #ifdef PEX_RTOS_START
+    PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of RTOS startup code.  ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;) {
+    if(exit_code != 0) {
+      break;
+    }
+  }
+  return exit_code;
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+} /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
+
+/* END main */
+/*!
+** @}
+*/
+/*
+** ###################################################################
+**
+**     This file was created by Processor Expert 10.1 [05.21]
+**     for the NXP S32K series of microcontrollers.
+**
+** ###################################################################
+*/
