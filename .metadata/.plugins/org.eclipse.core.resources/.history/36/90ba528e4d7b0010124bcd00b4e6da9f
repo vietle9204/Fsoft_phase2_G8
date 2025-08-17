@@ -1,0 +1,242 @@
+/* ###################################################################
+**     Filename    : main.c
+**     Processor   : S32K1xx
+**     Abstract    :
+**         Main module.
+**         This module contains user's application code.
+**     Settings    :
+**     Contents    :
+**         No public methods
+**
+** ###################################################################*/
+/*!
+** @file main.c
+** @version 01.00
+** @brief
+**         Main module.
+**         This module contains user's application code.
+*/         
+/*!
+**  @addtogroup main_module main module documentation
+**  @{
+*/         
+/* MODULE main */
+
+
+/* Including necessary module. Cpu.h contains other modules needed for compiling.*/
+#include "Cpu.h"
+
+  volatile int exit_code = 0;
+
+/* User includes (#include below this line is not maintained by Processor Expert) */
+
+
+typedef enum{
+	BRAKE_WAIT_RESPONSE = 0x00,
+
+	Brake_SUCCESSFUL = 0x01,
+
+	BRAKE_FAULT_COMM = 0x02,			 // LIN communication error
+	BRAKE_FAULT_SIGNAL = 0x03,			 // brake signal error: lost, signal interference
+	BRAKE_FAULT_ACTUATOR = 0x04,         // Braking successful but engine speed not reduced
+
+}Brake_State;
+
+
+
+
+	uint8_t l_BrakeState = BRAKE_WAIT_RESPONSE;
+	uint8_t r_BrakeState = BRAKE_WAIT_RESPONSE;
+
+	float l_rps = 0;
+	int   l_measurement_done =  0;
+
+	float r_rps = 0;
+	int   l_measurement_done =  0;
+
+
+  /*
+   * @brief : Initialize clocks, pins and power modes
+   */
+  void BoardInit(void) {
+
+  	/* Initialize and configure clocks
+  	 *  -   Setup system clocks, dividers
+  	 *  -   Configure FlexCAN clock, GPIO
+  	 *  -   see clock manager component for more details
+  	 */
+  	CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
+  			g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
+  	CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_FORCIBLE);
+
+  	/* Initialize pins
+  	 *  -   Init FlexCAN and GPIO pins
+  	 *  -   See PinSettings component for more info
+  	 */
+  	PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+  }
+
+
+  void FTM1_IC_Init(ftm_state_t *state)
+  {
+	  FTM_DRV_Init(INST_FLEXTIMER_IC1, &flexTimer_ic1_InitConfig, state);
+	  FTM_DRV_InitInputCapture(INST_FLEXTIMER_IC1, &flexTimer_ic1_InputCaptureConfig);
+
+
+  }
+
+  void FTM2_IC_Init(ftm_state_t *state)
+  {
+	  FTM_DRV_Init(INST_FLEXTIMER_IC2, &flexTimer_ic2_InitConfig, state);
+	  FTM_DRV_InitInputCapture(INST_FLEXTIMER_IC2, &flexTimer_ic2_InputCaptureConfig);
+
+  }
+
+
+  /* Callbacks declaration */
+  extern void Measurement_IC1_Done(ic_event_t event, void *userData)
+  {
+  	(void) userData;
+  	if(event ==  IC_EVENT_MEASUREMENT_COMPLETE)
+  	{
+  		IC1_done = 1;
+  	}
+
+  }
+
+  int IC2_done = 0;
+  /* Callbacks declaration */
+  extern void Measurement_IC2_Done(ic_event_t event, void *userData)
+  {
+  	(void) userData;
+  	if(event ==  IC_EVENT_MEASUREMENT_COMPLETE)
+  	{
+  		IC2_done = 1;
+  	}
+
+  }
+
+
+  void PORTA_IRQHandler(void)
+  {
+      uint32_t flags = PINS_DRV_GetPortIntFlag(PORTA);
+
+      // PA14
+      if (flags & (1 << 15)) {
+          // Xử lý ngắt từ PA15
+    	  if(l_BrakeState == BRAKE_WAIT_RESPONSE)
+    		  l_BrakeState = Brake_SUCCESSFUL;
+          // clear interrupt flag
+          PINS_DRV_ClearPinIntFlagCmd(PORTA, 15);
+      }
+
+
+
+      // PA16
+      if (flags & (1 << 17)) {
+          // Xử lý ngắt từ PA17
+    	  if(r_BrakeState == BRAKE_WAIT_RESPONSE)
+    	      r_BrakeState = Brake_SUCCESSFUL;
+
+      	// clear interrupt flag
+          PINS_DRV_ClearPinIntFlagCmd(PORTA, 17);
+      }
+
+
+  }
+
+
+  void PORTC_IRQHandler(void)
+    {
+        uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC);
+
+
+    }
+
+
+  /*
+   * Initialize interrupt
+   * install interrupt handler
+   * manager priority
+   */
+  void InterruptInit(void)
+  {
+	  /*Can    */
+
+
+	  /*Lin	   */
+
+
+
+	  /* enable interrupt port A and init handler */
+		INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
+		INT_SYS_SetPriority(PORTA_IRQn, 2);
+		INT_SYS_EnableIRQ(PORTA_IRQn);
+
+	  /* enable interrupt port C and init handler */
+		INT_SYS_InstallHandler(PORTA_IRQn, &PORTC_IRQHandler, NULL);
+		INT_SYS_SetPriority(PORTC_IRQn, 3);
+		INT_SYS_EnableIRQ(PORTC_IRQn);
+
+  }
+
+/*! 
+  \brief The main function for the project.
+  \details The startup initialization sequence is the following:
+ * - startup asm routine
+ * - main()
+*/
+int main(void)
+{
+  /* Write your local variable definition here */
+
+    ftm_state_t ftm1StateStruct;
+    ftm_state_t ftm2StateStruct;
+
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  #ifdef PEX_RTOS_INIT
+    PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of Processor Expert internal initialization.                    ***/
+
+  /* Write your code here */
+
+    BoardInit();
+
+    InterruptInit();
+
+    FTM1_IC_Init(&ftm1StateStruct);
+
+    FTM2_IC_Init(&ftm2StateStruct);
+
+
+  /* For example: for(;;) { } */
+
+  /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
+  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+  #ifdef PEX_RTOS_START
+    PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of RTOS startup code.  ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;) {
+    if(exit_code != 0) {
+      break;
+    }
+  }
+  return exit_code;
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+} /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
+
+/* END main */
+/*!
+** @}
+*/
+/*
+** ###################################################################
+**
+**     This file was created by Processor Expert 10.1 [05.21]
+**     for the NXP S32K series of microcontrollers.
+**
+** ###################################################################
+*/

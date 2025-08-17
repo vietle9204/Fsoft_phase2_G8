@@ -1,11 +1,100 @@
-23:07:24 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
+20:49:15 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
 make -j12 all 
+Building file: ../Sources/main.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@Sources/main.args" -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -o "Sources/main.o" "../Sources/main.c"
+Building file: ../SDK/middleware/lin/transport/lin_commontl_api.c
+Building file: ../SDK/middleware/lin/transport/lin_commontl_proto.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/transport/lin_commontl_api.args" -MMD -MP -MF"SDK/middleware/lin/transport/lin_commontl_api.d" -MT"SDK/middleware/lin/transport/lin_commontl_api.o" -o "SDK/middleware/lin/transport/lin_commontl_api.o" "../SDK/middleware/lin/transport/lin_commontl_api.c"
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/transport/lin_commontl_api.args" -MMD -MP -MF"SDK/middleware/lin/transport/lin_commontl_proto.d" -MT"SDK/middleware/lin/transport/lin_commontl_proto.o" -o "SDK/middleware/lin/transport/lin_commontl_proto.o" "../SDK/middleware/lin/transport/lin_commontl_proto.c"
+Building file: ../SDK/middleware/lin/lowlevel/lin.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/lowlevel/lin.args" -MMD -MP -MF"SDK/middleware/lin/lowlevel/lin.d" -MT"SDK/middleware/lin/lowlevel/lin.o" -o "SDK/middleware/lin/lowlevel/lin.o" "../SDK/middleware/lin/lowlevel/lin.c"
+Building file: ../SDK/middleware/lin/diagnostic/lin_diagnostic_service.c
+Building file: ../SDK/middleware/lin/coreapi/lin_common_api.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/diagnostic/lin_diagnostic_service.args" -MMD -MP -MF"SDK/middleware/lin/diagnostic/lin_diagnostic_service.d" -MT"SDK/middleware/lin/diagnostic/lin_diagnostic_service.o" -o "SDK/middleware/lin/diagnostic/lin_diagnostic_service.o" "../SDK/middleware/lin/diagnostic/lin_diagnostic_service.c"
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/coreapi/lin_common_api.args" -MMD -MP -MF"SDK/middleware/lin/coreapi/lin_common_api.d" -MT"SDK/middleware/lin/coreapi/lin_common_api.o" -o "SDK/middleware/lin/coreapi/lin_common_api.o" "../SDK/middleware/lin/coreapi/lin_common_api.c"
+Building file: ../SDK/middleware/lin/coreapi/lin_common_proto.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/coreapi/lin_common_api.args" -MMD -MP -MF"SDK/middleware/lin/coreapi/lin_common_proto.d" -MT"SDK/middleware/lin/coreapi/lin_common_proto.o" -o "SDK/middleware/lin/coreapi/lin_common_proto.o" "../SDK/middleware/lin/coreapi/lin_common_proto.c"
+Building file: ../SDK/middleware/lin/coreapi/lin_j2602_proto.c
+Building file: ../SDK/middleware/lin/coreapi/lin_lin21_proto.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/coreapi/lin_common_api.args" -MMD -MP -MF"SDK/middleware/lin/coreapi/lin_j2602_proto.d" -MT"SDK/middleware/lin/coreapi/lin_j2602_proto.o" -o "SDK/middleware/lin/coreapi/lin_j2602_proto.o" "../SDK/middleware/lin/coreapi/lin_j2602_proto.c"
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@SDK/middleware/lin/coreapi/lin_common_api.args" -MMD -MP -MF"SDK/middleware/lin/coreapi/lin_lin21_proto.d" -MT"SDK/middleware/lin/coreapi/lin_lin21_proto.o" -o "SDK/middleware/lin/coreapi/lin_lin21_proto.o" "../SDK/middleware/lin/coreapi/lin_lin21_proto.c"
+Building file: ../Generated_Code/Cpu.c
+Invoking: Standard S32DS C Compiler
+Building file: ../Generated_Code/canCom1.c
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/Cpu.d" -MT"Generated_Code/Cpu.o" -o "Generated_Code/Cpu.o" "../Generated_Code/Cpu.c"
+Building file: ../Generated_Code/clockMan1.c
+Invoking: Standard S32DS C Compiler
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/canCom1.d" -MT"Generated_Code/canCom1.o" -o "Generated_Code/canCom1.o" "../Generated_Code/canCom1.c"
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/clockMan1.d" -MT"Generated_Code/clockMan1.o" -o "Generated_Code/clockMan1.o" "../Generated_Code/clockMan1.c"
+../Sources/main.c: In function 'Can_RequestHandler':
+../Sources/main.c:233:52: warning: unused parameter 'data' [-Wunused-parameter]
+  void Can_RequestHandler(uint8_t request, uint16_t data)
+                                                    ^~~~
+Finished building: ../SDK/middleware/lin/transport/lin_commontl_proto.c
+Finished building: ../Generated_Code/clockMan1.c
+Finished building: ../Sources/main.c
+ 
+ 
+ 
+Finished building: ../SDK/middleware/lin/transport/lin_commontl_api.c
+Finished building: ../Generated_Code/Cpu.c
+Finished building: ../Generated_Code/canCom1.c
+ 
+ 
+ 
+Finished building: ../SDK/middleware/lin/coreapi/lin_j2602_proto.c
+Finished building: ../SDK/middleware/lin/coreapi/lin_common_proto.c
+Finished building: ../SDK/middleware/lin/coreapi/lin_lin21_proto.c
+ 
+ 
+ 
+Finished building: ../SDK/middleware/lin/diagnostic/lin_diagnostic_service.c
+Finished building: ../SDK/middleware/lin/lowlevel/lin.c
+Finished building: ../SDK/middleware/lin/coreapi/lin_common_api.c
+ 
+ 
+ 
+Building file: ../Generated_Code/dmaController1.c
+Building file: ../Generated_Code/flexTimer_ic1.c
+Building file: ../Generated_Code/flexTimer_ic2.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/dmaController1.d" -MT"Generated_Code/dmaController1.o" -o "Generated_Code/dmaController1.o" "../Generated_Code/dmaController1.c"
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/flexTimer_ic2.d" -MT"Generated_Code/flexTimer_ic2.o" -o "Generated_Code/flexTimer_ic2.o" "../Generated_Code/flexTimer_ic2.c"
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/flexTimer_ic1.d" -MT"Generated_Code/flexTimer_ic1.o" -o "Generated_Code/flexTimer_ic1.o" "../Generated_Code/flexTimer_ic1.c"
+Building file: ../Generated_Code/lin_cfg.c
+Invoking: Standard S32DS C Compiler
+arm-none-eabi-gcc "@Generated_Code/Cpu.args" -MMD -MP -MF"Generated_Code/lin_cfg.d" -MT"Generated_Code/lin_cfg.o" -o "Generated_Code/lin_cfg.o" "../Generated_Code/lin_cfg.c"
+Finished building: ../Generated_Code/dmaController1.c
+Finished building: ../Generated_Code/flexTimer_ic2.c
+ 
+Finished building: ../Generated_Code/flexTimer_ic1.c
+ 
+ 
+Finished building: ../Generated_Code/lin_cfg.c
+ 
+Building target: OBD2_KIT3.elf
+Invoking: Standard S32DS C Linker
+arm-none-eabi-gcc -o "OBD2_KIT3.elf" "@OBD2_KIT3.args"   
+Finished building target: OBD2_KIT3.elf
+ 
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT3.elf
    text	   data	    bss	    dec	    hex	filename
-   1420	      0	   3080	   4500	   1194	OBD2_KIT3.elf
+  14792	    788	   3192	  18772	   4954	OBD2_KIT3.elf
 Finished building: OBD2_KIT3.siz
  
 
-23:07:24 Build Finished (took 203ms)
+20:49:19 Build Finished (took 3s.284ms)
 

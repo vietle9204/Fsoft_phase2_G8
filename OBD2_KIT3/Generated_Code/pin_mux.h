@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 23:05, # CodeGen: 1
+**     Date/Time   : 2025-08-17, 11:30, # CodeGen: 3
 **     Abstract    :
 **
 **     Settings    :
@@ -1135,7 +1135,7 @@
 **              Pin 62: PTA17                              : 
 **                Custom name, Signal name                 : PTA17
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1340,7 +1340,7 @@
 **              Pin 82: PTA16                              : 
 **                Custom name, Signal name                 : PTA16
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
+**                Interrupt Configuration Field            : <Automatic>
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1350,7 +1350,7 @@
 **              Pin 83: PTA15                              : 
 **                Custom name, Signal name                 : PTA15
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1384,7 +1384,7 @@
 **              Pin 88: PTA14                              : 
 **                Custom name, Signal name                 : PTA14
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
+**                Interrupt Configuration Field            : Interrupt Status Flag (ISF) is disabled.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>

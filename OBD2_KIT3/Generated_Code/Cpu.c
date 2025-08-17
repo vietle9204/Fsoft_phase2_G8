@@ -7,7 +7,7 @@
 **     Version     : Component 01.197, Driver 01.00, CPU db: 3.00.000
 **     Datasheet   : S32K14XRM Rev. 2, 02/2017
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 22:29, # CodeGen: 0
+**     Date/Time   : 2025-08-17, 11:22, # CodeGen: 2
 **     Abstract    :
 **
 **     Settings    :
@@ -75,3 +75,9 @@ extern "C" {
 **
 ** ###################################################################
 */
+
+
+
+
+
+

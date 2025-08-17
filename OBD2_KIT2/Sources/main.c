@@ -275,7 +275,29 @@ void PORTA_IRQHandler(void)
 }
 
 
+/*
+ * Initialize interrupt
+ * install interrupt handler
+ * manager priority
+ */
+void InterruptInit(void)
+{
+	  /*Can    */
 
+
+	  /*Lin	   */
+
+
+
+	  /* enable interrupt port A and init handler */
+		INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
+		INT_SYS_SetPriority(PORTA_IRQn, 2);
+		INT_SYS_EnableIRQ(PORTA_IRQn);
+
+	  /* enable interrupt port C and init handler */
+
+
+}
 
 
 
@@ -301,6 +323,7 @@ int main(void)
 
     PwmInit();
 
+	InterruptInit();
 
     MotorControl_Init(Left_motor, INST_FLEXTIMER_PWM1, 0U,
 						Left_motor_forward_GPIO_port, Left_motor_forward_GPIO_PIN,
@@ -309,10 +332,6 @@ int main(void)
 						Right_motor_forward_GPIO_port, Right_motor_forward_GPIO_PIN,
 						Right_motor_reverse_GPIO_port, Right_motor_reverse_GPIO_PIN);
 
-
-	INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
-	INT_SYS_SetPriority(PORTA_IRQn, 2);
-	INT_SYS_EnableIRQ(PORTA_IRQn);
 
   /* For example: for(;;) { } */
 

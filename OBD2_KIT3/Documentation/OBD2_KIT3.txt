@@ -70,6 +70,159 @@ Module "intMan1"   (component interrupt_manager)
    - intMan1_INT_SYS_GetPending -Get Pending Interrupt.
    - intMan1_INT_SYS_GetActive -Get Active Interrupt.
 
+Module "canCom1"   (component flexcan)
+   - canCom1_FLEXCAN_DRV_SetBitrate -Sets the FlexCAN bit rate.
+   - canCom1_FLEXCAN_DRV_GetBitrate -Gets the FlexCAN bit rate.
+   - canCom1_FLEXCAN_DRV_SetRxMaskType -Sets the RX masking type.
+   - canCom1_FLEXCAN_DRV_SetRxFifoGlobalMask -Sets the FlexCAN RX FIFO global standard or extended mask.
+   - canCom1_FLEXCAN_DRV_SetRxMbGlobalMask -Sets the FlexCAN RX MB global standard or extended mask.
+   - canCom1_FLEXCAN_DRV_SetRxIndividualMask -Sets the FlexCAN RX individual standard or extended mask.
+   - canCom1_FLEXCAN_DRV_Init -Initializes the FlexCAN peripheral.
+   - canCom1_FLEXCAN_DRV_Deinit -Shuts down a FlexCAN instance.
+   - canCom1_FLEXCAN_DRV_ConfigTxMb -FlexCAN transmit message buffer field configuration.
+   - canCom1_FLEXCAN_DRV_ConfigRemoteResponseMb -Configures a transmit message buffer for remote frame response.
+   - canCom1_FLEXCAN_DRV_SendBlocking -Sends a CAN frame using the specified message buffer, in a blocking manner.
+   - canCom1_FLEXCAN_DRV_Send -Sends a CAN frame using the specified message buffer.
+   - canCom1_FLEXCAN_DRV_AbortTransfer -Ends a non-blocking FlexCAN transfer early.
+   - canCom1_FLEXCAN_DRV_ConfigRxMb -FlexCAN receive message buffer field configuration.
+   - canCom1_FLEXCAN_DRV_ConfigRxFifo -FlexCAN RX FIFO field configuration.
+   - canCom1_FLEXCAN_DRV_ReceiveBlocking -Receives a CAN frame using the specified message buffer, in a blocking manner.
+   - canCom1_FLEXCAN_DRV_Receive -Receives a CAN frame using the specified message buffer.
+   - canCom1_FLEXCAN_DRV_RxFifoBlocking -Receives a CAN frame using the message FIFO, in a blocking manner.
+   - canCom1_FLEXCAN_DRV_RxFifo -Receives a CAN frame using the message FIFO.
+   - canCom1_FLEXCAN_DRV_GetTransferStatus -Returns whether the previous FLEXCAN transfer has finished.
+   - canCom1_FLEXCAN_DRV_InstallErrorCallback -Installs a callback function for the Error IRQ handler.
+   - canCom1_FLEXCAN_DRV_InstallEventCallback -Installs a callback function for the IRQ handler.
+   - canCom1_FLEXCAN_DRV_GetDefaultConfig -Initializes the FlexCAN peripheral.
+   - canCom1_FLEXCAN_DRV_SetRxMb14Mask -Sets the FlexCAN Rx MB 14 mask (standard or extended).
+   - canCom1_FLEXCAN_DRV_SetRxMb15Mask -Sets the FlexCAN Rx MB 15 mask (standard or extended).
+   - canCom1_FLEXCAN_DRV_GetErrorStatus -Reports the error status for CAN instance
+   - canCom1_FLEXCAN_DRV_ConfigPN -Configures Pretended Networking settings.
+   - canCom1_FLEXCAN_DRV_GetWMB -Extracts one of the frames which triggered the wake up event.
+   - canCom1_FLEXCAN_DRV_SetBitrateCbt -Sets the FlexCAN bit rate for FD BRS.
+   - canCom1_FLEXCAN_DRV_GetBitrateFD -Gets the FlexCAN bit rate.
+   - canCom1_FLEXCAN_DRV_SetTDCOffset -Enables/Disables the Transceiver Delay Compensation feature and sets the Transceiver 
+                Delay Compensation Offset.
+   - canCom1_FLEXCAN_DRV_GetTDCValue -Gets the value of the Transceiver Delay Compensation.
+   - canCom1_FLEXCAN_DRV_GetTDCFail -Gets the value of the TDC Fail flag.
+   - canCom1_FLEXCAN_DRV_ClearTDCFail -Clears the TDC Fail flag.
+
+Module "osif1"     (component osif)
+   - osif1_OSIF_TimeDelay -Delays execution for a number of milliseconds.
+   - osif1_OSIF_MutexLock -Waits for a mutex and locks it.
+   - osif1_OSIF_MutexUnlock -Unlocks a previously locked mutex.
+   - osif1_OSIF_MutexCreate -Create an unlocked mutex.
+   - osif1_OSIF_MutexDestroy -Destroys a previously created mutex.
+   - osif1_OSIF_SemaWait -Decrement a semaphore with timeout.
+   - osif1_OSIF_SemaPost -Increment a semaphore.
+   - osif1_OSIF_SemaCreate -Creates a semaphore with a given value.
+   - osif1_OSIF_SemaDestroy -Destroys a previously created semaphore.
+   - osif1_OSIF_GetMilliseconds -Returns the number of miliseconds elapsed since starting the internal timer or starting the 
+                scheduler.
+
+Module "dmaController1" (component edma)
+   - dmaController1_EDMA_DRV_Init -Initializes the eDMA module.
+   - dmaController1_EDMA_DRV_Deinit -Shuts down the eDMA module.
+   - dmaController1_EDMA_DRV_ChannelInit -Initializes a eDMA channel.
+   - dmaController1_EDMA_DRV_ReleaseChannel -Releases an eDMA channel.
+   - dmaController1_EDMA_DRV_StartChannel -Starts an eDMA channel.
+   - dmaController1_EDMA_DRV_StopChannel -Stops the eDMA channel.
+   - dmaController1_EDMA_DRV_InstallCallback -Registers the callback function and the parameter for eDMA channel.
+   - dmaController1_EDMA_DRV_GetChannelStatus -Gets the eDMA channel status.
+   - dmaController1_EDMA_DRV_PushConfigToReg -Copies the channel configuration to the TCD registers.
+   - dmaController1_EDMA_DRV_PushConfigToSTCD -Copies the channel configuration to the software TCD structure.
+   - dmaController1_EDMA_DRV_ConfigSingleBlockTransfer -Configures a simple single block data transfer with DMA. This function 
+                configures the descriptor for a single block transfer.
+   - dmaController1_EDMA_DRV_ConfigLoopTransfer -Configures the DMA transfer in loop mode.
+   - dmaController1_EDMA_DRV_ConfigScatterGatherTransfer -Configures the DMA transfer in a scatter-gather mode.
+   - dmaController1_EDMA_DRV_ConfigMultiBlockTransfer -Configures a multiple block data transfer with DMA. This function 
+                configures the descriptor for a multi block transfer.
+   - dmaController1_EDMA_DRV_CancelTransfer -Cancels the remaining data transfer.
+   - dmaController1_EDMA_DRV_SetChannelRequestAndTrigger -Configures the DMA request and periodic trigger for the eDMA channel.
+   - dmaController1_EDMA_DRV_ClearTCD -Clears all registers to 0 for the channel's TCD.
+   - dmaController1_EDMA_DRV_SetSrcAddr -Configures the source address for the eDMA channel.
+   - dmaController1_EDMA_DRV_SetSrcOffset -Configures the source address signed offset for the eDMA channel.
+   - dmaController1_EDMA_DRV_SetSrcReadChunkSize -Configures the source data chunk size (transferred in a read sequence).
+   - dmaController1_EDMA_DRV_SetDestAddr -Configures the destination address for the eDMA channel.
+   - dmaController1_EDMA_DRV_SetDestOffset -Configures the destination address signed offset for the eDMA channel.
+   - dmaController1_EDMA_DRV_SetDestWriteChunkSize -Configures the destination data chunk size (transferred in a write sequence)
+                .
+   - dmaController1_EDMA_DRV_SetMinorLoopBlockSize -Configures the number of bytes to be transferred in each service request of 
+                the channel.
+   - dmaController1_EDMA_DRV_SetMajorLoopIterationCount -Configures the number of major loop iterations.
+   - dmaController1_EDMA_DRV_GetRemainingMajorIterationsCount -Returns the remaining major loop iteration count.
+   - dmaController1_EDMA_DRV_SetScatterGatherLink -Configures the memory address of the next TCD, in scatter/gather mode.
+   - dmaController1_EDMA_DRV_DisableRequestsOnTransferComplete -Disables/Enables the DMA request after the major loop completes 
+                for the TCD.
+   - dmaController1_EDMA_DRV_SetSrcLastAddrAdjustment -Configures the source address last adjustment.
+   - dmaController1_EDMA_DRV_SetDestLastAddrAdjustment -Configures the destination address last adjustment.
+   - dmaController1_EDMA_DRV_ConfigureInterrupt -Disables/Enables the channel interrupt requests.
+   - dmaController1_EDMA_DRV_TriggerSwRequest -Triggers a sw request for the current channel.
+
+Module "lin_cfg"   (component LinStack)
+
+Module "flexTimer_ic1" (component ftm_ic)
+   - flexTimer_ic1_FTM_DRV_Init -Initializes the FTM driver.
+   - flexTimer_ic1_FTM_DRV_Deinit -Shuts down the FTM driver.
+   - flexTimer_ic1_FTM_DRV_MaskOutputChannels -This function will mask the output of the channels and at match events will be 
+                ignored by the masked channels.
+   - flexTimer_ic1_FTM_DRV_SetInitialCounterValue -This function configure the initial counter value. The counter will get this 
+                value after an overflow event.
+   - flexTimer_ic1_FTM_DRV_SetHalfCycleReloadPoint -This function configure the value of the counter which will generates an 
+                reload point.
+   - flexTimer_ic1_FTM_DRV_SetSoftOutChnValue -This function will force the output value of a channel to a specific value. 
+                Before using this function it's mandatory to mask the match events using FTM_DRV_MaskOutputChannels and to 
+                enable software output control using FTM_DRV_SetSoftwareOutputChannelControl.
+   - flexTimer_ic1_FTM_DRV_SetSoftwareOutputChannelControl -This function will configure which output channel can be software 
+                controlled.
+   - flexTimer_ic1_FTM_DRV_SetInvertingControl -This function will configure if the second channel of a pair will be inverted 
+                or not.
+   - flexTimer_ic1_FTM_DRV_SetModuloCounterValue -This function configure the maximum counter value.
+   - flexTimer_ic1_FTM_DRV_SetSync -This function configures sync mechanism for some FTM registers ( MOD, CNINT, HCR, CnV, 
+                OUTMASK, INVCTRL, SWOCTRL).
+   - flexTimer_ic1_FTM_DRV_InitInputCapture -Configures Channel Input Capture for either getting time-stamps on edge detection 
+                or on signal measurement . When the edge specified in the captureMode argument occurs on the channel the FTM 
+                counter is captured into the CnV register. The user will have to read the CnV register separately to get this 
+                value. The filter function is disabled if the filterVal argument passed in is 0. The filter function is 
+                available only on channels 0,1,2,3.
+   - flexTimer_ic1_FTM_DRV_DeinitInputCapture -Disables input capture mode and clears FTM timer configuration.
+   - flexTimer_ic1_FTM_DRV_GetInputCaptureMeasurement -This function is used to calculate the measurement and/or time stamps 
+                values which are read from the C(n, n+1)V registers and stored to the static buffers.
+   - flexTimer_ic1_FTM_DRV_StartNewSignalMeasurement -Starts new single-shot signal measurement of the given channel.
+   - flexTimer_ic1_FTM_DRV_GetFrequency -Retrieves the frequency of the clock source feeding the FTM counter.
+   - flexTimer_ic1_FTM_DRV_ConvertFreqToPeriodTicks -This function is used to covert the given frequency to period in ticks.
+
+Module "flexTimer_ic2" (component ftm_ic)
+   - flexTimer_ic2_FTM_DRV_Init -Initializes the FTM driver.
+   - flexTimer_ic2_FTM_DRV_Deinit -Shuts down the FTM driver.
+   - flexTimer_ic2_FTM_DRV_MaskOutputChannels -This function will mask the output of the channels and at match events will be 
+                ignored by the masked channels.
+   - flexTimer_ic2_FTM_DRV_SetInitialCounterValue -This function configure the initial counter value. The counter will get this 
+                value after an overflow event.
+   - flexTimer_ic2_FTM_DRV_SetHalfCycleReloadPoint -This function configure the value of the counter which will generates an 
+                reload point.
+   - flexTimer_ic2_FTM_DRV_SetSoftOutChnValue -This function will force the output value of a channel to a specific value. 
+                Before using this function it's mandatory to mask the match events using FTM_DRV_MaskOutputChannels and to 
+                enable software output control using FTM_DRV_SetSoftwareOutputChannelControl.
+   - flexTimer_ic2_FTM_DRV_SetSoftwareOutputChannelControl -This function will configure which output channel can be software 
+                controlled.
+   - flexTimer_ic2_FTM_DRV_SetInvertingControl -This function will configure if the second channel of a pair will be inverted 
+                or not.
+   - flexTimer_ic2_FTM_DRV_SetModuloCounterValue -This function configure the maximum counter value.
+   - flexTimer_ic2_FTM_DRV_SetSync -This function configures sync mechanism for some FTM registers ( MOD, CNINT, HCR, CnV, 
+                OUTMASK, INVCTRL, SWOCTRL).
+   - flexTimer_ic2_FTM_DRV_InitInputCapture -Configures Channel Input Capture for either getting time-stamps on edge detection 
+                or on signal measurement . When the edge specified in the captureMode argument occurs on the channel the FTM 
+                counter is captured into the CnV register. The user will have to read the CnV register separately to get this 
+                value. The filter function is disabled if the filterVal argument passed in is 0. The filter function is 
+                available only on channels 0,1,2,3.
+   - flexTimer_ic2_FTM_DRV_DeinitInputCapture -Disables input capture mode and clears FTM timer configuration.
+   - flexTimer_ic2_FTM_DRV_GetInputCaptureMeasurement -This function is used to calculate the measurement and/or time stamps 
+                values which are read from the C(n, n+1)V registers and stored to the static buffers.
+   - flexTimer_ic2_FTM_DRV_StartNewSignalMeasurement -Starts new single-shot signal measurement of the given channel.
+   - flexTimer_ic2_FTM_DRV_GetFrequency -Retrieves the frequency of the clock source feeding the FTM counter.
+   - flexTimer_ic2_FTM_DRV_ConvertFreqToPeriodTicks -This function is used to covert the given frequency to period in ticks.
+
 Module "Cpu"       (component S32K144_100)
    - Cpu_SystemInit -This function disables the watchdog, enables FPU and the power mode protection. SystemInit is called from 
                 startup_device file.
