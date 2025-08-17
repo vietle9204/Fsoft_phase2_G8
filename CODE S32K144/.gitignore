@@ -1,0 +1,13 @@
+.metadata/
+.settings/
+.idea/
+Debug/
+Release/
+build/
+*.elf
+*.map
+*.hex
+*.bin
+*.o
+*.d
+*.log
