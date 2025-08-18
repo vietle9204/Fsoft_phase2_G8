@@ -25,7 +25,6 @@
 
 /* Including necessary module. Cpu.h contains other modules needed for compiling.*/
 #include "Cpu.h"
-#include <stdlib.h>
 
   volatile int exit_code = 0;
 
@@ -50,59 +49,11 @@ typedef enum{
 
 }Brake_State;
 
-typedef enum {
-    SENSOR_TEMP_NORMAL,       // Nhiệt độ trong ngưỡng an toàn
-    SENSOR_TEMP_HIGH,         // Nhiệt độ cao
-    SENSOR_TEMP_LOW,          // Nhiệt độ thấp
-    SENSOR_TEMP_ERROR         // Lỗi đọc cảm biến
-} sensor_temperature;
-
-uint8_t temperature_state;
-//int temperature = 0;
-
-typedef enum {
-    SENSOR_LIGHT_DARK,        // Tối
-    SENSOR_LIGHT_DIM,         // Ánh sáng yếu
-    SENSOR_LIGHT_BRIGHT,      // Sáng mạnh
-    SENSOR_LIGHT_ERROR        // Lỗi cảm biến ánh sáng
-} sensor_light;
-
-uint8_t light_state;
-//int light = 0;
-
-typedef enum {
-    SENSOR_DISTANCE_NEAR,     // Vật ở gần
-    SENSOR_DISTANCE_MEDIUM,   // Vật ở khoảng cách trung bình
-    SENSOR_DISTANCE_FAR,      // Vật ở xa
-    SENSOR_DISTANCE_ERROR     // Lỗi cảm biến khoảng cách
-} sensor_distance;
-
-uint8_t distance_state;
-//int distance = 0;
-
-typedef enum {
-    DOOR_CLOSED,        // Cửa đóng hoàn toàn
-    DOOR_OPEN,          // Cửa mở hoàn toàn
-    DOOR_OPENING,       // Cửa đang mở
-    DOOR_LOCKED,        // Cửa khóa
-    DOOR_ERROR          // Lỗi cảm biến hoặc cơ cấu
-} sensor_OpenDoor;
-uint8_t door_state;
-
 typedef enum{
 	Brake,
-	control_left_motor,
-	control_right_motor
-
 }Can_Request;
 
-/**/
-int randomInt(int a, int b) {
-    return a + rand() % (b - a + 1);
-}
 
-
-// init variable
 	uint8_t l_BrakeState = BRAKE_WAIT_RESPONSE;
 	int l_brake_flag = 0;
 	uint8_t r_BrakeState = BRAKE_WAIT_RESPONSE;
@@ -217,21 +168,12 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 14)) {
 		// Xử lý ngắt từ PC14
 
-		int temp = randomInt(0,3);
-
-		temperature_state = (sensor_temperature)temp;
-
 		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
 	}
 
 	// PC15
 	if (flags & (1 << 15)) {
 		// Xử lý ngắt từ PC15
-
-		 int light = randomInt(0,3);
-
-		light_state = (sensor_light)light;
-
 
 		PINS_DRV_ClearPinIntFlagCmd(PORTC, 15);
 	}
@@ -240,20 +182,12 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 16)) {
 		// Xử lý ngắt từ PC16
 
-		int distance = randomInt(0,3);
-
-		distance_state = (sensor_distance)distance;
-
 		PINS_DRV_ClearPinIntFlagCmd(PORTC, 16);
 	}
 
 	// PC17
 	if (flags & (1 << 17)) {
 		// Xử lý ngắt từ PC17
-
-		int door = randomInt(0,4);
-
-		door_state = (sensor_OpenDoor)door;
 
 		PINS_DRV_ClearPinIntFlagCmd(PORTC, 17);
 	}
@@ -317,12 +251,6 @@ int randomInt(int a, int b) {
 			default :
 				break;
 		}
-	}
-
-
-	void Lin_RequestHandler(uint8_t request, uint16_t data)
-	{
-
 	}
 
 
@@ -478,7 +406,6 @@ int main(void)
 
 			reportSpeed_current = OSIF_GetMilliseconds();
 		}
-
 
 	}
 

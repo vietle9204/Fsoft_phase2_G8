@@ -52,14 +52,6 @@
 
 #define motor_number 2
 
-
-  typedef enum{
-  	Brake,
-  	control_left_motor,
-  	control_right_motor
-
-  }Can_Request;
-
 void delayCycles(volatile uint32_t cycles) {
 	while (cycles--) {
 	}
@@ -308,33 +300,6 @@ void InterruptInit(void)
 }
 
 
-void Can_RequestHandler(uint8_t request, uint16_t data) {
-	switch (request) {
-
-	case control_left_motor:
-
-		set_speed_motor(Left_motor, data);
-		Motor_Start(Left_motor);
-
-		break;
-	case control_right_motor:
-
-		set_speed_motor(Right_motor, data);
-		Motor_Start(Right_motor);
-
-		break;
-	default:
-		break;
-	}
-}
-
-
-	void Lin_RequestHandler(uint8_t request, uint16_t data)
-	{
-
-	}
-
-
 
 /*! 
   \brief The main function for the project.
@@ -372,7 +337,6 @@ int main(void)
 
     while(1)
     {
-
 
     }
 

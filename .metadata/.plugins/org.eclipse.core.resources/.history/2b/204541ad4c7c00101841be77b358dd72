@@ -46,15 +46,15 @@
       <File Name="SDK/platform/drivers/src/lpuart/lpuart_hw_access.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786481" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/drivers/src/lpuart/lpuart_hw_access.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786474" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/drivers/src/edma/edma_irq.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786409" FileType="1048576" CompNumb="6" />
-      <File Name="Generated_Code/lin_cfg.h" FileDate="2025-08-18, 23:02:01" FileAge="1755532921200" FileType="45637" CompNumb="9" />
+      <File Name="Generated_Code/lin_cfg.h" FileDate="2025-08-17, 11:38:01" FileAge="1755405481087" FileType="45637" CompNumb="9" />
       <File Name="SDK/platform/drivers/inc/ftm_pwm_driver.h" FileDate="2025-08-16, 17:35:27" FileAge="1755340527791" FileType="1048576" CompNumb="11" />
       <File Name="SDK/platform/drivers/inc/edma_driver.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786413" FileType="1048576" CompNumb="6" />
       <File Name="SDK/platform/drivers/src/edma/edma_irq.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786403" FileType="1048576" CompNumb="6" />
-      <File Name="Generated_Code/lin_cfg.c" FileDate="2025-08-18, 23:02:01" FileAge="1755532921200" FileType="45637" CompNumb="9" />
+      <File Name="Generated_Code/lin_cfg.c" FileDate="2025-08-17, 11:38:01" FileAge="1755405481097" FileType="45637" CompNumb="9" />
       <File Name="SDK/platform/drivers/src/lin/lin_irq.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786458" FileType="1048576" CompNumb="0" />
       <File Name="Generated_Code/lin1.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786592" FileType="45637" CompNumb="10" />
       <File Name="Generated_Code/dmaController1.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786604" FileType="45637" CompNumb="6" />
-      <File Name="Sources/main.c" FileDate="2025-08-18, 23:01:43" FileAge="1755532903017" FileType="128" />
+      <File Name="Sources/main.c" FileDate="2025-08-17, 11:37:42" FileAge="1755405462897" FileType="128" />
       <File Name="Documentation/OBD2_KIT2.txt" FileDate="2025-08-16, 17:35:27" FileAge="1755340527898" FileType="3072" />
       <File Name="Generated_Code/lin1.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786589" FileType="45637" CompNumb="10" />
       <File Name="Generated_Code/dmaController1.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786600" FileType="45637" CompNumb="6" />
@@ -97,13 +97,13 @@
       <File Name="Generated_Code/clockMan1.c" FileDate="2025-08-16, 17:35:27" FileAge="1755340527831" FileType="45637" CompNumb="3" />
       <File Name="SDK/platform/drivers/inc/flexcan_driver.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786446" FileType="1048576" CompNumb="5" />
       <File Name="SDK/middleware/lin/transport/lin_commontl_api.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786524" FileType="1048576" CompNumb="9" />
-      <File Name="SDK/platform/devices/startup.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269112" FileType="1048576" CompNumb="1" />
       <File Name="SDK/platform/drivers/inc/lin_driver.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786461" FileType="1048576" CompNumb="0" />
+      <File Name="SDK/platform/devices/startup.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269112" FileType="1048576" CompNumb="1" />
       <File Name="Generated_Code/flexTimer_pwm1.h" FileDate="2025-08-16, 17:35:27" FileAge="1755340527816" FileType="45637" CompNumb="11" />
       <File Name="SDK/platform/devices/startup.c" FileDate="2025-08-16, 17:14:29" FileAge="1755339269118" FileType="1048576" CompNumb="1" />
       <File Name="SDK/middleware/lin/coreapi/lin_common_api.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786500" FileType="1048576" CompNumb="9" />
-      <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269031" FileType="1048576" CompNumb="3" />
       <File Name="Generated_Code/flexTimer_pwm1.c" FileDate="2025-08-16, 17:35:27" FileAge="1755340527813" FileType="45637" CompNumb="11" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269031" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/inc/lpuart_driver.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786465" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/devices/common/s32_core_cm4.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269108" FileType="1048576" CompNumb="1" />
       <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.c" FileDate="2025-08-16, 17:14:29" FileAge="1755339269025" FileType="1048576" CompNumb="3" />
@@ -114,8 +114,8 @@
       <File Name="SDK/rtos/osif/osif.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786420" FileType="1048576" CompNumb="8" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786433" FileType="1048576" CompNumb="5" />
       <File Name="SDK/platform/drivers/src/lin/lin_common.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786452" FileType="1048576" CompNumb="0" />
-      <File Name="SDK/platform/drivers/src/clock/S32K1xx/pcc_hw_access.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269036" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786429" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/pcc_hw_access.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269036" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/inc/pins_driver.h" FileDate="2025-08-16, 17:14:28" FileAge="1755339268982" FileType="1048576" CompNumb="2" />
       <File Name="SDK/platform/devices/S32K144/startup/system_S32K144.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269127" FileType="1048576" CompNumb="1" />
       <File Name="Documentation/OBD2_KIT2_Settings.xml" FileDate="2025-08-16, 17:35:27" FileAge="1755340527892" FileType="3072" />
@@ -124,5 +124,5 @@
       <File Name="Generated_Code/pin_mux.h" FileDate="2025-08-16, 17:21:34" FileAge="1755339694079" FileType="45637" CompNumb="2" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>8</CodeGenReference>
+  <CodeGenReference>7</CodeGenReference>
 </CodeGenerationInfo>

@@ -217,7 +217,7 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 14)) {
 		// Xử lý ngắt từ PC14
 
-		int temp = randomInt(0,3);
+		int temp = Random(0,3);
 
 		temperature_state = (sensor_temperature)temp;
 
@@ -228,7 +228,7 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 15)) {
 		// Xử lý ngắt từ PC15
 
-		 int light = randomInt(0,3);
+		 int light = Random(0,3);
 
 		light_state = (sensor_light)light;
 
@@ -240,7 +240,7 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 16)) {
 		// Xử lý ngắt từ PC16
 
-		int distance = randomInt(0,3);
+		int distance = Random(0,3);
 
 		distance_state = (sensor_distance)distance;
 
@@ -251,7 +251,7 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 17)) {
 		// Xử lý ngắt từ PC17
 
-		int door = randomInt(0,4);
+		int door = Random(0,4);
 
 		door_state = (sensor_OpenDoor)door;
 
