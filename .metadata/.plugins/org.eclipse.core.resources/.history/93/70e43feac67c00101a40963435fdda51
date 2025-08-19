@@ -44,7 +44,7 @@
   }Can_Request;
 
   typedef enum{
-	  GET_temperature_state,
+
 
    }LIN_Request;
 

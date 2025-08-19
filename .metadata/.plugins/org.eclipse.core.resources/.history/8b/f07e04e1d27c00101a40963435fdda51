@@ -90,13 +90,11 @@ typedef enum {
 uint8_t door_state;
 
 typedef enum{
-	Brake,                    //send to KIT3
-	Get_left_motor_speed,     //send to KIT3
-	Get_right_motor_speed,     //send to KIT3
-	control_left_motor,       //  send to KIT2
-	control_right_motor		  //  send to KIT2
+	Brake,
+	control_left_motor,
+	control_right_motor
 
-}Can_Request;;
+}Can_Request;
 
 /**/
 int randomInt(int a, int b) {

@@ -34,20 +34,6 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
 
-  typedef enum{
-  	Brake,                    //send to KIT3
-	Get_left_motor_speed,     //send to KIT3
-	Get_right_motor_speed,     //send to KIT3
-  	control_left_motor,       //  send to KIT2
-  	control_right_motor		  //  send to KIT2
-
-  }Can_Request;
-
-  typedef enum{
-	  GET_temperature_state,
-
-   }LIN_Request;
-
 
 
   /* Receive buffer size */
@@ -57,7 +43,6 @@
 	uint8_t rxByte;
 	uint8_t rxBuffer[RX_BUFFER_SIZE];
 	volatile uint8_t rxIndex = 0;
-
 
 
   /*

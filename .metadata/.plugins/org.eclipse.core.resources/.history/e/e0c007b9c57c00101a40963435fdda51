@@ -53,35 +53,12 @@
 #define motor_number 2
 
 
+  typedef enum{
+  	Brake,
+  	control_left_motor,
+  	control_right_motor
 
-  typedef enum {
-	AC_on,
-	AC_off,
-	AC_error
-
-  } air_conditioning_state;
-
-	typedef enum {
-		W_on,
-		W_off,
-		W_error
-
-	} wiper_state;
-
-	typedef enum {
-		HL_on,
-		HL_off,
-		HL_error
-	} headlight_state;
-
-	typedef enum {
-		Brake,                    //send to KIT3
-		Get_left_motor_speed,     //send to KIT3
-		Get_right_motor_speed,     //send to KIT3
-		control_left_motor,       //  send to KIT2
-		control_right_motor		  //  send to KIT2
-
-	} Can_Request;
+  }Can_Request;
 
 void delayCycles(volatile uint32_t cycles) {
 	while (cycles--) {
@@ -306,50 +283,6 @@ void PORTA_IRQHandler(void)
 }
 
 
-void PORTC_IRQHandler(void) {
-	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0xFU << 14);
-
-	// PC14
-	if (flags & (1 << 14)) {
-		// Xử lý ngắt từ PC14
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
-	}
-
-	// PC15
-	if (flags & (1 << 15)) {
-		// Xử lý ngắt từ PC15
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 15);
-	}
-
-	// PC16
-	if (flags & (1 << 16)) {
-		// Xử lý ngắt từ PC16
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 16);
-	}
-
-	// PC17
-	if (flags & (1 << 17)) {
-		// Xử lý ngắt từ PC17
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 17);
-	}
-
-}
-
-
-
-
 /*
  * Initialize interrupt
  * install interrupt handler
@@ -370,9 +303,8 @@ void InterruptInit(void)
 		INT_SYS_EnableIRQ(PORTA_IRQn);
 
 	  /* enable interrupt port C and init handler */
-		INT_SYS_InstallHandler(PORTC_IRQn, &PORTC_IRQHandler, NULL);
-		INT_SYS_SetPriority(PORTC_IRQn, 3);
-		INT_SYS_EnableIRQ(PORTC_IRQn);
+
+
 }
 
 
