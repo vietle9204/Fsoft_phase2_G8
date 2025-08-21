@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Devices"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/txtLightStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💡 Light: --"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:padding="6dp"/>
+
+    <TextView
+        android:id="@+id/txtACStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="❄️ Air Condition: --"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:padding="6dp"/>
+
+    <TextView
+        android:id="@+id/txtWiperStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🧹 Wiper: --"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:padding="6dp"/>
+
+</LinearLayout>
