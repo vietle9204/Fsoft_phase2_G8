@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 15:29, # CodeGen: 3
+**     Date/Time   : 2025-08-23, 21:16, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
@@ -310,12 +310,12 @@
 **                  Direction                              : <Automatic>
 **                  Pin 11                                 : <Automatic>
 **                  Direction                              : <Automatic>
-**                  Pin 12                                 : <Automatic>
-**                  Direction                              : <Automatic>
-**                  Pin 13                                 : <Automatic>
-**                  Direction                              : <Automatic>
-**                  Pin 14                                 : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Pin 12                                 : PTC12
+**                  Direction                              : Input
+**                  Pin 13                                 : PTC13
+**                  Direction                              : Input
+**                  Pin 14                                 : PTC14
+**                  Direction                              : Input
 **                  Pin 15                                 : <Automatic>
 **                  Direction                              : <Automatic>
 **                  Pin 16                                 : <Automatic>
@@ -969,7 +969,7 @@
 **              Pin 44: PTC16                              : 
 **                Custom name, Signal name                 : PTC16
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : Interrupt Status Flag (ISF) is disabled.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -979,7 +979,7 @@
 **              Pin 45: PTC15                              : 
 **                Custom name, Signal name                 : PTC15
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : Interrupt Status Flag (ISF) is disabled.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -989,7 +989,7 @@
 **              Pin 46: PTC14                              : 
 **                Custom name, Signal name                 : PTC14
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : ISF flag and Interrupt on falling-edge.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1019,7 +1019,7 @@
 **              Pin 49: PTC13                              : 
 **                Custom name, Signal name                 : PTC13
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1029,7 +1029,7 @@
 **              Pin 50: PTC12                              : 
 **                Custom name, Signal name                 : PTC12
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : <Automatic>
+**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1583,7 +1583,7 @@
 
 
 /*! @brief User number of configured pins */
-#define NUM_OF_CONFIGURED_PINS 6
+#define NUM_OF_CONFIGURED_PINS 9
 
 /*! @brief User configuration structure */
 extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];

@@ -1,17 +1,17 @@
-22:47:51 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
+21:40:38 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
 make -j12 all 
 Building file: ../Sources/main.c
 Invoking: Standard S32DS C Compiler
 arm-none-eabi-gcc "@Sources/main.args" -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -o "Sources/main.o" "../Sources/main.c"
 ../Sources/main.c: In function 'Can_RequestHandler':
-../Sources/main.c:299:52: warning: unused parameter 'data' [-Wunused-parameter]
+../Sources/main.c:303:52: warning: unused parameter 'data' [-Wunused-parameter]
   void Can_RequestHandler(uint8_t request, uint16_t data)
                                                     ^~~~
 ../Sources/main.c: In function 'Lin_RequestHandler':
-../Sources/main.c:323:34: warning: unused parameter 'request' [-Wunused-parameter]
+../Sources/main.c:333:34: warning: unused parameter 'request' [-Wunused-parameter]
   void Lin_RequestHandler(uint8_t request, uint16_t data)
                                   ^~~~~~~
-../Sources/main.c:323:52: warning: unused parameter 'data' [-Wunused-parameter]
+../Sources/main.c:333:52: warning: unused parameter 'data' [-Wunused-parameter]
   void Lin_RequestHandler(uint8_t request, uint16_t data)
                                                     ^~~~
 Finished building: ../Sources/main.c
@@ -24,9 +24,9 @@ Finished building target: OBD2_KIT3.elf
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT3.elf
    text	   data	    bss	    dec	    hex	filename
-  15288	    888	   3208	  19384	   4bb8	OBD2_KIT3.elf
+  15312	    888	   3208	  19408	   4bd0	OBD2_KIT3.elf
 Finished building: OBD2_KIT3.siz
  
 
-22:47:52 Build Finished (took 659ms)
+21:40:39 Build Finished (took 654ms)
 

@@ -306,46 +306,46 @@ void PORTA_IRQHandler(void)
 }
 
 
-void PORTC_IRQHandler(void) {
-	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0xFU << 14);
-
-	// PC14
-	if (flags & (1 << 14)) {
-		// Xử lý ngắt từ PC14
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
-	}
-
-	// PC15
-	if (flags & (1 << 15)) {
-		// Xử lý ngắt từ PC15
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 15);
-	}
-
-	// PC16
-	if (flags & (1 << 16)) {
-		// Xử lý ngắt từ PC16
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 16);
-	}
-
-	// PC17
-	if (flags & (1 << 17)) {
-		// Xử lý ngắt từ PC17
-
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 17);
-	}
-
-}
+//void PORTC_IRQHandler(void) {
+//	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0xFU << 14);
+//
+//	// PC14
+//	if (flags & (1 << 14)) {
+//		// Xử lý ngắt từ PC14
+//
+//
+//
+//		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
+//	}
+//
+//	// PC15
+//	if (flags & (1 << 15)) {
+//		// Xử lý ngắt từ PC15
+//
+//
+//
+//		PINS_DRV_ClearPinIntFlagCmd(PORTC, 15);
+//	}
+//
+//	// PC16
+//	if (flags & (1 << 16)) {
+//		// Xử lý ngắt từ PC16
+//
+//
+//
+//		PINS_DRV_ClearPinIntFlagCmd(PORTC, 16);
+//	}
+//
+//	// PC17
+//	if (flags & (1 << 17)) {
+//		// Xử lý ngắt từ PC17
+//
+//
+//
+//		PINS_DRV_ClearPinIntFlagCmd(PORTC, 17);
+//	}
+//
+//}
 
 
 
@@ -357,11 +357,13 @@ void PORTC_IRQHandler(void) {
  */
 void InterruptInit(void)
 {
-	  /*Can    */
+		/*Can    */
+		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
 
-
-	  /*Lin	   */
-
+		/*Lin	   */
+		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 1);
+		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
 
 
 	  /* enable interrupt port A and init handler */
@@ -369,10 +371,10 @@ void InterruptInit(void)
 		INT_SYS_SetPriority(PORTA_IRQn, 2);
 		INT_SYS_EnableIRQ(PORTA_IRQn);
 
-	  /* enable interrupt port C and init handler */
-		INT_SYS_InstallHandler(PORTC_IRQn, &PORTC_IRQHandler, NULL);
-		INT_SYS_SetPriority(PORTC_IRQn, 3);
-		INT_SYS_EnableIRQ(PORTC_IRQn);
+//	  /* enable interrupt port C and init handler */
+//		INT_SYS_InstallHandler(PORTC_IRQn, &PORTC_IRQHandler, NULL);
+//		INT_SYS_SetPriority(PORTC_IRQn, 3);
+//		INT_SYS_EnableIRQ(PORTC_IRQn);
 }
 
 
@@ -381,7 +383,7 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 
 	case control_left_motor:
 
-		set_speed_motor(Left_motor, data);
+		set_speed_motor(Left_motor, data);      // data: speed [-100 : 100]
 		Motor_Start(Left_motor);
 
 		break;
@@ -391,6 +393,8 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 		Motor_Start(Right_motor);
 
 		break;
+
+
 	default:
 		break;
 	}

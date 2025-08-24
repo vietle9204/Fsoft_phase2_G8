@@ -3,7 +3,7 @@
 **
 **     @file      lin_cfg.c
 **
-**     @date      9:02:27 PM, Aug 18, 2025
+**     @date      9:38:14 PM, Aug 23, 2025
 **
 **     @brief     Hardware configuration file
 **

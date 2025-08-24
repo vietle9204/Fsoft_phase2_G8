@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 15:29, # CodeGen: 3
+**     Date/Time   : 2025-08-23, 21:16, # CodeGen: 15
 **     Abstract    :
 **
 **
@@ -112,6 +112,48 @@ pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS] =
         .intConfig     = PORT_DMA_INT_DISABLED,
         .clearIntFlag  = false,
         .gpioBase      = NULL,
+        .digitalFilter = false,
+    },
+    {
+        .base          = PORTC,
+        .pinPortIdx    = 14u,
+        .pullConfig    = PORT_INTERNAL_PULL_NOT_ENABLED,
+        .passiveFilter = false,
+        .driveSelect   = PORT_LOW_DRIVE_STRENGTH,
+        .mux           = PORT_MUX_AS_GPIO,
+        .pinLock       = false,
+        .intConfig     = PORT_INT_FALLING_EDGE,
+        .clearIntFlag  = false,
+        .gpioBase      = PTC,
+        .direction     = GPIO_INPUT_DIRECTION,
+        .digitalFilter = false,
+    },
+    {
+        .base          = PORTC,
+        .pinPortIdx    = 13u,
+        .pullConfig    = PORT_INTERNAL_PULL_NOT_ENABLED,
+        .passiveFilter = false,
+        .driveSelect   = PORT_LOW_DRIVE_STRENGTH,
+        .mux           = PORT_MUX_AS_GPIO,
+        .pinLock       = false,
+        .intConfig     = PORT_INT_RISING_EDGE,
+        .clearIntFlag  = false,
+        .gpioBase      = PTC,
+        .direction     = GPIO_INPUT_DIRECTION,
+        .digitalFilter = false,
+    },
+    {
+        .base          = PORTC,
+        .pinPortIdx    = 12u,
+        .pullConfig    = PORT_INTERNAL_PULL_NOT_ENABLED,
+        .passiveFilter = false,
+        .driveSelect   = PORT_LOW_DRIVE_STRENGTH,
+        .mux           = PORT_MUX_AS_GPIO,
+        .pinLock       = false,
+        .intConfig     = PORT_INT_RISING_EDGE,
+        .clearIntFlag  = false,
+        .gpioBase      = PTC,
+        .direction     = GPIO_INPUT_DIRECTION,
         .digitalFilter = false,
     },
     {

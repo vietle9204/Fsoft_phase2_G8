@@ -3,7 +3,7 @@
   <Header>
     <Name>OBD2_KIT1</Name>
     <SavedBy>LEGION</SavedBy>
-    <ModificationStamp>9</ModificationStamp>
+    <ModificationStamp>11</ModificationStamp>
     <Date>2025-08-14</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1743-0713</PEversion>
@@ -2557,40 +2557,40 @@
         <ItemSymbol>PTC_port_12</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
+        <Value>PTC12</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC_port_12_Dir</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
+        <Value>Input</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC_port_13</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
+        <Value>PTC13</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC_port_13_Dir</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
+        <Value>Input</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC_port_14</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
+        <Value>PTC14</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC_port_14_Dir</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
+        <Value>Input</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC_port_15</ItemSymbol>
@@ -6916,8 +6916,8 @@
         <ItemSymbol>PTC16_IRQC</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
-        <PinFuncPropStateId>&lt;Automatic&gt;</PinFuncPropStateId>
+        <Value>Interrupt Status Flag (ISF) is disabled.</Value>
+        <PinFuncPropStateId>state_0000</PinFuncPropStateId>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC16_MUX</ItemSymbol>
@@ -6984,8 +6984,8 @@
         <ItemSymbol>PTC15_IRQC</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
-        <PinFuncPropStateId>&lt;Automatic&gt;</PinFuncPropStateId>
+        <Value>Interrupt Status Flag (ISF) is disabled.</Value>
+        <PinFuncPropStateId>state_0000</PinFuncPropStateId>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC15_MUX</ItemSymbol>
@@ -7052,8 +7052,8 @@
         <ItemSymbol>PTC14_IRQC</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
-        <PinFuncPropStateId>&lt;Automatic&gt;</PinFuncPropStateId>
+        <Value>ISF flag and Interrupt on falling-edge.</Value>
+        <PinFuncPropStateId>state_1010</PinFuncPropStateId>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC14_MUX</ItemSymbol>
@@ -7256,8 +7256,8 @@
         <ItemSymbol>PTC13_IRQC</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
-        <PinFuncPropStateId>&lt;Automatic&gt;</PinFuncPropStateId>
+        <Value>ISF flag and Interrupt on rising-edge.</Value>
+        <PinFuncPropStateId>state_1001</PinFuncPropStateId>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC13_MUX</ItemSymbol>
@@ -7324,8 +7324,8 @@
         <ItemSymbol>PTC12_IRQC</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>&lt;Automatic&gt;</Value>
-        <PinFuncPropStateId>&lt;Automatic&gt;</PinFuncPropStateId>
+        <Value>ISF flag and Interrupt on rising-edge.</Value>
+        <PinFuncPropStateId>state_1001</PinFuncPropStateId>
       </ItemState>
       <ItemState>
         <ItemSymbol>PTC12_MUX</ItemSymbol>

@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 17:21, # CodeGen: 1
+**     Date/Time   : 2025-08-23, 21:26, # CodeGen: 9
 **     Abstract    :
 **
 **     Settings    :
@@ -324,8 +324,8 @@
 **                  Direction                              : <Automatic>
 **                Custom name                              : PTD
 **                PTD                                      : 
-**                  Pin 0                                  : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Pin 0                                  : PTD0
+**                  Direction                              : Output
 **                  Pin 1                                  : <Automatic>
 **                  Direction                              : <Automatic>
 **                  Pin 2                                  : <Automatic>
@@ -354,10 +354,10 @@
 **                  Direction                              : <Automatic>
 **                  Pin 14                                 : <Automatic>
 **                  Direction                              : <Automatic>
-**                  Pin 15                                 : <Automatic>
-**                  Direction                              : <Automatic>
-**                  Pin 16                                 : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Pin 15                                 : PTD15
+**                  Direction                              : Output
+**                  Pin 16                                 : PTD16
+**                  Direction                              : Output
 **                  Pin 17                                 : <Automatic>
 **                  Direction                              : <Automatic>
 **                Custom name                              : PTE
@@ -1583,7 +1583,7 @@
 
 
 /*! @brief User number of configured pins */
-#define NUM_OF_CONFIGURED_PINS 14
+#define NUM_OF_CONFIGURED_PINS 17
 
 /*! @brief User configuration structure */
 extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];

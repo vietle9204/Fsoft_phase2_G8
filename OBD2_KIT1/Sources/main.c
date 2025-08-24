@@ -59,6 +59,21 @@
 	volatile uint8_t rxIndex = 0;
 
 
+	float l_rps = 0;
+	float r_rps = 0;
+
+	uint8_t l_brake_state = 0;
+	uint8_t r_brake_state = 0;
+
+	uint8_t temperature_sensor_state = 0;
+	uint8_t light_sensor_state = 0;
+	uint8_t distance_sensor_state = 0;
+	uint8_t OpenDoor_sensor_state = 0;
+
+	uint8_t wiper_state = 0;
+	uint8_t headlight_state = 0;
+	uint8_t air_conditioning_state = 0;
+
 
   /*
    * @brief : Initialize clocks, pins and power modes
@@ -128,6 +143,72 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	   LPUART_DRV_ReceiveData(INST_LPUART1, &rxByte, 1);
   }
 
+
+  void PORTC_IRQHandler(void) {
+  	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0x7U << 12);
+
+  	// PC12
+  	if (flags & (1 << 12)) {
+  		// Xử lý ngắt từ PC12
+  		air_conditioning_state ^= 1;
+
+  		// send command by LIN
+
+
+  		PINS_DRV_ClearPinIntFlagCmd(PORTC, 12);
+  	}
+
+  	// PC13
+  	if (flags & (1 << 13)) {
+  		// Xử lý ngắt từ PC13
+  		wiper_state ^= 1;
+
+  		// send command by LIN
+
+
+  		PINS_DRV_ClearPinIntFlagCmd(PORTC, 13);
+  	}
+
+  	// PC14
+  	if (flags & (1 << 14)) {
+  		// Xử lý ngắt từ PC14
+  		headlight_state ^= 1;
+
+  		// send command by LIN
+
+
+  		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
+  	}
+
+
+
+  }
+
+
+    /*
+     * Initialize interrupt
+     * install interrupt handler
+     * manager priority
+     */
+  	void InterruptInit(void) {
+  		/*Can    */
+  		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+  		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
+
+  		/*Lin	   */
+  		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 2);
+  		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
+
+  		/* Uart */
+  		INT_SYS_SetPriority(LPUART1_RxTx_IRQn, 1);
+  		INT_SYS_EnableIRQ(LPUART1_RxTx_IRQn);
+
+  		/* enable interrupt port C and init handler */
+  		INT_SYS_InstallHandler(PORTA_IRQn, &PORTC_IRQHandler, NULL);
+  		INT_SYS_SetPriority(PORTC_IRQn, 3);
+  		INT_SYS_EnableIRQ(PORTC_IRQn);
+
+  	}
 
 
 /*! 

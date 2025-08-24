@@ -42,7 +42,7 @@ typedef enum{
 
 	Brake_SUCCESSFUL = 0x02,
 
-	BRAKE_FAULT_COMM = 0x03,			 // LIN communication error
+	BRAKE_FAULT_COMM = 0x03,			 // CAN communication error
 	BRAKE_FAULT_SIGNAL = 0x04,			 // brake signal error: lost, signal interference
 	BRAKE_FAULT_ACTUATOR = 0x05,         // Braking successful but engine speed not reduced
 
@@ -54,7 +54,7 @@ typedef enum {
     SENSOR_TEMP_NORMAL,       // Nhiệt độ trong ngưỡng an toàn
     SENSOR_TEMP_HIGH,         // Nhiệt độ cao
     SENSOR_TEMP_LOW,          // Nhiệt độ thấp
-    SENSOR_TEMP_ERROR         // Lỗi đọc cảm biến
+    SENSOR_TEMP_ERROR         // Lỗi đ�?c cảm biến
 } sensor_temperature;
 
 uint8_t temperature_state;
@@ -62,7 +62,7 @@ uint8_t temperature_state;
 
 typedef enum {
     SENSOR_LIGHT_DARK,        // Tối
-    SENSOR_LIGHT_DIM,         // Ánh sáng yếu
+    SENSOR_LIGHT_DIM,         // �?nh sáng yếu
     SENSOR_LIGHT_BRIGHT,      // Sáng mạnh
     SENSOR_LIGHT_ERROR        // Lỗi cảm biến ánh sáng
 } sensor_light;
@@ -90,13 +90,13 @@ typedef enum {
 uint8_t door_state;
 
 typedef enum{
-	Brake,                    //send to KIT3
+	Brake = 4,                    //send to KIT3
 	Get_left_motor_speed,     //send to KIT3
 	Get_right_motor_speed,     //send to KIT3
 	control_left_motor,       //  send to KIT2
 	control_right_motor		  //  send to KIT2
 
-}Can_Request;;
+}Can_Request;
 
 /**/
 int randomInt(int a, int b) {
@@ -213,15 +213,38 @@ int randomInt(int a, int b) {
 
 
   void PORTC_IRQHandler(void) {
-	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0xFU << 14);
+	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0xFU << 12);
+
+	// PC12
+	if (flags & (1 << 12)) {
+		// Xử lý ngắt từ PC12
+
+		int temp = randomInt(0,3);
+
+		temperature_state = (sensor_temperature)temp;
+
+		PINS_DRV_ClearPinIntFlagCmd(PORTC, 12);
+	}
+
+	// PC13
+	if (flags & (1 << 13)) {
+		// Xử lý ngắt từ PC13
+
+		 int light = randomInt(0,3);
+
+		light_state = (sensor_light)light;
+
+
+		PINS_DRV_ClearPinIntFlagCmd(PORTC, 13);
+	}
 
 	// PC14
 	if (flags & (1 << 14)) {
 		// Xử lý ngắt từ PC14
 
-		int temp = randomInt(0,3);
+		int distance = randomInt(0,3);
 
-		temperature_state = (sensor_temperature)temp;
+		distance_state = (sensor_distance)distance;
 
 		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
 	}
@@ -230,34 +253,11 @@ int randomInt(int a, int b) {
 	if (flags & (1 << 15)) {
 		// Xử lý ngắt từ PC15
 
-		 int light = randomInt(0,3);
-
-		light_state = (sensor_light)light;
-
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 15);
-	}
-
-	// PC16
-	if (flags & (1 << 16)) {
-		// Xử lý ngắt từ PC16
-
-		int distance = randomInt(0,3);
-
-		distance_state = (sensor_distance)distance;
-
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 16);
-	}
-
-	// PC17
-	if (flags & (1 << 17)) {
-		// Xử lý ngắt từ PC17
-
 		int door = randomInt(0,4);
 
 		door_state = (sensor_OpenDoor)door;
 
-		PINS_DRV_ClearPinIntFlagCmd(PORTC, 17);
+		PINS_DRV_ClearPinIntFlagCmd(PORTC, 15);
 	}
 
 }
@@ -270,10 +270,12 @@ int randomInt(int a, int b) {
    */
 	void InterruptInit(void) {
 		/*Can    */
-
+		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
 
 		/*Lin	   */
-
+		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 1);
+		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
 
 		/* enable interrupt port A and init handler */
 		INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
@@ -316,6 +318,12 @@ int randomInt(int a, int b) {
 				Brake_start = OSIF_GetMilliseconds();
 
 				break;
+
+
+
+
+
+
 			default :
 				break;
 		}
