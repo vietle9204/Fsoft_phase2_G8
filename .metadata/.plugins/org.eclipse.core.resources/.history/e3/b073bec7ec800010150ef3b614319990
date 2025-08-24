@@ -33,58 +33,6 @@
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
-  typedef enum{
-  	BRAKE_WAIT_RESPONSE = 0x00,
-  	BRAKE_RESPONSED = 0x01,
-
-	Brake_SUCCESSFUL = 0x02,
-
-  	BRAKE_FAULT_COMM = 0x03,			 // CAN communication error
-  	BRAKE_FAULT_SIGNAL = 0x04,			 // brake signal error: lost, signal interference
-  	BRAKE_FAULT_ACTUATOR = 0x05,         // Braking successful but engine speed not reduced
-
-
-
-  }Brake_State;
-
-  typedef enum {
-      SENSOR_TEMP_NORMAL,       // Nhiệt độ trong ngưỡng an toàn
-      SENSOR_TEMP_HIGH,         // Nhiệt độ cao
-      SENSOR_TEMP_LOW,          // Nhiệt độ thấp
-      SENSOR_TEMP_ERROR         // Lỗi đ�?c cảm biến
-  } sensor_temperature;
-
-  uint8_t temperature_state;
-  //int temperature = 0;
-
-  typedef enum {
-      SENSOR_LIGHT_DARK,        // Tối
-      SENSOR_LIGHT_DIM,         // �?nh sáng yếu
-      SENSOR_LIGHT_BRIGHT,      // Sáng mạnh
-      SENSOR_LIGHT_ERROR        // Lỗi cảm biến ánh sáng
-  } sensor_light;
-
-  uint8_t light_state;
-  //int light = 0;
-
-  typedef enum {
-      SENSOR_DISTANCE_NEAR,     // Vật ở gần
-      SENSOR_DISTANCE_MEDIUM,   // Vật ở khoảng cách trung bình
-      SENSOR_DISTANCE_FAR,      // Vật ở xa
-      SENSOR_DISTANCE_ERROR     // Lỗi cảm biến khoảng cách
-  } sensor_distance;
-
-  uint8_t distance_state;
-  //int distance = 0;
-
-  typedef enum {
-      DOOR_CLOSED,        // Cửa đóng hoàn toàn
-      DOOR_OPEN,          // Cửa mở hoàn toàn
-      DOOR_OPENING,       // Cửa đang mở
-      DOOR_LOCKED,        // Cửa khóa
-      DOOR_ERROR          // Lỗi cảm biến hoặc cơ cấu
-  } sensor_OpenDoor;
-  uint8_t door_state;
 
   typedef enum{
   	Brake,                    //send to KIT3
@@ -110,8 +58,6 @@
 	uint8_t rxBuffer[RX_BUFFER_SIZE];
 	volatile uint8_t rxIndex = 0;
 
-	char txBuffer[64];
-
 
 	float l_rps = 0;
 	float r_rps = 0;
@@ -128,14 +74,7 @@
 	uint8_t headlight_state = 0;
 	uint8_t air_conditioning_state = 0;
 
-	// Flag báo dữ liệu thay đổi
-	uint8_t flag_speed_changed = 1;
-	uint8_t flag_brake_changed = 1;
-	uint8_t flag_sensor_changed = 1;
-	uint8_t flag_device_changed = 1;
 
-	// Thời gian gửi định kỳ
-	uint32_t lastSendTime = 0;
   /*
    * @brief : Initialize clocks, pins and power modes
    */
@@ -177,29 +116,27 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 			rxIndex = 0; // reset
 
 			// handle messenger
-			if (strcmp((char*)rxBuffer, "BRAKE LEFT") == 0)
+
+			if (strcmp(cmd, "BRAKE LEFT") == 0)
 			{
 
-				//skip
+
 
 
 			}
-			else if (strcmp((char*)rxBuffer, "BRAKE RIGHT") == 0)
+			else if (strcmp(cmd, "BRAKE RIGHT") == 0)
 			{
 
-				//skip
 
 
-			} else if (strcmp((char*)rxBuffer, "STOP") == 0) {
-
-				//send to CAN : brake
+			} else if (strcmp(cmd, "STOP") == 0) {
 
 
-			} else if (strncmp((char*)rxBuffer, "SET SPEED:", 10) == 0) {
+
+			} else if (strncmp(cmd, "SET SPEED:", 10) == 0) {
 				float speedL = 0, speedR = 0;
-				sscanf((char*)rxBuffer + 10, "%f/%f", &speedL, &speedR);
+				sscanf(cmd + 10, "%f/%f", &speedL, &speedR);
 
-				// send to Can : set speed
 
 
 			}
@@ -292,104 +229,6 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	}
 
 
-  	/**/
-  	void sendSpeed(void) {
-  	    char txBuffer[64];
-  	    sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
-  	  LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
-
-
-  	/**/
-  	void sendBrake(void) {
-  	    char txBuffer[64];
-
-  	    // Chuyển trạng thái sang chuỗi
-  	    const char* leftStatus;
-  	    const char* rightStatus;
-
-  	    switch (l_brake_state) {
-  	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
-  	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
-  	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
-  	        default:                   leftStatus = "UNKNOWN";    break;
-  	    }
-
-  	    switch (r_brake_state) {
-  	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
-  	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
-  	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
-  	        default:                   rightStatus = "UNKNOWN";    break;
-  	    }
-
-  	    // Tạo chuỗi dữ liệu
-  	    snprintf(txBuffer, sizeof(txBuffer), "BRAKE:%s;%s\n", leftStatus, rightStatus);
-
-  	    // Gửi qua LPUART
-  	    LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
-
-
-  	/**/
-  	void sendSensors(void) {
-  	    char txBuffer[128];
-  	    const char *distanceStr;
-  	    const char *lightStr;
-  	    const char *humidityStr;
-  	    const char *doorStr;
-
-  	    // Xử lý Distance
-  	    switch (distance_state) {
-  	        case SENSOR_DISTANCE_NEAR:   distanceStr = "NEAR";   break;
-  	        case SENSOR_DISTANCE_MEDIUM: distanceStr = "MEDIUM"; break;
-  	        case SENSOR_DISTANCE_FAR:    distanceStr = "FAR";    break;
-  	        default:                     distanceStr = "ERROR";  break;
-  	    }
-
-  	    // Xử lý Light
-  	    switch (light_state) {
-  	        case SENSOR_LIGHT_DARK:   lightStr = "DARK";   break;
-  	        case SENSOR_LIGHT_DIM:    lightStr = "DIM";    break;
-  	        case SENSOR_LIGHT_BRIGHT: lightStr = "BRIGHT"; break;
-  	        default:                  lightStr = "ERROR";  break;
-  	    }
-
-  	    // Xử lý Humidity (dùng temperature_sensor_state)
-  	    switch (temperature_sensor_state) {
-  	        case 0:  humidityStr = "NORMAL"; break;
-  	        case 1:  humidityStr = "HIGH";   break;
-  	        default: humidityStr = "ERROR";  break;
-  	    }
-
-  	    // Xử lý Door
-  	    switch (door_state) {
-  	        case DOOR_CLOSED:  doorStr = "CLOSED";  break;
-  	        case DOOR_OPEN:    doorStr = "OPENED";  break;
-  	        case DOOR_OPENING: doorStr = "OPENING"; break;
-  	        case DOOR_LOCKED:  doorStr = "LOCKED";  break;
-  	        default:           doorStr = "ERROR";   break;
-  	    }
-
-  	    snprintf(txBuffer, sizeof(txBuffer),
-  	             "DISTANCE:%s;LIGHT:%s;HUMIDITY:%s;DOOR:%s\n",
-  	             distanceStr, lightStr, humidityStr, doorStr);
-
-  	    LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
-
-  	/**/
-  	void sendDevices(void) {
-  	    char txBuffer[64];
-
-  	    snprintf(txBuffer, sizeof(txBuffer),
-  	             "LIGHT:%s;AC:%s;WIPER:%s\n",
-  	             (headlight_state) ? "ON" : "OFF",
-  	             (air_conditioning_state) ? "ON" : "OFF",
-  	             (wiper_state) ? "ON" : "OFF");
-
-  	    LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
-
 /*! 
   \brief The main function for the project.
   \details The startup initialization sequence is the following:
@@ -414,38 +253,6 @@ int main(void)
 
 
   /* For example: for(;;) { } */
-	while (1) {
-		uint32_t now = OSIF_GetMilliseconds();
-
-		// Kiểm tra thời gian định kỳ
-		if (now - lastSendTime >= 5000) {
-			if (flag_speed_changed) {
-
-				sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
-				sendSpeed();
-				flag_speed_changed = 0;
-
-			}
-
-			if (flag_brake_changed) {
-				sendBrake();
-				flag_brake_changed = 0;
-
-			}
-			if (flag_sensor_changed) {
-				sendSensors();
-				flag_sensor_changed = 0;
-
-			}
-			if (flag_device_changed) {
-				sendDevices();
-				flag_device_changed = 0;
-
-			}
-		}
-	}
-
-
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

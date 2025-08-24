@@ -6636,3 +6636,874 @@ java.lang.IllegalStateException: BundleContext is no longer valid
 	at com.nxp.s32ds.rcp.modular.installer.ui.MIPopupSchluderInstance$1.callback(MIPopupSchluderInstance.java:20)
 	at com.nxp.s32ds.rcp.modular.installer.core.schedulers.MIScheduler$UpdateCheckJob.run(MIScheduler.java:163)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SESSION 2025-08-24 19:55:56.012 -----------------------------------------------
+eclipse.buildId=2.0.0.202001161704
+java.version=1.8.0_202
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-08-24 19:56:16.507
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\LEGION'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.332
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.333
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.333
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.334
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.334
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.334
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.335
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.335
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.336
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.336
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.381
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.382
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.383
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.384
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.384
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.385
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.385
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.386
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.386
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.387
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.388
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.388
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.389
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.390
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.390
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.391
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.428
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.428
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.428
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.429
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.429
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.429
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.430
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.430
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.431
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.431
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.432
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.432
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.468
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.469
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.470
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.470
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.470
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.470
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.471
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.471
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.471
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.473
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.526
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.526
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.527
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.527
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.527
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.527
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.527
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.529
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.529
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.529
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.529
+!MESSAGE Actions have been registered for SDK S32K144_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.541
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.542
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.543
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.543
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.544
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.545
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.545
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.546
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.546
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.547
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.547
+!MESSAGE Actions have been registered for SDK S32K142_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.559
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.559
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.561
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.561
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.561
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.561
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.562
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.562
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.562
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.562
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.563
+!MESSAGE Actions have been registered for SDK S32K146_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.575
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.575
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.576
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.576
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.577
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.577
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.578
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.578
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.578
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.578
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.578
+!MESSAGE Actions have been registered for SDK S32K148_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.591
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.592
+!MESSAGE Actions have been registered for SDK S32K116_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.604
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.605
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.605
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.606
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.606
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.606
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.607
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.607
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.609
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.609
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.609
+!MESSAGE Actions have been registered for SDK S32K118_SDK_3.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.640
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.641
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.641
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.641
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.642
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.643
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.643
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.644
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.644
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.645
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.645
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.645
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.678
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.679
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.680
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.680
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.681
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.681
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.681
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.681
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.682
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.683
+!MESSAGE Actions have been registered for SDK KEAx_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.719
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.721
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.721
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.722
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.722
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.722
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.722
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.724
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.725
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.725
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.725
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.726
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.726
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.726
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.727
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.727
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.18_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.850
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.851
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.851
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.852
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.852
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.852
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.853
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.854
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.854
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.855
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.855
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.856
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.856
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.857
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.857
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.857
+!MESSAGE Actions have been registered for SDK S32K14x_AMMCLIB_1.1.19_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.882
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.882
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.882
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.884
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.884
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.885
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.885
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.886
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.886
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.887
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.887
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.888
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.888
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.889
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.889
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.889
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.891
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.891
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.892
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.892
+!MESSAGE Actions have been registered for SDK FreeMaster_S32xx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.915
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.915
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.916
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.916
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.917
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.917
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.918
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.918
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.919
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.919
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.920
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.920
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.921
+!MESSAGE Actions have been registered for SDK FreeMaster_KEAxx_2.0.0_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.955
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.955
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.956
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.956
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.956
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.958
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.958
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.959
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.959
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.960
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.960
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 0 0 2025-08-24 19:56:18.960
+!MESSAGE Actions have been registered for SDK S32K11x_AMMCLIB_1.1.20_PATH.
+
+!ENTRY com.freescale.s32ds.cross.sdk.support 1 0 2025-08-24 19:56:42.602
+!MESSAGE Load SDKs, sec.: 0.6
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 19:57:06.074
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 19:58:32.510
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 19:59:57.498
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 20:01:22.231
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 20:02:47.373
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 20:04:11.532
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 20:05:35.722
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2025-08-24 20:07:01.484
+!MESSAGE Connection to http://www.nxp.com/lgfiles/updates/Eclipse/S32DS_ARM_2.2/p2.index failed on Unrecognized SSL message, plaintext connection?. Retry attempt 0 started
+!STACK 0
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:975)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1367)
+	at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:750)
+	at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:123)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flushBuffer(AbstractSessionOutputBuffer.java:159)
+	at org.apache.http.impl.io.AbstractSessionOutputBuffer.flush(AbstractSessionOutputBuffer.java:166)
+	at org.apache.http.impl.AbstractHttpClientConnection.doFlush(AbstractHttpClientConnection.java:272)
+	at org.apache.http.impl.AbstractHttpClientConnection.flush(AbstractHttpClientConnection.java:277)
+	at org.apache.http.impl.conn.AbstractClientConnAdapter.flush(AbstractClientConnAdapter.java:201)
+	at org.apache.http.protocol.HttpRequestExecutor.doSendRequest(HttpRequestExecutor.java:239)
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:121)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryExecute(DefaultRequestDirector.java:685)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:487)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)

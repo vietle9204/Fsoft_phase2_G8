@@ -37,7 +37,7 @@
   	BRAKE_WAIT_RESPONSE = 0x00,
   	BRAKE_RESPONSED = 0x01,
 
-	Brake_SUCCESSFUL = 0x02,
+  	Brake_SUCCESSFUL = 0x02,
 
   	BRAKE_FAULT_COMM = 0x03,			 // CAN communication error
   	BRAKE_FAULT_SIGNAL = 0x04,			 // brake signal error: lost, signal interference
@@ -309,14 +309,14 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	    const char* rightStatus;
 
   	    switch (l_brake_state) {
-  	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
+  	        case BRAKE_SUCCESSFUL:     leftStatus = "OK";         break;
   	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
   	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
   	        default:                   leftStatus = "UNKNOWN";    break;
   	    }
 
   	    switch (r_brake_state) {
-  	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
+  	        case BRAKE_SUCCESSFUL:     rightStatus = "OK";         break;
   	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
   	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
   	        default:                   rightStatus = "UNKNOWN";    break;
@@ -415,13 +415,14 @@ int main(void)
 
   /* For example: for(;;) { } */
 	while (1) {
-		uint32_t now = OSIF_GetMilliseconds();
+		uint32_t now = getMilliseconds();
 
 		// Kiểm tra thời gian định kỳ
 		if (now - lastSendTime >= 5000) {
 			if (flag_speed_changed) {
 
 				sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
+				UART_SendString(txBuffer);
 				sendSpeed();
 				flag_speed_changed = 0;
 

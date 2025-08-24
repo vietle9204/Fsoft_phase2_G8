@@ -422,6 +422,7 @@ int main(void)
 			if (flag_speed_changed) {
 
 				sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
+				UART_SendString(txBuffer);
 				sendSpeed();
 				flag_speed_changed = 0;
 

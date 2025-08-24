@@ -90,7 +90,7 @@ typedef enum {
 uint8_t door_state;
 
 typedef enum{
-	Brake,                    //send to KIT3
+	Brake = 4,                    //send to KIT3
 	Get_left_motor_speed,     //send to KIT3
 	Get_right_motor_speed,     //send to KIT3
 	control_left_motor,       //  send to KIT2

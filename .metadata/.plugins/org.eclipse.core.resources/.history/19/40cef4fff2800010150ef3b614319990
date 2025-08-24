@@ -33,58 +33,6 @@
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
-  typedef enum{
-  	BRAKE_WAIT_RESPONSE = 0x00,
-  	BRAKE_RESPONSED = 0x01,
-
-	Brake_SUCCESSFUL = 0x02,
-
-  	BRAKE_FAULT_COMM = 0x03,			 // CAN communication error
-  	BRAKE_FAULT_SIGNAL = 0x04,			 // brake signal error: lost, signal interference
-  	BRAKE_FAULT_ACTUATOR = 0x05,         // Braking successful but engine speed not reduced
-
-
-
-  }Brake_State;
-
-  typedef enum {
-      SENSOR_TEMP_NORMAL,       // Nhiệt độ trong ngưỡng an toàn
-      SENSOR_TEMP_HIGH,         // Nhiệt độ cao
-      SENSOR_TEMP_LOW,          // Nhiệt độ thấp
-      SENSOR_TEMP_ERROR         // Lỗi đ�?c cảm biến
-  } sensor_temperature;
-
-  uint8_t temperature_state;
-  //int temperature = 0;
-
-  typedef enum {
-      SENSOR_LIGHT_DARK,        // Tối
-      SENSOR_LIGHT_DIM,         // �?nh sáng yếu
-      SENSOR_LIGHT_BRIGHT,      // Sáng mạnh
-      SENSOR_LIGHT_ERROR        // Lỗi cảm biến ánh sáng
-  } sensor_light;
-
-  uint8_t light_state;
-  //int light = 0;
-
-  typedef enum {
-      SENSOR_DISTANCE_NEAR,     // Vật ở gần
-      SENSOR_DISTANCE_MEDIUM,   // Vật ở khoảng cách trung bình
-      SENSOR_DISTANCE_FAR,      // Vật ở xa
-      SENSOR_DISTANCE_ERROR     // Lỗi cảm biến khoảng cách
-  } sensor_distance;
-
-  uint8_t distance_state;
-  //int distance = 0;
-
-  typedef enum {
-      DOOR_CLOSED,        // Cửa đóng hoàn toàn
-      DOOR_OPEN,          // Cửa mở hoàn toàn
-      DOOR_OPENING,       // Cửa đang mở
-      DOOR_LOCKED,        // Cửa khóa
-      DOOR_ERROR          // Lỗi cảm biến hoặc cơ cấu
-  } sensor_OpenDoor;
-  uint8_t door_state;
 
   typedef enum{
   	Brake,                    //send to KIT3
@@ -309,14 +257,14 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	    const char* rightStatus;
 
   	    switch (l_brake_state) {
-  	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
+  	        case BRAKE_SUCCESSFUL:     leftStatus = "OK";         break;
   	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
   	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
   	        default:                   leftStatus = "UNKNOWN";    break;
   	    }
 
   	    switch (r_brake_state) {
-  	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
+  	        case BRAKE_SUCCESSFUL:     rightStatus = "OK";         break;
   	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
   	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
   	        default:                   rightStatus = "UNKNOWN";    break;
@@ -415,13 +363,14 @@ int main(void)
 
   /* For example: for(;;) { } */
 	while (1) {
-		uint32_t now = OSIF_GetMilliseconds();
+		uint32_t now = getMilliseconds();
 
 		// Kiểm tra thời gian định kỳ
 		if (now - lastSendTime >= 5000) {
 			if (flag_speed_changed) {
 
 				sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
+				UART_SendString(txBuffer);
 				sendSpeed();
 				flag_speed_changed = 0;
 

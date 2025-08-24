@@ -415,13 +415,14 @@ int main(void)
 
   /* For example: for(;;) { } */
 	while (1) {
-		uint32_t now = OSIF_GetMilliseconds();
+		uint32_t now = OSIF_GetMilliseconds()();
 
 		// Kiểm tra thời gian định kỳ
 		if (now - lastSendTime >= 5000) {
 			if (flag_speed_changed) {
 
 				sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
+				UART_SendString(txBuffer);
 				sendSpeed();
 				flag_speed_changed = 0;
 
