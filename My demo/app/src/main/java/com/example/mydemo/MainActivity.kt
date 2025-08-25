@@ -11,13 +11,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -25,20 +23,51 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var txtSpeed: TextView
-    private lateinit var txtDoorStatus: TextView
-    private lateinit var txtTireStatus: TextView
+    // UI chính
+    private lateinit var txtLeftSpeed: TextView
+    private lateinit var txtRightSpeed: TextView
+    private lateinit var txtBrakeLeft: TextView
+    private lateinit var txtBrakeRight: TextView
     private lateinit var txtStatusLog: TextView
     private lateinit var btnConnect: Button
-    private lateinit var btnBrake: ImageView
+    private lateinit var btnBrakeLeft: ImageView
+    private lateinit var btnBrakeRight: ImageView
     private lateinit var btnStop: ImageView
+    private lateinit var btnApplySpeed: Button
+    private lateinit var inputLeftSpeed: EditText
+    private lateinit var inputRightSpeed: EditText
+    private lateinit var btnSensors: Button
+    private lateinit var btnDevices: Button
 
+    // View trong BottomSheet Sensors
+    private var sensorDistance: TextView? = null
+    private var sensorLight: TextView? = null
+    private var sensorHumidity: TextView? = null
+    private var sensorDoor: TextView? = null
+
+    // View trong BottomSheet Devices
+    private var deviceLight: TextView? = null
+    private var deviceAC: TextView? = null
+    private var deviceWiper: TextView? = null
+
+    // ✅ Biến lưu trạng thái cuối cùng (không reset khi đóng/mở bottomsheet)
+    private var lastDistance = "--"
+    private var lastLightSensor = "--"
+    private var lastHumidity = "--"
+    private var lastDoor = "--"
+
+    private var lastDeviceLight = "--"
+    private var lastAC = "--"
+    private var lastWiper = "--"
+
+    // Bluetooth
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var bluetoothSocket: BluetoothSocket? = null
     private var outputStream: OutputStream? = null
     private var inputStream: InputStream? = null
 
     private val handler = Handler(Looper.getMainLooper())
+    private val incomingBuffer = StringBuilder()
 
     private val targetName = "HC-05"
     private val targetMac = "00:23:11:A0:22:F2"
@@ -46,28 +75,60 @@ class MainActivity : AppCompatActivity() {
     private val UUID_SPP: UUID =
         UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")
 
-    // Buffer để ghép dữ liệu
-    private val incomingBuffer = StringBuilder()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        txtSpeed = findViewById(R.id.txtSpeed)
-        txtDoorStatus = findViewById(R.id.txtDoorStatus)
-        txtTireStatus = findViewById(R.id.txtTireStatus)
+        // Mapping View
+        txtLeftSpeed = findViewById(R.id.txtLeftSpeed)
+        txtRightSpeed = findViewById(R.id.txtRightSpeed)
+        txtBrakeLeft = findViewById(R.id.txtBrakeLeft)
+        txtBrakeRight = findViewById(R.id.txtBrakeRight)
         txtStatusLog = findViewById(R.id.txtStatusLog)
         btnConnect = findViewById(R.id.btnConnect)
-        btnBrake = findViewById(R.id.btnBrake)
+        btnBrakeLeft = findViewById(R.id.btnBrakeLeft)
+        btnBrakeRight = findViewById(R.id.btnBrakeRight)
         btnStop = findViewById(R.id.btnStop)
+        btnApplySpeed = findViewById(R.id.btnApplySpeed)
+        inputLeftSpeed = findViewById(R.id.inputLeftSpeed)
+        inputRightSpeed = findViewById(R.id.inputRightSpeed)
+        btnSensors = findViewById(R.id.btnSensors)
+        btnDevices = findViewById(R.id.btnDevices)
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
+        // Nút Connect
         btnConnect.setOnClickListener { checkPermissionsAndConnect() }
-        btnBrake.setOnClickListener { sendBluetoothMessage("BRAKE") }
+        // Nút Brake
+        btnBrakeLeft.setOnClickListener { sendBluetoothMessage("BRAKE LEFT") }
+        btnBrakeRight.setOnClickListener { sendBluetoothMessage("BRAKE RIGHT") }
+        // Nút Stop
         btnStop.setOnClickListener { sendBluetoothMessage("STOP") }
+        // Nút Apply Speed ✅ ĐÃ CHỈNH LẠI
+        btnApplySpeed.setOnClickListener {
+            val leftStr = inputLeftSpeed.text.toString().ifBlank { "0" }
+            val rightStr = inputRightSpeed.text.toString().ifBlank { "0" }
+
+            try {
+                val left = leftStr.toDouble()
+                val right = rightStr.toDouble()
+
+                if (left < 0 || left > 5 || right < 0 || right > 5) {
+                    showToast("⚠️ Speed phải nằm trong khoảng 0 - 5 RPS")
+                    return@setOnClickListener
+                }
+
+                sendBluetoothMessage("SET SPEED:$left/$right")
+            } catch (e: NumberFormatException) {
+                showToast("⚠️ Giá trị nhập không hợp lệ")
+            }
+        }
+        // Nút mở BottomSheet
+        btnSensors.setOnClickListener { showSensorsBottomSheet() }
+        btnDevices.setOnClickListener { showDevicesBottomSheet() }
     }
 
+    // ================== Bluetooth ===================
     private fun checkPermissionsAndConnect() {
         if (bluetoothAdapter == null) {
             updateUiStatus("❌ Thiết bị không hỗ trợ Bluetooth")
@@ -77,7 +138,6 @@ class MainActivity : AppCompatActivity() {
             updateUiStatus("❌ Bluetooth chưa bật trên điện thoại")
             return
         }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val permissionsNeeded = arrayOf(
                 Manifest.permission.BLUETOOTH_CONNECT,
@@ -87,11 +147,7 @@ class MainActivity : AppCompatActivity() {
                 ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
             }
             if (missing.isNotEmpty()) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    missing.toTypedArray(),
-                    REQUEST_BT_PERMISSION
-                )
+                ActivityCompat.requestPermissions(this, missing.toTypedArray(), REQUEST_BT_PERMISSION)
                 return
             }
         }
@@ -105,8 +161,9 @@ class MainActivity : AppCompatActivity() {
             setConnectButtonState(true)
 
             val pairedDevices = bluetoothAdapter?.bondedDevices ?: emptySet()
-            val device = pairedDevices.find { it.address.equals(targetMac, ignoreCase = true) }
-                ?: pairedDevices.find { it.name == targetName }
+            val device: BluetoothDevice? =
+                pairedDevices.find { it.address.equals(targetMac, true) }
+                    ?: pairedDevices.find { it.name == targetName }
 
             if (device == null) {
                 updateUiStatus("❌ Không tìm thấy $targetName — hãy pair trước.")
@@ -114,11 +171,7 @@ class MainActivity : AppCompatActivity() {
                 return@Thread
             }
 
-            // ✅ báo tìm thấy
             updateUiStatus("✅ Đã tìm thấy $targetName (${device.address})")
-            Log.d("BT_CONNECT", "Đã tìm thấy $targetName - MAC: ${device.address}")
-
-            // giữ 0.5s để hiển thị log
             Thread.sleep(500)
             updateUiStatus("⏳ Chờ HC-05 sẵn sàng...")
             Thread.sleep(500)
@@ -127,7 +180,6 @@ class MainActivity : AppCompatActivity() {
                 bluetoothAdapter?.cancelDiscovery()
                 bluetoothSocket = device.createRfcommSocketToServiceRecord(UUID_SPP)
                 bluetoothSocket?.connect()
-
                 outputStream = bluetoothSocket?.outputStream
                 inputStream = bluetoothSocket?.inputStream
 
@@ -138,7 +190,6 @@ class MainActivity : AppCompatActivity() {
                     btnConnect.text = "Connected"
                     btnConnect.isEnabled = false
                 }
-
                 startListeningForData()
             } catch (e: IOException) {
                 updateUiStatus("❌ Kết nối thất bại: ${e.message}")
@@ -187,27 +238,106 @@ class MainActivity : AppCompatActivity() {
         }.start()
     }
 
+    // ================== Parse dữ liệu ===================
     private fun parseIncomingMessage(message: String) {
-        Log.d("BT_READ", "Chuỗi đầy đủ: $message")
-        val parts = message.split(";")
-        for (part in parts) {
-            when {
-                part.startsWith("SPEED:") -> {
-                    val value = part.substringAfter("SPEED:").trim()
-                    txtSpeed.text = "SPEED: $value RPS"
+        Log.d("BT_READ", "Chuỗi: $message")
+
+        when {
+            message.startsWith("SPEED:") -> {
+                val parts = message.removePrefix("SPEED:").split(";")
+                if (parts.size == 2) {
+                    txtLeftSpeed.text = "Speed 1: ${parts[0]} RPS"
+                    txtRightSpeed.text = "Speed 2: ${parts[1]} RPS"
                 }
-                part.startsWith("DOOR:") -> {
-                    val value = part.substringAfter("DOOR:").trim()
-                    txtDoorStatus.text = "DOOR: $value"
+            }
+            message.startsWith("BRAKE:") -> {
+                val parts = message.removePrefix("BRAKE:").split(";")
+                if (parts.size == 2) {
+                    txtBrakeLeft.text = "Brake Left: ${parts[0]}"
+                    txtBrakeRight.text = "Brake Right: ${parts[1]}"
                 }
-                part.startsWith("TIRE:") -> {
-                    val value = part.substringAfter("TIRE:").trim()
-                    txtTireStatus.text = "TIRE: $value"
+            }
+            message.contains("DISTANCE:") -> {
+                val parts = message.split(";")
+                for (p in parts) {
+                    when {
+                        p.startsWith("DISTANCE:") -> {
+                            lastDistance = p.substringAfter(":")
+                            sensorDistance?.text = "📏 Distance: $lastDistance"
+                        }
+                        p.startsWith("LIGHT:") -> {
+                            lastLightSensor = p.substringAfter(":")
+                            sensorLight?.text = "💡 Light: $lastLightSensor"
+                        }
+                        p.startsWith("HUMIDITY:") -> {
+                            lastHumidity = p.substringAfter(":")
+                            sensorHumidity?.text = "💧 Humidity: $lastHumidity"
+                        }
+                        p.startsWith("DOOR:") -> {
+                            lastDoor = p.substringAfter(":")
+                            sensorDoor?.text = "🚪 Door: $lastDoor"
+                        }
+                    }
+                }
+            }
+            message.contains("AC:") || message.contains("WIPER:") -> {
+                val parts = message.split(";")
+                for (p in parts) {
+                    when {
+                        p.startsWith("LIGHT:") -> {
+                            lastDeviceLight = p.substringAfter(":")
+                            deviceLight?.text = "💡 Light: $lastDeviceLight"
+                        }
+                        p.startsWith("AC:") -> {
+                            lastAC = p.substringAfter(":")
+                            deviceAC?.text = "❄️ Air Condition: $lastAC"
+                        }
+                        p.startsWith("WIPER:") -> {
+                            lastWiper = p.substringAfter(":")
+                            deviceWiper?.text = "🧹 Wiper: $lastWiper"
+                        }
+                    }
                 }
             }
         }
     }
 
+    // ================== BottomSheets ===================
+    private fun showSensorsBottomSheet() {
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottomsheet_sensors, null)
+        sensorDistance = view.findViewById(R.id.txtDistance)
+        sensorLight = view.findViewById(R.id.txtLight)
+        sensorHumidity = view.findViewById(R.id.txtHumidity)
+        sensorDoor = view.findViewById(R.id.txtDoorOpen)
+
+        // 👉 Set lại dữ liệu cuối cùng ngay khi mở
+        sensorDistance?.text = "📏 Distance: $lastDistance"
+        sensorLight?.text = "💡 Light: $lastLightSensor"
+        sensorHumidity?.text = "💧 Humidity: $lastHumidity"
+        sensorDoor?.text = "🚪 Door: $lastDoor"
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    private fun showDevicesBottomSheet() {
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottomsheet_devices, null)
+        deviceLight = view.findViewById(R.id.txtLightStatus)
+        deviceAC = view.findViewById(R.id.txtACStatus)
+        deviceWiper = view.findViewById(R.id.txtWiperStatus)
+
+        // 👉 Set lại dữ liệu cuối cùng ngay khi mở
+        deviceLight?.text = "💡 Light: $lastDeviceLight"
+        deviceAC?.text = "❄️ Air Condition: $lastAC"
+        deviceWiper?.text = "🧹 Wiper: $lastWiper"
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    // ================== Helper ===================
     private fun closeSocket() {
         try { bluetoothSocket?.close() } catch (_: IOException) {}
         bluetoothSocket = null
