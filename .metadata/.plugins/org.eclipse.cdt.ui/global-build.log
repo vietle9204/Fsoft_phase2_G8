@@ -1,8 +1,21 @@
-21:05:13 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT1 ****
+21:38:18 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT1 ****
+make -j12 all 
+Building target: OBD2_KIT1.elf
+Invoking: Standard S32DS C Linker
+arm-none-eabi-gcc -o "OBD2_KIT1.elf" "@OBD2_KIT1.args"   
+Finished building target: OBD2_KIT1.elf
+ 
+Invoking: Standard S32DS Print Size
+arm-none-eabi-size --format=berkeley OBD2_KIT1.elf
+   text	   data	    bss	    dec	    hex	filename
+  35916	   1088	   3440	  40444	   9dfc	OBD2_KIT1.elf
+Finished building: OBD2_KIT1.siz
+ 
+21:38:21 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT1 ****
 make -j12 all 
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT1.elf
    text	   data	    bss	    dec	    hex	filename
-  21120	   1040	   3376	  25536	   63c0	OBD2_KIT1.elf
+  35916	   1088	   3440	  40444	   9dfc	OBD2_KIT1.elf
 Finished building: OBD2_KIT1.siz
  

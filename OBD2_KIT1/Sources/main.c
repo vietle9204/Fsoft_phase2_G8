@@ -15,11 +15,11 @@
 ** @brief
 **         Main module.
 **         This module contains user's application code.
-*/         
+*/
 /*!
 **  @addtogroup main_module main module documentation
 **  @{
-*/         
+*/
 /* MODULE main */
 
 
@@ -28,6 +28,7 @@
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
+
 
   volatile int exit_code = 0;
 
@@ -107,10 +108,10 @@
 
   /* Buffer used to receive data from the console */
 	uint8_t rxByte;
-	uint8_t rxBuffer[RX_BUFFER_SIZE];
+	char rxBuffer[RX_BUFFER_SIZE];
 	volatile uint8_t rxIndex = 0;
 
-	char txBuffer[64];
+	char txBuffer[128];
 
 
 	float l_rps = 0;
@@ -134,7 +135,7 @@
 	uint8_t flag_sensor_changed = 1;
 	uint8_t flag_device_changed = 1;
 
-	// Thời gian gửi định kỳ
+	// Th�?i gian gửi định kỳ
 	uint32_t lastSendTime = 0;
   /*
    * @brief : Initialize clocks, pins and power modes
@@ -164,50 +165,59 @@
 
   /* UART rx callback for continuous reception, byte by byte */
 void RxCallback(void *driverState, uart_event_t event, void *userData) {
-	(void) driverState;
-	(void) userData;
+	 (void)driverState;
+	    (void)userData;
 
-	if (event == UART_EVENT_RX_FULL) {
-		// Store into Bufer
+	    if (event == UART_EVENT_RX_FULL)
+	    {
+	        if (rxIndex < sizeof(rxBuffer) - 1) {
+	            rxBuffer[rxIndex++] = (char)rxByte;
+	            rxBuffer[rxIndex] = '\0';
+	        } else {
+	            rxIndex = 0;
+	        }
 
-		rxBuffer[rxIndex++] = rxByte;
-		// if received '\n'
-		if (rxByte == '\n') {
-			rxBuffer[rxIndex] = '\0'; // end string
-			rxIndex = 0; // reset
-
-			// handle messenger
-			if (strcmp((char*)rxBuffer, "BRAKE LEFT") == 0)
-			{
-
-				//skip
+	        // Kiểm tra chuỗi nhận được
+	        if (strstr(rxBuffer, "BRAKE LEFT") != NULL) {
 
 
-			}
-			else if (strcmp((char*)rxBuffer, "BRAKE RIGHT") == 0)
-			{
 
-				//skip
-
-
-			} else if (strcmp((char*)rxBuffer, "STOP") == 0) {
-
-				//send to CAN : brake
+	            rxIndex = 0; rxBuffer[0] = '\0';
+	        }
+	        else if (strstr(rxBuffer, "BRAKE RIGHT") != NULL) {
 
 
-			} else if (strncmp((char*)rxBuffer, "SET SPEED:", 10) == 0) {
-				float speedL = 0, speedR = 0;
-				sscanf((char*)rxBuffer + 10, "%f/%f", &speedL, &speedR);
 
-				// send to Can : set speed
+	            rxIndex = 0; rxBuffer[0] = '\0';
+	        }
+	        else if (strstr(rxBuffer, "STOP") != NULL) {
 
 
-			}
+	        	PINS_DRV_TogglePins(PTD, 1 << 16);
+	        	PINS_DRV_TogglePins(PTD, 1 << 15);
+	            rxIndex = 0; rxBuffer[0] = '\0';
+	        }
 
-		}
+	        else if (strstr(rxBuffer, "SET SPEED:") != NULL) {
+	            float speedLf = 0, speedRf = 0;
+	            int speedL = 0, speedR = 0;
+	            char *pos = rxBuffer + strlen("SET SPEED:");
 
-	}
-	LPUART_DRV_SetRxBuffer(INST_LPUART1, &rxByte, 1);
+	            sscanf(pos, "%f/%f", &speedLf, &speedRf);
+
+	            // Ép kiểu float -> int
+	            speedL = (int)speedLf;
+	            speedR = (int)speedRf;
+
+	            // Gửi dữ liệu qua CAN hoặc xử lý tiếp
+	            // ví dụ: gửi speedL và speedR
+	            if(speedL > 0) PINS_DRV_TogglePins(PTD, 1 << 16);
+	            if(speedR > 0) PINS_DRV_TogglePins(PTD, 1 << 15);
+	        }
+
+	        // nhận tiếp byte sau
+	        LPUART_DRV_SetRxBuffer(INST_LPUART1, &rxByte, 1U);
+	    }
 }
 
   /*
@@ -226,8 +236,10 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 
 
   void PORTC_IRQHandler(void) {
-  	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) & (0x7U << 12);
+  	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) ;
 
+  	// set flag
+  	flag_device_changed = 1;
   	// PC12
   	if (flags & (1 << 12)) {
   		// Xử lý ngắt từ PC12
@@ -235,7 +247,7 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 
   		// send command by LIN
 
-
+//  		PINS_DRV_TogglePins(PTD, 1 << 15);
   		PINS_DRV_ClearPinIntFlagCmd(PORTC, 12);
   	}
 
@@ -246,7 +258,7 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 
   		// send command by LIN
 
-
+//  		PINS_DRV_TogglePins(PTD, 1 << 16);
   		PINS_DRV_ClearPinIntFlagCmd(PORTC, 13);
   	}
 
@@ -272,20 +284,20 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
      * manager priority
      */
   	void InterruptInit(void) {
-  		/*Can    */
-  		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
-  		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
-
-  		/*Lin	   */
-  		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 2);
-  		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
+//  		/*Can    */
+//  		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+//  		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
+//
+//  		/*Lin	   */
+//  		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 2);
+//  		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
 
   		/* Uart */
   		INT_SYS_SetPriority(LPUART1_RxTx_IRQn, 1);
   		INT_SYS_EnableIRQ(LPUART1_RxTx_IRQn);
 
   		/* enable interrupt port C and init handler */
-  		INT_SYS_InstallHandler(PORTA_IRQn, &PORTC_IRQHandler, NULL);
+  		INT_SYS_InstallHandler(PORTC_IRQn, &PORTC_IRQHandler, NULL);
   		INT_SYS_SetPriority(PORTC_IRQn, 3);
   		INT_SYS_EnableIRQ(PORTC_IRQn);
 
@@ -294,15 +306,15 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 
   	/**/
   	void sendSpeed(void) {
-  	    char txBuffer[64];
-  	    sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
-  	  LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
+
+  	  sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
+  	  LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
   	}
 
 
   	/**/
   	void sendBrake(void) {
-  	    char txBuffer[64];
+
 
   	    // Chuyển trạng thái sang chuỗi
   	    const char* leftStatus;
@@ -326,13 +338,12 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	    snprintf(txBuffer, sizeof(txBuffer), "BRAKE:%s;%s\n", leftStatus, rightStatus);
 
   	    // Gửi qua LPUART
-  	    LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
+  	    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
   	}
 
 
   	/**/
   	void sendSensors(void) {
-  	    char txBuffer[128];
   	    const char *distanceStr;
   	    const char *lightStr;
   	    const char *humidityStr;
@@ -373,13 +384,11 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	    snprintf(txBuffer, sizeof(txBuffer),
   	             "DISTANCE:%s;LIGHT:%s;HUMIDITY:%s;DOOR:%s\n",
   	             distanceStr, lightStr, humidityStr, doorStr);
-
-  	    LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
+  	    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
   	}
 
   	/**/
   	void sendDevices(void) {
-  	    char txBuffer[64];
 
   	    snprintf(txBuffer, sizeof(txBuffer),
   	             "LIGHT:%s;AC:%s;WIPER:%s\n",
@@ -387,16 +396,19 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	             (air_conditioning_state) ? "ON" : "OFF",
   	             (wiper_state) ? "ON" : "OFF");
 
-  	    LPUART_DRV_SendData(0, (const uint8_t *)txBuffer, strlen(txBuffer));
+  	    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
   	}
 
-/*! 
+/*!
   \brief The main function for the project.
   \details The startup initialization sequence is the following:
  * - startup asm routine
  * - main()
 */
 int main(void)
+
+
+
 {
   /* Write your local variable definition here */
 
@@ -410,39 +422,49 @@ int main(void)
 
     BoardInit();
     LpuartInit();
+    InterruptInit();
 
 
 
   /* For example: for(;;) { } */
 	while (1) {
-		uint32_t now = OSIF_GetMilliseconds();
-
-		// Kiểm tra thời gian định kỳ
-		if (now - lastSendTime >= 5000) {
+//		uint32_t now = OSIF_GetMilliseconds();
+//
+		// Kiểm tra th�?i gian định kỳ
+//		if (now - lastSendTime >= 100) {
 			if (flag_speed_changed) {
 
-				sprintf(txBuffer, "SPEED:%.1f;%.1f\n", l_rps, r_rps);
+//				sprintf(txBuffer, "SPEED:%.2f;%.2f\n", 2.51, 3.02);
 				sendSpeed();
-				flag_speed_changed = 0;
+//				flag_speed_changed = 0;
 
 			}
-
+			for(int i = 0; i < 4800000; i++);
 			if (flag_brake_changed) {
 				sendBrake();
-				flag_brake_changed = 0;
+//				flag_brake_changed = 0;
 
 			}
+			for(int i = 0; i < 4800000; i++);
 			if (flag_sensor_changed) {
 				sendSensors();
-				flag_sensor_changed = 0;
+//				flag_sensor_changed = 0;
 
 			}
+			for(int i = 0; i < 4800000; i++);
 			if (flag_device_changed) {
 				sendDevices();
-				flag_device_changed = 0;
+//				flag_device_changed = 0;
 
 			}
-		}
+//			for(int i = 0; i < 4800000; i++);
+//			char* str = "DISTANCE:FAR;LIGHT:NORMAL;HUMIDITY:NORMAL;DOOR:OPENED\n";
+//			LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)str, strlen(str));
+			for(int i = 0; i < 4800000; i++);
+//	  		PINS_DRV_TogglePins(PTD, 1 << 15);
+//			lastSendTime = now;
+//		}
+
 	}
 
 

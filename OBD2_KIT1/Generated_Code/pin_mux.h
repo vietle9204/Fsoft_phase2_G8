@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-23, 21:16, # CodeGen: 15
+**     Date/Time   : 2025-08-26, 20:23, # CodeGen: 1
 **     Abstract    :
 **
 **     Settings    :
@@ -354,10 +354,10 @@
 **                  Direction                              : <Automatic>
 **                  Pin 14                                 : <Automatic>
 **                  Direction                              : <Automatic>
-**                  Pin 15                                 : <Automatic>
-**                  Direction                              : <Automatic>
-**                  Pin 16                                 : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Pin 15                                 : PTD15
+**                  Direction                              : Output
+**                  Pin 16                                 : PTD16
+**                  Direction                              : Output
 **                  Pin 17                                 : <Automatic>
 **                  Direction                              : <Automatic>
 **                Custom name                              : PTE
@@ -482,7 +482,7 @@
 **                  Clear to Send                          : <Automatic>
 **                  Request to Send                        : <Automatic>
 **                  Receive Data                           : PTD13
-**                  Transmit Data                          : PTC7
+**                  Transmit Data                          : PTD14
 **                  Direction                              : Output
 **                Custom name                              : LPUART2
 **                LPUART2                                  : 
@@ -969,7 +969,7 @@
 **              Pin 44: PTC16                              : 
 **                Custom name, Signal name                 : PTC16
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : Interrupt Status Flag (ISF) is disabled.
+**                Interrupt Configuration Field            : <Automatic>
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -979,7 +979,7 @@
 **              Pin 45: PTC15                              : 
 **                Custom name, Signal name                 : PTC15
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : Interrupt Status Flag (ISF) is disabled.
+**                Interrupt Configuration Field            : <Automatic>
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -989,7 +989,7 @@
 **              Pin 46: PTC14                              : 
 **                Custom name, Signal name                 : PTC14
 **                Interrupt Status Field                   : <Automatic>
-**                Interrupt Configuration Field            : ISF flag and Interrupt on falling-edge.
+**                Interrupt Configuration Field            : ISF flag and Interrupt on rising-edge.
 **                Pin Mux Field                            : <Automatic>
 **                Lock Field                               : <Automatic>
 **                Pull Enable Field                        : <Automatic>
@@ -1583,7 +1583,7 @@
 
 
 /*! @brief User number of configured pins */
-#define NUM_OF_CONFIGURED_PINS 9
+#define NUM_OF_CONFIGURED_PINS 11
 
 /*! @brief User configuration structure */
 extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];

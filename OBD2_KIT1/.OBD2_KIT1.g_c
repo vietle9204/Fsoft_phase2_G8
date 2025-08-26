@@ -287,60 +287,6 @@
         <NotCreatedByDefault>false</NotCreatedByDefault>
       </SynchronizedStaticFile>
       <SynchronizedStaticFile>
-        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_hw_access.c</SrcFileName>
-        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
-        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
-        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_hw_access.c</PrjFileName>
-        <PrjFileHash>{hash-not-available}</PrjFileHash>
-        <NoMoreGenerated>false</NoMoreGenerated>
-        <NotCreatedByDefault>false</NotCreatedByDefault>
-      </SynchronizedStaticFile>
-      <SynchronizedStaticFile>
-        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_hw_access.h</SrcFileName>
-        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
-        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
-        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_hw_access.h</PrjFileName>
-        <PrjFileHash>{hash-not-available}</PrjFileHash>
-        <NoMoreGenerated>false</NoMoreGenerated>
-        <NotCreatedByDefault>false</NotCreatedByDefault>
-      </SynchronizedStaticFile>
-      <SynchronizedStaticFile>
-        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_driver.c</SrcFileName>
-        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
-        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
-        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_driver.c</PrjFileName>
-        <PrjFileHash>{hash-not-available}</PrjFileHash>
-        <NoMoreGenerated>false</NoMoreGenerated>
-        <NotCreatedByDefault>false</NotCreatedByDefault>
-      </SynchronizedStaticFile>
-      <SynchronizedStaticFile>
-        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_irq.c</SrcFileName>
-        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
-        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
-        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_irq.c</PrjFileName>
-        <PrjFileHash>{hash-not-available}</PrjFileHash>
-        <NoMoreGenerated>false</NoMoreGenerated>
-        <NotCreatedByDefault>false</NotCreatedByDefault>
-      </SynchronizedStaticFile>
-      <SynchronizedStaticFile>
-        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_irq.h</SrcFileName>
-        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
-        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
-        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_irq.h</PrjFileName>
-        <PrjFileHash>{hash-not-available}</PrjFileHash>
-        <NoMoreGenerated>false</NoMoreGenerated>
-        <NotCreatedByDefault>false</NotCreatedByDefault>
-      </SynchronizedStaticFile>
-      <SynchronizedStaticFile>
-        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\inc\lpuart_driver.h</SrcFileName>
-        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
-        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
-        <PrjFileName>SDK\platform\drivers\inc\lpuart_driver.h</PrjFileName>
-        <PrjFileHash>{hash-not-available}</PrjFileHash>
-        <NoMoreGenerated>false</NoMoreGenerated>
-        <NotCreatedByDefault>false</NotCreatedByDefault>
-      </SynchronizedStaticFile>
-      <SynchronizedStaticFile>
         <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lin\lin_common.c</SrcFileName>
         <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
         <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
@@ -372,6 +318,60 @@
         <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
         <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
         <PrjFileName>SDK\platform\drivers\inc\lin_driver.h</PrjFileName>
+        <PrjFileHash>{hash-not-available}</PrjFileHash>
+        <NoMoreGenerated>false</NoMoreGenerated>
+        <NotCreatedByDefault>false</NotCreatedByDefault>
+      </SynchronizedStaticFile>
+      <SynchronizedStaticFile>
+        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\inc\lpuart_driver.h</SrcFileName>
+        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
+        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
+        <PrjFileName>SDK\platform\drivers\inc\lpuart_driver.h</PrjFileName>
+        <PrjFileHash>{hash-not-available}</PrjFileHash>
+        <NoMoreGenerated>false</NoMoreGenerated>
+        <NotCreatedByDefault>false</NotCreatedByDefault>
+      </SynchronizedStaticFile>
+      <SynchronizedStaticFile>
+        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_driver.c</SrcFileName>
+        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
+        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
+        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_driver.c</PrjFileName>
+        <PrjFileHash>{hash-not-available}</PrjFileHash>
+        <NoMoreGenerated>false</NoMoreGenerated>
+        <NotCreatedByDefault>false</NotCreatedByDefault>
+      </SynchronizedStaticFile>
+      <SynchronizedStaticFile>
+        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_hw_access.c</SrcFileName>
+        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
+        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
+        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_hw_access.c</PrjFileName>
+        <PrjFileHash>{hash-not-available}</PrjFileHash>
+        <NoMoreGenerated>false</NoMoreGenerated>
+        <NotCreatedByDefault>false</NotCreatedByDefault>
+      </SynchronizedStaticFile>
+      <SynchronizedStaticFile>
+        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_irq.c</SrcFileName>
+        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
+        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
+        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_irq.c</PrjFileName>
+        <PrjFileHash>{hash-not-available}</PrjFileHash>
+        <NoMoreGenerated>false</NoMoreGenerated>
+        <NotCreatedByDefault>false</NotCreatedByDefault>
+      </SynchronizedStaticFile>
+      <SynchronizedStaticFile>
+        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_hw_access.h</SrcFileName>
+        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
+        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
+        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_hw_access.h</PrjFileName>
+        <PrjFileHash>{hash-not-available}</PrjFileHash>
+        <NoMoreGenerated>false</NoMoreGenerated>
+        <NotCreatedByDefault>false</NotCreatedByDefault>
+      </SynchronizedStaticFile>
+      <SynchronizedStaticFile>
+        <SrcFileName>C:\NXP\S32DS_ARM_v2.2\eclipse\ProcessorExpert\..\..\S32DS\software\S32SDK_S32K1xx_RTM_3.0.0\platform\drivers\src\lpuart\lpuart_irq.h</SrcFileName>
+        <OrigSrcFileHash>{hash-not-available}</OrigSrcFileHash>
+        <ReviewedSrcFileHash>{hash-not-available}</ReviewedSrcFileHash>
+        <PrjFileName>SDK\platform\drivers\src\lpuart\lpuart_irq.h</PrjFileName>
         <PrjFileHash>{hash-not-available}</PrjFileHash>
         <NoMoreGenerated>false</NoMoreGenerated>
         <NotCreatedByDefault>false</NotCreatedByDefault>
@@ -667,14 +667,14 @@
         <Line>clockMan1</Line>
         <Line>canCom1</Line>
         <Line>dmaController1</Line>
-        <Line>lpuart1</Line>
         <Line>lin_cfg</Line>
         <Line>lin1</Line>
+        <Line>lpuart1</Line>
       </GenBeanModules>
     </GenFiles>
     <SignalListFile />
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>11</ProjectModificationStamp>
+    <ProjectModificationStamp>3</ProjectModificationStamp>
   </Options>
   <CpuID_1>
     <Generated>true</Generated>
@@ -682,8 +682,8 @@
     <GenComponentVersion>01.197</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1527807772</HeaderAge>
-    <CodeAge>1527807772</CodeAge>
+    <HeaderAge>1528472370</HeaderAge>
+    <CodeAge>1528472370</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>3</GenNumMethods>
     <SystemInit>true</SystemInit>
@@ -715,8 +715,8 @@
     <GenComponentVersion>1.2.0</GenComponentVersion>
     <GenDriverVersion>1.4</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1528277530</HeaderAge>
-    <CodeAge>1528277530</CodeAge>
+    <HeaderAge>1528472313</HeaderAge>
+    <CodeAge>1528472313</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>25</GenNumMethods>
     <PINS_DRV_Init>true</PINS_DRV_Init>
@@ -762,8 +762,8 @@
     <GenComponentVersion>SDK_S32K1xx_15</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1527807034</HeaderAge>
-    <CodeAge>1527807034</CodeAge>
+    <HeaderAge>1528472370</HeaderAge>
+    <CodeAge>1528472370</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>6</GenNumMethods>
     <CLOCK_DRV_Init>true</CLOCK_DRV_Init>
@@ -827,8 +827,8 @@
     <GenComponentVersion>SDK_S32K1xx_15</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1527807034</HeaderAge>
-    <CodeAge>1527808172</CodeAge>
+    <HeaderAge>1528472370</HeaderAge>
+    <CodeAge>1528472370</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>34</GenNumMethods>
     <FLEXCAN_DRV_SetBitrate>true</FLEXCAN_DRV_SetBitrate>
@@ -884,8 +884,8 @@
     <GenComponentVersion>SDK_S32K1xx_15</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1527807034</HeaderAge>
-    <CodeAge>1527807034</CodeAge>
+    <HeaderAge>1528472370</HeaderAge>
+    <CodeAge>1528472370</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>32</GenNumMethods>
     <EDMA_DRV_Init>true</EDMA_DRV_Init>
@@ -964,54 +964,12 @@
   </ComponentID_8>
   <ComponentID_9>
     <Generated>true</Generated>
-    <GenCompName>lpuart1</GenCompName>
-    <GenComponentVersion>SDK_S32K1xx_15</GenComponentVersion>
-    <GenDriverVersion>01.00</GenDriverVersion>
-    <GenEventModule />
-    <HeaderAge>1527807034</HeaderAge>
-    <CodeAge>1527807034</CodeAge>
-    <AsemblAge>-1</AsemblAge>
-    <GenNumMethods>19</GenNumMethods>
-    <LPUART_DRV_GetDefaultConfig>true</LPUART_DRV_GetDefaultConfig>
-    <LPUART_DRV_Init>true</LPUART_DRV_Init>
-    <LPUART_DRV_Deinit>true</LPUART_DRV_Deinit>
-    <LPUART_DRV_InstallRxCallback>true</LPUART_DRV_InstallRxCallback>
-    <LPUART_DRV_InstallTxCallback>true</LPUART_DRV_InstallTxCallback>
-    <LPUART_DRV_SendDataBlocking>true</LPUART_DRV_SendDataBlocking>
-    <LPUART_DRV_SendDataPolling>true</LPUART_DRV_SendDataPolling>
-    <LPUART_DRV_SendData>true</LPUART_DRV_SendData>
-    <LPUART_DRV_GetTransmitStatus>true</LPUART_DRV_GetTransmitStatus>
-    <LPUART_DRV_AbortSendingData>true</LPUART_DRV_AbortSendingData>
-    <LPUART_DRV_ReceiveDataBlocking>true</LPUART_DRV_ReceiveDataBlocking>
-    <LPUART_DRV_ReceiveDataPolling>true</LPUART_DRV_ReceiveDataPolling>
-    <LPUART_DRV_ReceiveData>true</LPUART_DRV_ReceiveData>
-    <LPUART_DRV_GetReceiveStatus>true</LPUART_DRV_GetReceiveStatus>
-    <LPUART_DRV_AbortReceivingData>true</LPUART_DRV_AbortReceivingData>
-    <LPUART_DRV_SetBaudRate>true</LPUART_DRV_SetBaudRate>
-    <LPUART_DRV_GetBaudRate>true</LPUART_DRV_GetBaudRate>
-    <LPUART_DRV_SetTxBuffer>true</LPUART_DRV_SetTxBuffer>
-    <LPUART_DRV_SetRxBuffer>true</LPUART_DRV_SetRxBuffer>
-    <GenNumEvents>0</GenNumEvents>
-    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
-    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
-    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
-    <GenMethodPos>0</GenMethodPos>
-    <GenExtraFilesCount>6</GenExtraFilesCount>
-    <ExtraFile0>SDK\platform\drivers\inc\lpuart_driver.h</ExtraFile0>
-    <ExtraFile1>SDK\platform\drivers\src\lpuart\lpuart_irq.h</ExtraFile1>
-    <ExtraFile2>SDK\platform\drivers\src\lpuart\lpuart_irq.c</ExtraFile2>
-    <ExtraFile3>SDK\platform\drivers\src\lpuart\lpuart_driver.c</ExtraFile3>
-    <ExtraFile4>SDK\platform\drivers\src\lpuart\lpuart_hw_access.h</ExtraFile4>
-    <ExtraFile5>SDK\platform\drivers\src\lpuart\lpuart_hw_access.c</ExtraFile5>
-  </ComponentID_9>
-  <ComponentID_13>
-    <Generated>true</Generated>
     <GenCompName>lin_cfg</GenCompName>
     <GenComponentVersion>01.000</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1528341013</HeaderAge>
-    <CodeAge>1528341013</CodeAge>
+    <HeaderAge>1528472370</HeaderAge>
+    <CodeAge>1528472370</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>0</GenNumMethods>
     <GenNumEvents>0</GenNumEvents>
@@ -1049,14 +1007,14 @@
     <ExtraFile26>SDK\platform\drivers\src\lin\lin_irq.c</ExtraFile26>
     <ExtraFile27>SDK\platform\drivers\src\lin\lin_driver.c</ExtraFile27>
     <ExtraFile28>SDK\platform\drivers\src\lin\lin_common.c</ExtraFile28>
-    <InhrCompID_14>
+    <InhrCompID_10>
       <Generated>true</Generated>
       <GenCompName>lin1</GenCompName>
       <GenComponentVersion>SDK_S32K1xx_15</GenComponentVersion>
       <GenDriverVersion>01.00</GenDriverVersion>
       <GenEventModule>Events</GenEventModule>
-      <HeaderAge>1527807772</HeaderAge>
-      <CodeAge>1527807772</CodeAge>
+      <HeaderAge>1528472370</HeaderAge>
+      <CodeAge>1528472370</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>24</GenNumMethods>
       <LIN_DRV_Init>true</LIN_DRV_Init>
@@ -1104,8 +1062,50 @@
       <ExtraFile9>SDK\platform\drivers\src\lin\lin_irq.c</ExtraFile9>
       <ExtraFile10>SDK\platform\drivers\src\lin\lin_driver.c</ExtraFile10>
       <ExtraFile11>SDK\platform\drivers\src\lin\lin_common.c</ExtraFile11>
-    </InhrCompID_14>
-  </ComponentID_13>
+    </InhrCompID_10>
+  </ComponentID_9>
+  <ComponentID_11>
+    <Generated>true</Generated>
+    <GenCompName>lpuart1</GenCompName>
+    <GenComponentVersion>SDK_S32K1xx_15</GenComponentVersion>
+    <GenDriverVersion>01.00</GenDriverVersion>
+    <GenEventModule />
+    <HeaderAge>1528472370</HeaderAge>
+    <CodeAge>1528472370</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>19</GenNumMethods>
+    <LPUART_DRV_GetDefaultConfig>true</LPUART_DRV_GetDefaultConfig>
+    <LPUART_DRV_Init>true</LPUART_DRV_Init>
+    <LPUART_DRV_Deinit>true</LPUART_DRV_Deinit>
+    <LPUART_DRV_InstallRxCallback>true</LPUART_DRV_InstallRxCallback>
+    <LPUART_DRV_InstallTxCallback>true</LPUART_DRV_InstallTxCallback>
+    <LPUART_DRV_SendDataBlocking>true</LPUART_DRV_SendDataBlocking>
+    <LPUART_DRV_SendDataPolling>true</LPUART_DRV_SendDataPolling>
+    <LPUART_DRV_SendData>true</LPUART_DRV_SendData>
+    <LPUART_DRV_GetTransmitStatus>true</LPUART_DRV_GetTransmitStatus>
+    <LPUART_DRV_AbortSendingData>true</LPUART_DRV_AbortSendingData>
+    <LPUART_DRV_ReceiveDataBlocking>true</LPUART_DRV_ReceiveDataBlocking>
+    <LPUART_DRV_ReceiveDataPolling>true</LPUART_DRV_ReceiveDataPolling>
+    <LPUART_DRV_ReceiveData>true</LPUART_DRV_ReceiveData>
+    <LPUART_DRV_GetReceiveStatus>true</LPUART_DRV_GetReceiveStatus>
+    <LPUART_DRV_AbortReceivingData>true</LPUART_DRV_AbortReceivingData>
+    <LPUART_DRV_SetBaudRate>true</LPUART_DRV_SetBaudRate>
+    <LPUART_DRV_GetBaudRate>true</LPUART_DRV_GetBaudRate>
+    <LPUART_DRV_SetTxBuffer>true</LPUART_DRV_SetTxBuffer>
+    <LPUART_DRV_SetRxBuffer>true</LPUART_DRV_SetRxBuffer>
+    <GenNumEvents>0</GenNumEvents>
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>0</GenMethodPos>
+    <GenExtraFilesCount>6</GenExtraFilesCount>
+    <ExtraFile0>SDK\platform\drivers\inc\lpuart_driver.h</ExtraFile0>
+    <ExtraFile1>SDK\platform\drivers\src\lpuart\lpuart_irq.h</ExtraFile1>
+    <ExtraFile2>SDK\platform\drivers\src\lpuart\lpuart_irq.c</ExtraFile2>
+    <ExtraFile3>SDK\platform\drivers\src\lpuart\lpuart_driver.c</ExtraFile3>
+    <ExtraFile4>SDK\platform\drivers\src\lpuart\lpuart_hw_access.h</ExtraFile4>
+    <ExtraFile5>SDK\platform\drivers\src\lpuart\lpuart_hw_access.c</ExtraFile5>
+  </ComponentID_11>
   <UsedSrcFiles>
     <SrcFile0>Drivers\interrupt_manager.src=-1</SrcFile0>
     <SrcFile1>Drivers\osifcommon\osif.drv=-1</SrcFile1>
@@ -1147,8 +1147,8 @@
     <SrcFile37>Drivers\S32K\S32K144_SDK01\interrupt_manager.drv=1316652646</SrcFile37>
     <SrcFile38>Drivers\S32K\S32K144_SDK01\lpuart.drv=-1</SrcFile38>
     <SrcFile39>Drivers\Common\InitRegBlock.prg=1316652645</SrcFile39>
-    <SrcFile40>Drivers\lpuart.src=-1</SrcFile40>
-    <SrcFile41>Beans\LinStack\Drivers\S32\S32_SDK\GenerateSource.drv=1331017338</SrcFile41>
+    <SrcFile40>Beans\LinStack\Drivers\S32\S32_SDK\GenerateSource.drv=1331017338</SrcFile40>
+    <SrcFile41>Drivers\lpuart.src=-1</SrcFile41>
     <SrcFile42>Drivers\lin.src=-1</SrcFile42>
     <SrcFile43>Drivers\PEx_S32K.src=1316652645</SrcFile43>
     <SrcFile44>Drivers\Common\Static_SupportSubroutines.prg=1316652645</SrcFile44>

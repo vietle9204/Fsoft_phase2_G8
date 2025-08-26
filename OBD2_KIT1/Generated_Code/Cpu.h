@@ -7,7 +7,7 @@
 **     Version     : Component 01.197, Driver 01.00, CPU db: 3.00.000
 **     Datasheet   : S32K14XRM Rev. 2, 02/2017
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 15:56, # CodeGen: 7
+**     Date/Time   : 2025-08-26, 20:25, # CodeGen: 2
 **     Abstract    :
 **
 **     Settings    :
@@ -62,9 +62,9 @@
 #include "edma_driver.h"
 #include "osif.h"
 #include "flexcan_driver.h"
-#include "lpuart_driver.h"
 #include "lin_driver.h"
 #include "lin_common_api.h"
+#include "lpuart_driver.h"
 #include "system_S32K144.h"
 
 /* Including needed modules to compile this module/procedure */
@@ -72,9 +72,9 @@
 #include "clockMan1.h"
 #include "canCom1.h"
 #include "dmaController1.h"
-#include "lpuart1.h"
 #include "lin_cfg.h"
 #include "lin1.h"
+#include "lpuart1.h"
 
 #ifdef __cplusplus
 extern "C" {

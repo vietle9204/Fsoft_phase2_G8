@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project>
-	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.debug.1214133141" name="Debug_FLASH">
+	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.debug.1929110711" name="Debug_FLASH">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider id="com.freescale.s32ds.cross.gnu.CrossGCCBuiltinSpecsDetector">
 				<language id="org.eclipse.cdt.core.gcc">
@@ -2401,7 +2401,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.release.160183141" name="Release_FLASH">
+	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.release.3021450" name="Release_FLASH">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider id="com.freescale.s32ds.cross.gnu.CrossGCCBuiltinSpecsDetector">
 				<language id="org.eclipse.cdt.core.gcc">
@@ -4802,7 +4802,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.debug.ram.1087421411" name="Debug_RAM">
+	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.debug.ram.735851439" name="Debug_RAM">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider id="com.freescale.s32ds.cross.gnu.CrossGCCBuiltinSpecsDetector">
 				<language id="org.eclipse.cdt.core.gcc">
@@ -7203,7 +7203,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.release.ram.1646336755" name="Release_RAM">
+	<configuration id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.exe.release.ram.2146601116" name="Release_RAM">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider id="com.freescale.s32ds.cross.gnu.CrossGCCBuiltinSpecsDetector">
 				<language id="org.eclipse.cdt.core.gcc">

@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-16, 15:56, # CodeGen: 7
+**     Date/Time   : 2025-08-26, 20:25, # CodeGen: 2
 **     Contents    :
 **         LIN_DRV_Init                     - status_t LIN_DRV_Init(uint32_t instance, lin_user_config_t* linUserConfig,...
 **         LIN_DRV_Deinit                   - void LIN_DRV_Deinit(uint32_t instance);

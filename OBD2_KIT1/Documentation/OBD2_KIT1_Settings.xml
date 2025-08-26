@@ -112,20 +112,6 @@
       <EmptySection_DummyValue />
     </Events>
   </Bean>
-  <Bean name="lpuart1" type="lpuart">
-    <Enabled v="Y" />
-    <Properties>
-      <Component_name v="lpuart1" />
-      <Device v="LPUART1" />
-      <Component_version v="S32K144_SDK01" />
-    </Properties>
-    <Methods>
-      <EmptySection_DummyValue />
-    </Methods>
-    <Events>
-      <EmptySection_DummyValue />
-    </Events>
-  </Bean>
   <Bean name="lin_cfg" type="LinStack">
     <Enabled v="Y" />
     <Properties>
@@ -151,7 +137,7 @@
               <Assign_frame_identifier__0xB1_ v="no" />
               <Read_by_identifier__0xB2_ v="yes" />
               <Conditional_change_NAD__0xB3_ v="yes" />
-              <Data_dump__0xB4_ v="no" />
+              <Data_dump__0xB4_ v="yes" />
               <Save_configuration__0xB6_ v="yes" />
               <Assign_frame_identifier_range__0xB7_ v="yes" />
               <Read_data_by_identifier__0x22_ v="no" />
@@ -741,6 +727,20 @@
           </group>
         </list>
       </group>
+    </Properties>
+    <Methods>
+      <EmptySection_DummyValue />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
+    </Events>
+  </Bean>
+  <Bean name="lpuart1" type="lpuart">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="lpuart1" />
+      <Device v="LPUART1" />
+      <Component_version v="S32K144_SDK01" />
     </Properties>
     <Methods>
       <EmptySection_DummyValue />

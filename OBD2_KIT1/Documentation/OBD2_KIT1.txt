@@ -159,6 +159,8 @@ Module "osif1"     (component osif)
    - osif1_OSIF_GetMilliseconds -Returns the number of miliseconds elapsed since starting the internal timer or starting the 
                 scheduler.
 
+Module "lin_cfg"   (component LinStack)
+
 Module "lpuart1"   (component lpuart)
    - lpuart1_LPUART_DRV_GetDefaultConfig -Initializes the LPUART configuration structure with default values.
    - lpuart1_LPUART_DRV_Init -Initializes an LPUART operation instance.
@@ -186,8 +188,6 @@ Module "lpuart1"   (component lpuart)
    - lpuart1_LPUART_DRV_GetBaudRate -Returns the LPUART baud rate.
    - lpuart1_LPUART_DRV_SetTxBuffer -Sets the internal driver reference to the tx buffer.
    - lpuart1_LPUART_DRV_SetRxBuffer -Sets the internal driver reference to the rx buffer.
-
-Module "lin_cfg"   (component LinStack)
 
 Module "Cpu"       (component S32K144_100)
    - Cpu_SystemInit -This function disables the watchdog, enables FPU and the power mode protection. SystemInit is called from 
