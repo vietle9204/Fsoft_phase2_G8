@@ -55,6 +55,7 @@
 
     #define TX_MAILBOX_2   (1UL)    // Mailbox 1 gửi
     #define TX_MSG_ID_2    (0x4UL) // Master gửi ID 0x04
+
     /* Master nhận v�? */
     #define RX_MAILBOX_1   (2UL)    // Mailbox 2 nhận
     #define RX_MSG_ID_1    (0x5UL) // Slave phản hồi v�? ID 0x05
@@ -286,32 +287,36 @@ int main(void)
     while(1)
     {
     	 /* Define receive buffer */
-    	    flexcan_msgbuff_t recvBuff;
+    	flexcan_msgbuff_t recvBuff1;
+    	flexcan_msgbuff_t recvBuff2;
 
     	    /* --- Nhận từ Mailbox 1 --- */
-    	    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_1, &recvBuff);
+    	    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_1, &recvBuff1);
     	    while(FLEXCAN_DRV_GetTransferStatus(INST_CANCOM1, RX_MAILBOX_1) == STATUS_BUSY);
 
     	#if defined(SLAVE)
-    	    if (recvBuff.msgId == RX_MSG_ID_1)  // Yêu cầu tốc độ
+    	    if (recvBuff1.msgId == RX_MSG_ID_1)  // Yêu cầu tốc độ
     	    {
     	        uint8_t txData[2] = {speed_left, speed_right};
     	        SendCANData(TX_MAILBOX_1, TX_MSG_ID_1, txData, 2);
     	        PINS_DRV_ClearPins(GPIO_PORT, 1 << LED0);
     	    }
+    	    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_1, &recvBuff1);
     	#endif
 
     	    /* --- Nhận từ Mailbox 2 --- */
-    	    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_2, &recvBuff);
+    	    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_2, &recvBuff2);
     	    while(FLEXCAN_DRV_GetTransferStatus(INST_CANCOM1, RX_MAILBOX_2) == STATUS_BUSY);
 
     	#if defined(SLAVE)
-    	    if (recvBuff.msgId == RX_MSG_ID_2)  // Yêu cầu phanh
+    	    if (recvBuff2.msgId == RX_MSG_ID_2)  // Yêu cầu phanh
     	    {
     	        uint8_t txData[2] = {0x01, 0x02};
     	        SendCANData(TX_MAILBOX_2, TX_MSG_ID_2, txData, 2);
     	        PINS_DRV_ClearPins(GPIO_PORT, 1 << LED1);
     	    }
+            FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_2, &recvBuff2);
+
     	#endif
 
     	    /* Debug: nhấp nháy LED2 báo nhận frame */
