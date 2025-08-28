@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-23, 21:38, # CodeGen: 12
+**     Date/Time   : 2025-08-27, 16:06, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
@@ -239,13 +239,13 @@
 **                  Pin 13                                 : <Automatic>
 **                  Direction                              : <Automatic>
 **                  Pin 14                                 : PTA14
-**                  Direction                              : Input
+**                  Direction                              : Output
 **                  Pin 15                                 : PTA15
-**                  Direction                              : Output
-**                  Pin 16                                 : PTA16
 **                  Direction                              : Input
-**                  Pin 17                                 : PTA17
+**                  Pin 16                                 : PTA16
 **                  Direction                              : Output
+**                  Pin 17                                 : PTA17
+**                  Direction                              : Input
 **                Custom name                              : PTB
 **                PTB                                      : 
 **                  Pin 0                                  : <Automatic>
@@ -481,9 +481,9 @@
 **                LPUART1                                  : 
 **                  Clear to Send                          : <Automatic>
 **                  Request to Send                        : <Automatic>
-**                  Receive Data                           : <Automatic>
-**                  Transmit Data                          : <Automatic>
-**                  Direction                              : <Automatic>
+**                  Receive Data                           : PTD13
+**                  Transmit Data                          : PTD14
+**                  Direction                              : Output
 **                Custom name                              : LPUART2
 **                LPUART2                                  : 
 **                  Clear to Send                          : <Automatic>
@@ -1583,7 +1583,7 @@
 
 
 /*! @brief User number of configured pins */
-#define NUM_OF_CONFIGURED_PINS 14
+#define NUM_OF_CONFIGURED_PINS 16
 
 /*! @brief User configuration structure */
 extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];

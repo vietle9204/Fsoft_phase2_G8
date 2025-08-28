@@ -278,13 +278,16 @@ void PORTA_IRQHandler(void)
     // PA14
     if (flags & (1 << 14)) {
         // Xử lý ngắt từ PA14
-    	PINS_DRV_SetPins(PTA, 1 << 15U);
-    	delayCycles(4800);
-    	PINS_DRV_ClearPins(PTA, 1 << 15U);
+//    	PINS_DRV_SetPins(PTA, 1 << 15U);
+
+
+    	delayCycles(480000);
+//    	PINS_DRV_ClearPins(PTA, 1 << 15U);
+
 
     	Motor_Stop(Left_motor);
         // clear interrupt flag
-        PINS_DRV_ClearPinIntFlagCmd(PORTA, 14);
+        PINS_DRV_ClearPinIntFlagCmd(PORTA,14);
     }
 
 
@@ -292,11 +295,15 @@ void PORTA_IRQHandler(void)
     // PA16
     if (flags & (1 << 16)) {
         // Xử lý ngắt từ PA16
-    	PINS_DRV_SetPins(PTA, 1 << 17U);
-    	delayCycles(4800);
-    	PINS_DRV_ClearPins(PTA, 1 << 17U);
+//    	PINS_DRV_SetPins(PTA, 1 << 17U);
 
-    	Motor_Stop(Left_motor);
+
+
+    	delayCycles(480000);
+//    	PINS_DRV_ClearPins(PTA, 1 << 17U);
+
+
+    	Motor_Stop(Right_motor);
 
     	// clear interrupt flag
         PINS_DRV_ClearPinIntFlagCmd(PORTA, 16);
@@ -401,10 +408,163 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 }
 
 
-	void Lin_RequestHandler(uint8_t request, uint16_t data)
-	{
+//	void Lin_RequestHandler(uint8_t request, uint16_t data)
+//	{
+//
+//	}
 
+/*
+ *
+ *
+ *
+ *
+ *
+ * CAN
+ *
+ *
+ *
+ *
+ */
+
+#define CAN_SLAVE
+
+	/* CAN ID và Mailbox */
+	#if defined(CAN_MASTER)
+	#define TX_MAILBOX_REQ    (0UL)
+	#define TX_MSG_ID_REQ     (0x4UL)   // Gửi yêu cầu phanh
+
+	#define RX_MAILBOX_RESP   (1UL)
+	#define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
+
+	#define RX_MAILBOX_SPEED   (2UL)
+	#define RX_MSG_ID_SPEED    (0x5UL)   // Nhận tốc độ từ Slave
+
+	#define TX_MAILBOX  (3UL)
+	#define TX_MSG_ID   (7UL)
+//	#define RX_MAILBOX  (8UL)
+//	#define RX_MSG_ID   (9UL)
+	#endif
+
+	#if defined(CAN_SLAVE)
+	#define RX_MAILBOX_REQ    (0UL)
+	#define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
+
+	#define TX_MAILBOX_SPEED  (1UL)
+	#define TX_MSG_ID_SPEED   (0x5UL)   // Gửi tốc độ 2 bánh
+
+	#define TX_MAILBOX_BRAKE  (2UL)
+	#define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
+
+//	#define TX_MAILBOX  (8UL)
+//	#define TX_MSG_ID   (9UL)
+	#define RX_MAILBOX  (3UL)
+	#define RX_MSG_ID   (7UL)
+	#endif
+
+//	/* Definition of the TX and RX message buffers depending on the bus role */
+//	#if defined(MASTER)
+//	#define TX_MAILBOX  (1UL)
+//	#define TX_MSG_ID   (1UL)
+//	#define RX_MAILBOX  (0UL)
+//	#define RX_MSG_ID   (2UL)
+//
+//	#elif defined(SLAVE)
+//	#define TX_MAILBOX  (0UL)
+//	#define TX_MSG_ID   (2UL)
+//	#define RX_MAILBOX  (1UL)
+//	#define RX_MSG_ID   (1UL)
+//	#endif
+
+
+
+
+	/* Hàm gửi dữ liệu CAN */
+	void SendCANData(uint32_t mailbox, uint32_t messageId, uint8_t * data, uint32_t len)
+	{
+	    flexcan_data_info_t dataInfo =
+	    {
+	        .data_length = len,
+	        .msg_id_type = FLEXCAN_MSG_ID_STD,
+	        .enable_brs  = false,
+	        .fd_enable   = false,
+	        .fd_padding  = 0U
+	    };
+
+	    FLEXCAN_DRV_ConfigTxMb(INST_CANCOM1, mailbox, &dataInfo, messageId);
+	    FLEXCAN_DRV_Send(INST_CANCOM1, mailbox, &dataInfo, messageId, data);
 	}
+
+
+
+	/*
+		 *
+		 *  Callback CAN RX
+		 */
+	float l_speed;
+	float r_speed;
+	int set_speed_flag = 1;
+	void CAN_RxCallback(uint8_t instance,
+	                    flexcan_event_type_t eventType,
+	                    uint32_t mbIdx,
+	                    void *userData)
+	{
+	    (void) instance;
+
+	    if (eventType == FLEXCAN_EVENT_RX_COMPLETE)
+	    {
+	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
+
+		#if defined(CAN_SLAVE)
+			if (rxBuff->msgId == RX_MSG_ID && rxBuff->dataLen >= 2) {
+
+				if(rxBuff->data[0] == 0)
+					l_speed = rxBuff->data[1];
+				else
+					r_speed = rxBuff->data[1];
+
+				set_speed_flag = 1;
+			}
+		#endif
+	        /* Re-arm only the mailbox that triggered */
+	        FLEXCAN_DRV_Receive(INST_CANCOM1, mbIdx, rxBuff);
+	    }
+	}
+
+
+
+
+	/*
+	 *  Init CAN
+	 *
+	 */
+		void FlexCANInit(void)
+		{
+		    FLEXCAN_DRV_Init(INST_CANCOM1, &canCom1_State, &canCom1_InitConfig0);
+
+		    /* Cấu hình thông tin nhận */
+		    flexcan_data_info_t dataInfo = {
+		        .data_length = 2U,
+		        .msg_id_type = FLEXCAN_MSG_ID_STD,
+		        .enable_brs = false,
+		        .fd_enable = false,
+		        .fd_padding = 0U
+		    };
+
+		    static flexcan_msgbuff_t rxBuff;
+		       /* Configure RX message buffer with index RX_MSG_ID and RX_MAILBOX */
+		       FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX, &dataInfo, RX_MSG_ID);
+		       FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX, &rxBuff);
+		    /* Install callback and pass pointer to rxBuff */
+		    FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
+		}
+
+
+
+
+
+
+
+
 
 
 
@@ -439,15 +599,53 @@ int main(void)
 						Right_motor_forward_GPIO_port, Right_motor_forward_GPIO_PIN,
 						Right_motor_reverse_GPIO_port, Right_motor_reverse_GPIO_PIN);
 
-
+	FlexCANInit();
   /* For example: for(;;) { } */
 
-    while(1)
-    {
+	while (1) {
+
+		if(set_speed_flag)
+		{
+			set_speed_motor(Left_motor, l_speed);
+			set_speed_motor(Right_motor, r_speed);
+			Motor_Start(Left_motor);
+			Motor_Start(Right_motor);
+		}
 
 
-    }
-
+//	        // Tăng tốc tới 50%
+//	        set_speed_motor(Left_motor, 50.0f);
+//	        set_speed_motor(Right_motor, 50.0f);
+//	        Motor_Start(Left_motor);
+//	        Motor_Start(Right_motor);
+//	        delayCycles(48000000);  // delay 1 giây (tùy xung nhịp CPU)
+//
+//	        // Dừng động cơ từ từ
+//	        stop();
+//	        delayCycles(48000000);
+//
+//	        // Quay ngược 30%
+//	        set_speed_motor(Left_motor, -30.0f);
+//	        set_speed_motor(Right_motor, -30.0f);
+//	        Motor_Start(Left_motor);
+//	        Motor_Start(Right_motor);
+//	        delayCycles(48000000);
+//
+//		// Tăng tốc tới 50%
+//		set_speed_motor(Left_motor, -50.0f);
+//		set_speed_motor(Right_motor, 50.0f);
+//		Motor_Start(Left_motor);
+//		Motor_Start(Right_motor);
+//		delayCycles(48000000);  // delay 1 giây (tùy xung nhịp CPU)
+//
+//		// Dừng động cơ từ từ
+//		stop();
+//		delayCycles(48000000);
+//
+//	        // Dừng động cơ
+//	        stop();
+//	        delayCycles(48000000);
+	    }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

@@ -119,7 +119,7 @@
       <group name="Network configuration">
         <Use_transport_layer v="yes" />
         <Support_diagnostic_service v="yes" />
-        <Timeout_unit__us_ v="10000" />
+        <Timeout_unit__us_ v="500" />
         <list name="List of networks" v="1">
           <group name="Network detail">
             <Network_name v="LI0" />

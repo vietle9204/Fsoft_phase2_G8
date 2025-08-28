@@ -38,7 +38,7 @@
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_irq.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591812" FileType="1048576" CompNumb="5" />
       <File Name="SDK/platform/drivers/src/edma/edma_irq.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591749" FileType="1048576" CompNumb="8" />
       <File Name="SDK/platform/drivers/src/edma/edma_hw_access.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591740" FileType="1048576" CompNumb="8" />
-      <File Name="Sources/main.c" FileDate="2025-08-23, 21:38:00" FileAge="1755959880226" FileType="128" />
+      <File Name="Sources/main.c" FileDate="2025-08-28, 13:34:32" FileAge="1756362872319" FileType="128" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_irq.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591821" FileType="1048576" CompNumb="5" />
       <File Name="SDK/platform/drivers/src/ftm/ftm_hw_access.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592114" FileType="1048576" CompNumb="0" />
       <File Name="SDK/middleware/lin/coreapi/lin_common_api.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591946" FileType="1048576" CompNumb="9" />
@@ -55,7 +55,7 @@
       <File Name="SDK/platform/drivers/src/ftm/ftm_common.c" FileDate="2025-08-17, 11:23:12" FileAge="1755404592106" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/devices/status.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169664" FileType="1048576" CompNumb="1" />
       <File Name="Generated_Code/flexTimer_ic2.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592169" FileType="45637" CompNumb="12" />
-      <File Name="Documentation/OBD2_KIT3.txt" FileDate="2025-08-17, 11:23:12" FileAge="1755404592299" FileType="3072" />
+      <File Name="Documentation/OBD2_KIT3.txt" FileDate="2025-08-27, 16:06:41" FileAge="1756285601464" FileType="3072" />
       <File Name="SDK/platform/drivers/src/lin/lin_driver.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591848" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/devices/S32K144/include/S32K144_features.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169752" FileType="1048576" CompNumb="1" />
       <File Name="SDK/platform/drivers/inc/clock_manager.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169640" FileType="1048576" CompNumb="3" />
@@ -64,9 +64,11 @@
       <File Name="Generated_Code/flexTimer_ic1.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592171" FileType="45637" CompNumb="11" />
       <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.c" FileDate="2025-08-16, 22:29:29" FileAge="1755358169546" FileType="1048576" CompNumb="3" />
       <File Name="Generated_Code/flexTimer_ic1.c" FileDate="2025-08-17, 15:38:43" FileAge="1755419923692" FileType="45637" CompNumb="11" />
+      <File Name="Generated_Code/lpuart1.h" FileDate="2025-08-27, 16:06:41" FileAge="1756285601382" FileType="45637" CompNumb="13" />
       <File Name="SDK/middleware/lin/include/lin_types.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592050" FileType="1048576" CompNumb="9" />
       <File Name="SDK/platform/drivers/src/pins/pins_gpio_hw_access.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169430" FileType="1048576" CompNumb="2" />
-      <File Name="Generated_Code/Cpu.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592227" FileType="45637" CompNumb="1" />
+      <File Name="Generated_Code/Cpu.h" FileDate="2025-08-27, 16:06:41" FileAge="1756285601408" FileType="45637" CompNumb="1" />
+      <File Name="Generated_Code/lpuart1.c" FileDate="2025-08-27, 16:06:41" FileAge="1756285601382" FileType="45637" CompNumb="13" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591795" FileType="1048576" CompNumb="5" />
       <File Name="Generated_Code/Cpu.c" FileDate="2025-08-17, 11:23:12" FileAge="1755404592230" FileType="45637" CompNumb="1" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591785" FileType="1048576" CompNumb="5" />
@@ -84,14 +86,14 @@
       <File Name="SDK/platform/drivers/inc/lpuart_driver.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591875" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/devices/callbacks.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169684" FileType="1048576" CompNumb="1" />
       <File Name="SDK/middleware/lin/transport/lin_commontl_api.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591999" FileType="1048576" CompNumb="9" />
-      <File Name="Documentation/OBD2_KIT3_Settings.xml" FileDate="2025-08-17, 17:23:51" FileAge="1755426231249" FileType="3072" />
+      <File Name="Documentation/OBD2_KIT3_Settings.xml" FileDate="2025-08-27, 16:06:41" FileAge="1756285601453" FileType="3072" />
       <File Name="SDK/middleware/lin/coreapi/lin_common_proto.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592058" FileType="1048576" CompNumb="9" />
       <File Name="SDK/platform/drivers/src/clock/S32K1xx/scg_hw_access.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169595" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/src/edma/edma_driver.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591731" FileType="1048576" CompNumb="8" />
-      <File Name="Generated_Code/pin_mux.h" FileDate="2025-08-23, 21:38:17" FileAge="1755959897634" FileType="45637" CompNumb="2" />
+      <File Name="Generated_Code/pin_mux.h" FileDate="2025-08-27, 16:06:41" FileAge="1756285601392" FileType="45637" CompNumb="2" />
       <File Name="SDK/middleware/lin/coreapi/lin_common_proto.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591954" FileType="1048576" CompNumb="9" />
       <File Name="SDK/platform/devices/startup.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169700" FileType="1048576" CompNumb="1" />
-      <File Name="Generated_Code/pin_mux.c" FileDate="2025-08-23, 21:38:17" FileAge="1755959897643" FileType="45637" CompNumb="2" />
+      <File Name="Generated_Code/pin_mux.c" FileDate="2025-08-27, 16:06:41" FileAge="1756285601392" FileType="45637" CompNumb="2" />
       <File Name="SDK/middleware/lin/diagnostic/lin_diagnostic_service.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591981" FileType="1048576" CompNumb="9" />
       <File Name="SDK/platform/drivers/src/clock/S32K1xx/pmc_hw_access.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169576" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/devices/startup.c" FileDate="2025-08-16, 22:29:29" FileAge="1755358169715" FileType="1048576" CompNumb="1" />
@@ -100,8 +102,8 @@
       <File Name="SDK/rtos/osif/osif.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591711" FileType="1048576" CompNumb="6" />
       <File Name="SDK/platform/drivers/src/lpuart/lpuart_irq.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591919" FileType="1048576" CompNumb="0" />
       <File Name="SDK/middleware/lin/coreapi/lin_lin21_proto.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591971" FileType="1048576" CompNumb="9" />
-      <File Name="SDK/platform/drivers/inc/interrupt_manager.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169518" FileType="1048576" CompNumb="4" />
       <File Name="SDK/platform/drivers/inc/flexcan_driver.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591829" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/drivers/inc/interrupt_manager.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169518" FileType="1048576" CompNumb="4" />
       <File Name="SDK/platform/drivers/src/lpuart/lpuart_irq.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591902" FileType="1048576" CompNumb="0" />
       <File Name="Generated_Code/lin1.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592175" FileType="45637" CompNumb="10" />
       <File Name="SDK/platform/drivers/src/lpuart/lin_lpuart_driver.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591927" FileType="1048576" CompNumb="0" />
@@ -110,16 +112,16 @@
       <File Name="SDK/platform/drivers/src/lpuart/lin_lpuart_driver.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591937" FileType="1048576" CompNumb="0" />
       <File Name="SDK/platform/drivers/inc/edma_driver.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591775" FileType="1048576" CompNumb="8" />
       <File Name="Generated_Code/clockMan1.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592222" FileType="45637" CompNumb="3" />
-      <File Name="Generated_Code/lin_cfg.h" FileDate="2025-08-23, 21:38:17" FileAge="1755959897647" FileType="45637" CompNumb="9" />
       <File Name="SDK/middleware/lin/include/lin_diagnostic_service.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592043" FileType="1048576" CompNumb="9" />
+      <File Name="Generated_Code/lin_cfg.h" FileDate="2025-08-28, 13:34:50" FileAge="1756362890682" FileType="45637" CompNumb="9" />
       <File Name="Generated_Code/clockMan1.c" FileDate="2025-08-17, 11:23:12" FileAge="1755404592225" FileType="45637" CompNumb="3" />
-      <File Name="Generated_Code/lin_cfg.c" FileDate="2025-08-23, 21:38:17" FileAge="1755959897653" FileType="45637" CompNumb="9" />
+      <File Name="Generated_Code/lin_cfg.c" FileDate="2025-08-28, 13:34:50" FileAge="1756362890692" FileType="45637" CompNumb="9" />
       <File Name="SDK/platform/drivers/inc/ftm_common.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592123" FileType="1048576" CompNumb="0" />
-      <File Name="Generated_Code/dmaController1.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592181" FileType="45637" CompNumb="8" />
       <File Name="SDK/platform/drivers/src/pins/pins_port_hw_access.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169478" FileType="1048576" CompNumb="2" />
+      <File Name="Generated_Code/dmaController1.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592181" FileType="45637" CompNumb="8" />
       <File Name="SDK/platform/devices/S32K144/include/S32K144.h" FileDate="2025-08-16, 22:29:29" FileAge="1755358169770" FileType="1048576" CompNumb="1" />
-      <File Name="Generated_Code/dmaController1.c" FileDate="2025-08-17, 11:23:12" FileAge="1755404592179" FileType="45637" CompNumb="8" />
       <File Name="SDK/platform/drivers/src/pins/pins_port_hw_access.c" FileDate="2025-08-16, 22:29:29" FileAge="1755358169466" FileType="1048576" CompNumb="2" />
+      <File Name="Generated_Code/dmaController1.c" FileDate="2025-08-17, 11:23:12" FileAge="1755404592179" FileType="45637" CompNumb="8" />
       <File Name="SDK/platform/drivers/src/lin/lin_irq.c" FileDate="2025-08-17, 11:23:11" FileAge="1755404591857" FileType="1048576" CompNumb="0" />
       <File Name="SDK/middleware/lin/transport/lin_commontl_proto.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592082" FileType="1048576" CompNumb="9" />
       <File Name="SDK/middleware/lin/include/lin_common_api.h" FileDate="2025-08-17, 11:23:12" FileAge="1755404592035" FileType="1048576" CompNumb="9" />
@@ -127,5 +129,5 @@
       <File Name="SDK/platform/drivers/src/lpuart/lpuart_hw_access.h" FileDate="2025-08-17, 11:23:11" FileAge="1755404591911" FileType="1048576" CompNumb="0" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>13</CodeGenReference>
+  <CodeGenReference>18</CodeGenReference>
 </CodeGenerationInfo>

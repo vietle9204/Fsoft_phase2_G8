@@ -1,0 +1,685 @@
+/* ###################################################################
+**     Filename    : main.c
+**     Processor   : S32K1xx
+**     Abstract    :
+**         Main module.
+**         This module contains user's application code.
+**     Settings    :
+**     Contents    :
+**         No public methods
+**
+** ###################################################################*/
+/*!
+** @file main.c
+** @version 01.00
+** @brief
+**         Main module.
+**         This module contains user's application code.
+*/
+/*!
+**  @addtogroup main_module main module documentation
+**  @{
+*/
+/* MODULE main */
+
+
+/* Including necessary module. Cpu.h contains other modules needed for compiling.*/
+#include "Cpu.h"
+#include "string.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "clockMan1.h"
+#include "canCom1.h"
+#include "dmaController1.h"
+//#include "csec1.h"
+#include "pin_mux.h"
+
+
+  volatile int exit_code = 0;
+
+/* User includes (#include below this line is not maintained by Processor Expert) */
+
+  typedef enum{
+  	BRAKE_WAIT_RESPONSE = 0x00,
+  	BRAKE_RESPONSED = 0x01,
+
+	Brake_SUCCESSFUL = 0x02,
+
+  	BRAKE_FAULT_COMM = 0x03,			 // CAN communication error
+  	BRAKE_FAULT_SIGNAL = 0x04,			 // brake signal error: lost, signal interference
+  	BRAKE_FAULT_ACTUATOR = 0x05,         // Braking successful but engine speed not reduced
+
+
+
+  }Brake_State;
+
+  typedef enum {
+      SENSOR_TEMP_NORMAL,       // Nhiệt độ trong ngưỡng an toàn
+      SENSOR_TEMP_HIGH,         // Nhiệt độ cao
+      SENSOR_TEMP_LOW,          // Nhiệt độ thấp
+      SENSOR_TEMP_ERROR         // Lỗi đ�?c cảm biến
+  } sensor_temperature;
+
+  uint8_t temperature_state;
+  //int temperature = 0;
+
+  typedef enum {
+      SENSOR_LIGHT_DARK,        // Tối
+      SENSOR_LIGHT_DIM,         // �?nh sáng yếu
+      SENSOR_LIGHT_BRIGHT,      // Sáng mạnh
+      SENSOR_LIGHT_ERROR        // Lỗi cảm biến ánh sáng
+  } sensor_light;
+
+  uint8_t light_state;
+  //int light = 0;
+
+  typedef enum {
+      SENSOR_DISTANCE_NEAR,     // Vật ở gần
+      SENSOR_DISTANCE_MEDIUM,   // Vật ở khoảng cách trung bình
+      SENSOR_DISTANCE_FAR,      // Vật ở xa
+      SENSOR_DISTANCE_ERROR     // Lỗi cảm biến khoảng cách
+  } sensor_distance;
+
+  uint8_t distance_state;
+  //int distance = 0;
+
+  typedef enum {
+      DOOR_CLOSED,        // Cửa đóng hoàn toàn
+      DOOR_OPEN,          // Cửa mở hoàn toàn
+      DOOR_OPENING,       // Cửa đang mở
+      DOOR_LOCKED,        // Cửa khóa
+      DOOR_ERROR          // Lỗi cảm biến hoặc cơ cấu
+  } sensor_OpenDoor;
+  uint8_t door_state;
+
+  typedef enum{
+  	Brake,                    //send to KIT3
+	Get_left_motor_speed,     //send to KIT3
+	Get_right_motor_speed,     //send to KIT3
+  	control_left_motor,       //  send to KIT2
+  	control_right_motor		  //  send to KIT2
+
+  }Can_Request;
+
+  typedef enum{
+	  GET_temperature_state,
+
+   }LIN_Request;
+
+
+
+
+
+
+	float l_rps = 0;
+	float r_rps = 0;
+
+	uint8_t l_brake_state = 0;
+	uint8_t r_brake_state = 0;
+
+	uint8_t temperature_sensor_state = 0;
+	uint8_t light_sensor_state = 0;
+	uint8_t distance_sensor_state = 0;
+	uint8_t OpenDoor_sensor_state = 0;
+
+	uint8_t wiper_state = 0;
+	uint8_t headlight_state = 0;
+	uint8_t air_conditioning_state = 0;
+
+	// Flag báo dữ liệu thay đổi
+	uint8_t flag_speed_changed = 1;
+	uint8_t flag_brake_changed = 1;
+	uint8_t flag_sensor_changed = 1;
+	uint8_t flag_device_changed = 1;
+
+	// Th�?i gian gửi định kỳ
+	uint32_t lastSendTime = 0;
+
+
+
+
+/*
+ *
+ *
+ *
+ * CAN
+ */
+
+
+
+
+//#define MASTER
+#define MASTER
+
+/* CAN ID và Mailbox */
+#if defined(MASTER)
+    #define TX_MAILBOX_REQ    (0UL)
+    #define TX_MSG_ID_REQ     (0x4UL)   // Gửi yêu cầu phanh
+
+    #define RX_MAILBOX_RESP   (1UL)
+    #define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
+#endif
+
+#if defined(SLAVE)
+    #define RX_MAILBOX_REQ    (0UL)
+    #define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
+
+    #define TX_MAILBOX_SPEED  (1UL)
+    #define TX_MSG_ID_SPEED   (0x5UL)   // Gửi tốc độ 2 bánh
+
+    #define TX_MAILBOX_BRAKE  (2UL)
+    #define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
+#endif
+
+
+
+
+
+
+	/* Hàm gửi dữ liệu CAN */
+	void SendCANData(uint32_t mailbox, uint32_t messageId, uint8_t * data, uint32_t len)
+	{
+	    flexcan_data_info_t dataInfo =
+	    {
+	        .data_length = len,
+	        .msg_id_type = FLEXCAN_MSG_ID_STD,
+	        .enable_brs  = false,
+	        .fd_enable   = false,
+	        .fd_padding  = 0U
+	    };
+
+	    FLEXCAN_DRV_ConfigTxMb(INST_CANCOM1, mailbox, &dataInfo, messageId);
+	    FLEXCAN_DRV_Send(INST_CANCOM1, mailbox, &dataInfo, messageId, data);
+	}
+
+
+	/*
+	 *  Init CAN
+	 *
+	 */
+	void FlexCANInit(void)
+	{
+	    FLEXCAN_DRV_Init(INST_CANCOM1, &canCom1_State, &canCom1_InitConfig0);
+	}
+
+
+
+	/*
+	 *
+	 *  Callback CAN RX
+	 */
+	void CAN_RxCallback(uint8_t instance,
+	                    flexcan_event_type_t eventType,
+	                    uint32_t mbIdx,
+	                    void *userData)
+	{
+	    if (eventType == FLEXCAN_EVENT_RX_COMPLETE)
+	    {
+	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
+
+	#if defined(SLAVE)
+	        if (rxBuff->msgId == RX_MSG_ID_REQ) // Master yêu cầu phanh
+	        {
+	            SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE, brake_status, 2);
+	        }
+	        /* �?ăng ký lại nhận */
+	        FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_REQ, rxBuff);
+	#endif
+
+	#if defined(MASTER)
+	        if (rxBuff->msgId == RX_MSG_ID_RESP) // Slave phản hồi phanh
+	        {
+	            // Xử lý dữ liệu nếu cần (rxBuff->data[0], rxBuff->data[1])
+
+
+
+	        }
+	        FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_RESP, rxBuff);
+	#endif
+	    }
+	}
+
+
+
+
+/*
+ *
+ * UART
+ *
+ *
+ *
+ *
+ */
+
+
+	  /* Receive buffer size */
+		#define RX_BUFFER_SIZE 512
+
+	  /* Buffer used to receive data from the console */
+		uint8_t rxByte;
+		char rxBuffer[RX_BUFFER_SIZE];
+		volatile uint16_t rxIndex = 0;
+
+		char txBuffer[128];
+
+  /* UART rx callback for continuous reception, byte by byte */
+void RxCallback(void *driverState, uart_event_t event, void *userData) {
+	 (void)driverState;
+	    (void)userData;
+
+	    if (event == UART_EVENT_RX_FULL)
+	    {
+	        if (rxIndex < sizeof(rxBuffer) - 1) {
+	            rxBuffer[rxIndex++] = (char)rxByte;
+	            rxBuffer[rxIndex] = '\0';
+	        } else {
+	            rxIndex = 0;
+	        }
+
+	        // Kiểm tra chuỗi nhận được
+	        if (strstr(rxBuffer, "BRAKE LEFT") != NULL) {
+
+
+
+	            rxIndex = 0; rxBuffer[0] = '\0';
+	        }
+	        else if (strstr(rxBuffer, "BRAKE RIGHT") != NULL) {
+
+
+
+	            rxIndex = 0; rxBuffer[0] = '\0';
+	        }
+	        else if (strstr(rxBuffer, "STOP") != NULL) {
+
+	        	 uint8_t reqData[1] = {0x01};
+	        	 SendCANData(TX_MAILBOX_REQ, TX_MSG_ID_REQ, reqData, 1);
+
+
+	        	 /* Gửi 1 frame yêu cầu phanh */
+	        	PINS_DRV_TogglePins(PTD, 1 << 16);
+	        	PINS_DRV_TogglePins(PTD, 1 << 15);
+	            rxIndex = 0; rxBuffer[0] = '\0';
+	        }
+
+	        else if (strstr(rxBuffer, "SET SPEED:") != NULL) {
+	            float speedLf = 0, speedRf = 0;
+	            int speedL = 0, speedR = 0;
+	            char *pos = rxBuffer + strlen("SET SPEED:");
+
+	            sscanf(pos, "%f/%f", &speedLf, &speedRf);
+
+	            // Ép kiểu float -> int
+	            speedL = (int)speedLf;
+	            speedR = (int)speedRf;
+//	            l_rps = speedLf;
+//	            r_rps = speedRf;
+//	            flag_speed_changed = 1;
+
+	            // Gửi dữ liệu qua CAN hoặc xử lý tiếp
+	            // ví dụ: gửi speedL và speedR
+
+//	            if(speedL > 0) PINS_DRV_TogglePins(PTD, 1 << 16);
+//
+//
+//	            if(speedR < 0) PINS_DRV_TogglePins(PTD, 1 << 15);
+
+
+	            uint8_t payload[2];
+				payload[0] = 0;
+				payload[1] = speedL;
+				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				for(int i = 0 ; i < 960000; i++);
+				payload[0] = 1;
+				payload[1] = speedR;
+				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				for(int i = 0 ; i < 960000; i++);
+
+
+			}
+
+	            rxIndex = 0; rxBuffer[0] = '\0';
+
+	        }
+
+	        // nhận tiếp byte sau
+	        LPUART_DRV_SetRxBuffer(INST_LPUART1, &rxByte, 1U);
+	    }
+}
+
+  /*
+   *
+   */
+  void LpuartInit(void)
+  {
+
+	  /* Initialize LPUART instance */
+	   LPUART_DRV_Init(INST_LPUART1, &lpuart1_State, &lpuart1_InitConfig0);
+	   /* Install the callback for rx events */
+	   LPUART_DRV_InstallRxCallback(INST_LPUART1, RxCallback, NULL);
+	   /*Start receive uart data */
+	   LPUART_DRV_ReceiveData(INST_LPUART1, &rxByte, 1);
+  }
+
+
+	/**/
+	void sendSpeed(void) {
+
+	  sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
+	  LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer),100);
+	}
+
+
+	/**/
+	void sendBrake(void) {
+
+
+	    // Chuyển trạng thái sang chuỗi
+	    const char* leftStatus;
+	    const char* rightStatus;
+
+	    switch (l_brake_state) {
+	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
+	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
+	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
+	        default:                   leftStatus = "UNKNOWN";    break;
+	    }
+
+	    switch (r_brake_state) {
+	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
+	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
+	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
+	        default:                   rightStatus = "UNKNOWN";    break;
+	    }
+
+	    // Tạo chuỗi dữ liệu
+	    snprintf(txBuffer, sizeof(txBuffer), "BRAKE:%s;%s\n", leftStatus, rightStatus);
+
+	    // Gửi qua LPUART
+	    LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	}
+
+
+	/**/
+	void sendSensors(void) {
+	    const char *distanceStr;
+	    const char *lightStr;
+	    const char *humidityStr;
+	    const char *doorStr;
+
+	    // Xử lý Distance
+	    switch (distance_state) {
+	        case SENSOR_DISTANCE_NEAR:   distanceStr = "NEAR";   break;
+	        case SENSOR_DISTANCE_MEDIUM: distanceStr = "MEDIUM"; break;
+	        case SENSOR_DISTANCE_FAR:    distanceStr = "FAR";    break;
+	        default:                     distanceStr = "ERROR";  break;
+	    }
+
+	    // Xử lý Light
+	    switch (light_state) {
+	        case SENSOR_LIGHT_DARK:   lightStr = "DARK";   break;
+	        case SENSOR_LIGHT_DIM:    lightStr = "DIM";    break;
+	        case SENSOR_LIGHT_BRIGHT: lightStr = "BRIGHT"; break;
+	        default:                  lightStr = "ERROR";  break;
+	    }
+
+	    // Xử lý Humidity (dùng temperature_sensor_state)
+	    switch (temperature_sensor_state) {
+	        case 0:  humidityStr = "NORMAL"; break;
+	        case 1:  humidityStr = "HIGH";   break;
+	        default: humidityStr = "ERROR";  break;
+	    }
+
+	    // Xử lý Door
+	    switch (door_state) {
+	        case DOOR_CLOSED:  doorStr = "CLOSED";  break;
+	        case DOOR_OPEN:    doorStr = "OPENED";  break;
+	        case DOOR_OPENING: doorStr = "OPENING"; break;
+	        case DOOR_LOCKED:  doorStr = "LOCKED";  break;
+	        default:           doorStr = "ERROR";   break;
+	    }
+
+	    snprintf(txBuffer, sizeof(txBuffer),
+	             "DISTANCE:%s;LIGHT:%s;HUMIDITY:%s;DOOR:%s\n",
+	             distanceStr, lightStr, humidityStr, doorStr);
+	    LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer), 100);
+	}
+
+	/**/
+	void sendDevices(void) {
+
+	    snprintf(txBuffer, sizeof(txBuffer),
+	             "LIGHT:%s;AC:%s;WIPER:%s\n",
+	             (headlight_state) ? "ON" : "OFF",
+	             (air_conditioning_state) ? "ON" : "OFF",
+	             (wiper_state) ? "ON" : "OFF");
+
+	    LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer), 100);
+	}
+
+
+
+
+	/*
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * port c
+	 */
+
+
+  void PORTC_IRQHandler(void) {
+  	uint32_t flags = PINS_DRV_GetPortIntFlag(PORTC) ;
+
+  	// set flag
+  	flag_device_changed = 1;
+  	// PC12
+  	if (flags & (1 << 12)) {
+  		// Xử lý ngắt từ PC12
+  		air_conditioning_state ^= 1;
+
+  		// send command by LIN
+
+//  		PINS_DRV_TogglePins(PTD, 1 << 15);
+  		PINS_DRV_ClearPinIntFlagCmd(PORTC, 12);
+  	}
+
+  	// PC13
+  	if (flags & (1 << 13)) {
+  		// Xử lý ngắt từ PC13
+  		wiper_state ^= 1;
+
+  		// send command by LIN
+
+//  		PINS_DRV_TogglePins(PTD, 1 << 16);
+  		PINS_DRV_ClearPinIntFlagCmd(PORTC, 13);
+  	}
+
+  	// PC14
+  	if (flags & (1 << 14)) {
+  		// Xử lý ngắt từ PC14
+  		headlight_state ^= 1;
+
+  		// send command by LIN
+
+
+  		PINS_DRV_ClearPinIntFlagCmd(PORTC, 14);
+  	}
+
+
+
+  }
+
+
+
+
+    /*
+     * Initialize interrupt
+     * install interrupt handler
+     * manager priority
+     */
+  	void InterruptInit(void) {
+//  		/*Can    */
+//  		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+//  		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
+//
+//  		/*Lin	   */
+//  		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 2);
+//  		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
+
+  		/* Uart */
+  		INT_SYS_SetPriority(LPUART1_RxTx_IRQn, 1);
+  		INT_SYS_EnableIRQ(LPUART1_RxTx_IRQn);
+
+  		/* enable interrupt port C and init handler */
+  		INT_SYS_InstallHandler(PORTC_IRQn, &PORTC_IRQHandler, NULL);
+  		INT_SYS_SetPriority(PORTC_IRQn, 3);
+  		INT_SYS_EnableIRQ(PORTC_IRQn);
+
+  	}
+
+
+	/*
+	 * @brief : Initialize clocks, pins and power modes
+	 */
+	void BoardInit(void) {
+
+		/* Initialize and configure clocks
+		 *  -   Setup system clocks, dividers
+		 *  -   Configure FlexCAN clock, GPIO
+		 *  -   see clock manager component for more details
+		 */
+		CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
+				g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
+		CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_FORCIBLE);
+
+		/* Initialize pins
+		 *  -   Init FlexCAN and GPIO pins
+		 *  -   See PinSettings component for more info
+		 */
+		PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+	}
+
+
+
+
+
+
+
+/*!
+  \brief The main function for the project.
+  \details The startup initialization sequence is the following:
+ * - startup asm routine
+ * - main()
+*/
+int main(void)
+
+
+
+{
+  /* Write your local variable definition here */
+
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  #ifdef PEX_RTOS_INIT
+    PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of Processor Expert internal initialization.                    ***/
+
+  /* Write your code here */
+
+    BoardInit();
+    LpuartInit();
+    InterruptInit();
+	FlexCANInit();
+
+
+	/* Cấu hình thông tin nhận */
+	flexcan_data_info_t dataInfo = {
+			.data_length = 2U,
+			.msg_id_type = FLEXCAN_MSG_ID_STD,
+			.enable_brs = false,
+			.fd_enable = false,
+			.fd_padding = 0U };
+
+	static flexcan_msgbuff_t rxBuff;
+	FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_RESP, &dataInfo, RX_MSG_ID_RESP);
+	FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_RESP, &rxBuff);
+	FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
+
+
+
+  /* For example: for(;;) { } */
+	while (1) {
+//		uint32_t now = OSIF_GetMilliseconds();
+//
+		// Kiểm tra th�?i gian định kỳ
+//		if (now - lastSendTime >= 100) {
+			if (flag_speed_changed) {
+
+//				sprintf(txBuffer, "SPEED:%.2f;%.2f\n", 2.51, 3.02);
+				sendSpeed();
+				flag_speed_changed = 0;
+
+			}
+//			for(int i = 0; i < 4800000; i++);
+			if (flag_brake_changed) {
+				sendBrake();
+				flag_brake_changed = 0;
+
+			}
+//			for(int i = 0; i < 4800000; i++);
+			if (flag_sensor_changed) {
+				sendSensors();
+				flag_sensor_changed = 0;
+
+			}
+//			for(int i = 0; i < 4800000; i++);
+			if (flag_device_changed) {
+				sendDevices();
+				flag_device_changed = 0;
+
+			}
+//			for(int i = 0; i < 4800000; i++);
+//			char* str = "DISTANCE:FAR;LIGHT:NORMAL;HUMIDITY:NORMAL;DOOR:OPENED\n";
+//			LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)str, strlen(str));
+//			for(int i = 0; i < 4800000; i++);
+//	  		PINS_DRV_TogglePins(PTD, 1 << 15);
+//			lastSendTime = now;
+//		}
+
+	}
+
+
+
+  /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
+  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+  #ifdef PEX_RTOS_START
+    PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of RTOS startup code.  ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;) {
+    if(exit_code != 0) {
+      break;
+    }
+  }
+  return exit_code;
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+} /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
+
+/* END main */
+/*!
+** @}
+*/
+/*
+** ###################################################################
+**
+**     This file was created by Processor Expert 10.1 [05.21]
+**     for the NXP S32K series of microcontrollers.
+**
+** ###################################################################
+*/

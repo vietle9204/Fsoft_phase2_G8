@@ -28,6 +28,12 @@
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "clockMan1.h"
+#include "canCom1.h"
+#include "dmaController1.h"
+//#include "csec1.h"
+#include "pin_mux.h"
+#include "flexcan_driver.h"
 
 
   volatile int exit_code = 0;
@@ -103,15 +109,7 @@
 
 
 
-  /* Receive buffer size */
-	#define RX_BUFFER_SIZE 64
 
-  /* Buffer used to receive data from the console */
-	uint8_t rxByte;
-	char rxBuffer[RX_BUFFER_SIZE];
-	volatile uint8_t rxIndex = 0;
-
-	char txBuffer[128];
 
 
 	float l_rps = 0;
@@ -137,31 +135,182 @@
 
 	// Th�?i gian gửi định kỳ
 	uint32_t lastSendTime = 0;
-  /*
-   * @brief : Initialize clocks, pins and power modes
-   */
-  void BoardInit(void)
-  {
-
-      /* Initialize and configure clocks
-       *  -   Setup system clocks, dividers
-       *  -   Configure FlexCAN clock, GPIO
-       *  -   see clock manager component for more details
-       */
-      CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
-                          g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
-      CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_FORCIBLE);
-
-      /* Initialize pins
-       *  -   Init FlexCAN and GPIO pins
-       *  -   See PinSettings component for more info
-       */
-      PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
-  }
 
 
 
 
+/*
+ *
+ *
+ *
+ * CAN
+ */
+
+
+
+
+
+	#define CAN_MASTER
+
+	/* CAN ID và Mailbox */
+	#if defined(CAN_MASTER)
+	#define TX_MAILBOX_REQ    (0UL)
+	#define TX_MSG_ID_REQ     (0x4UL)   // Gửi yêu cầu phanh
+
+	#define RX_MAILBOX_RESP   (1UL)
+	#define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
+
+	#define RX_MAILBOX_SPEED   (2UL)
+	#define RX_MSG_ID_SPEED    (0x5UL)   // Nhận tốc độ từ Slave
+
+	#define TX_MAILBOX  (3UL)
+	#define TX_MSG_ID   (7UL)
+//	#define RX_MAILBOX  (8UL)
+//	#define RX_MSG_ID   (9UL)
+	#endif
+
+	#if defined(SLAVE)
+	#define RX_MAILBOX_REQ    (0UL)
+	#define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
+
+	#define TX_MAILBOX_SPEED  (1UL)
+	#define TX_MSG_ID_SPEED   (0x5UL)   // Gửi tốc độ 2 bánh
+
+	#define TX_MAILBOX_BRAKE  (2UL)
+	#define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
+
+//	#define TX_MAILBOX  (8UL)
+//	#define TX_MSG_ID   (9UL)
+	#define RX_MAILBOX  (3UL)
+	#define RX_MSG_ID   (7UL)
+	#endif
+
+//	/* Definition of the TX and RX message buffers depending on the bus role */
+//	#if defined(MASTER)
+//	#define TX_MAILBOX  (1UL)
+//	#define TX_MSG_ID   (1UL)
+//	#define RX_MAILBOX  (0UL)
+//	#define RX_MSG_ID   (2UL)
+//
+//	#elif defined(SLAVE)
+//	#define TX_MAILBOX  (0UL)
+//	#define TX_MSG_ID   (2UL)
+//	#define RX_MAILBOX  (1UL)
+//	#define RX_MSG_ID   (1UL)
+//	#endif
+
+
+
+
+	/* Hàm gửi dữ liệu CAN */
+	void SendCANData(uint32_t mailbox, uint32_t messageId, uint8_t * data, uint32_t len)
+	{
+	    flexcan_data_info_t dataInfo =
+	    {
+	        .data_length = len,
+	        .msg_id_type = FLEXCAN_MSG_ID_STD,
+	        .enable_brs  = false,
+	        .fd_enable   = false,
+	        .fd_padding  = 0U
+	    };
+
+	    FLEXCAN_DRV_ConfigTxMb(INST_CANCOM1, mailbox, &dataInfo, messageId);
+	    FLEXCAN_DRV_Send(INST_CANCOM1, mailbox, &dataInfo, messageId, data);
+	}
+
+
+
+	/*
+		 *
+		 *  Callback CAN RX
+		 */
+	void CAN_RxCallback(uint8_t instance,
+	                    flexcan_event_type_t eventType,
+	                    uint32_t mbIdx,
+	                    void *userData)
+	{
+	    (void) instance;
+
+	    if (eventType == FLEXCAN_EVENT_RX_COMPLETE)
+	    {
+	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
+
+	#if defined(CAN_MASTER)
+	        if (rxBuff->msgId == RX_MSG_ID_RESP)
+	        {
+	            if (rxBuff->data[0] == 0)
+	            	l_brake_state = rxBuff->data[1];
+	            else
+	            	r_brake_state = rxBuff->data[1];
+	        }
+	        else if (rxBuff->msgId == RX_MSG_ID_SPEED)
+	        {
+	            l_rps = rxBuff->data[0] / 50.0f;
+	            r_rps = rxBuff->data[1] / 50.0f;
+	        }
+	#endif
+	        /* Re-arm only the mailbox that triggered */
+	        FLEXCAN_DRV_Receive(INST_CANCOM1, mbIdx, rxBuff);
+	    }
+	}
+
+
+
+
+	/*
+	 *  Init CAN
+	 *
+	 */
+		void FlexCANInit(void)
+		{
+		    FLEXCAN_DRV_Init(INST_CANCOM1, &canCom1_State, &canCom1_InitConfig0);
+
+		    /* Cấu hình thông tin nhận */
+		    flexcan_data_info_t dataInfo = {
+		        .data_length = 2U,
+		        .msg_id_type = FLEXCAN_MSG_ID_STD,
+		        .enable_brs = false,
+		        .fd_enable = false,
+		        .fd_padding = 0U
+		    };
+
+		    static flexcan_msgbuff_t rxBuff;
+		    /* Config RX MBs */
+		    FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_RESP, &dataInfo, RX_MSG_ID_RESP);
+		    FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_SPEED, &dataInfo, RX_MSG_ID_SPEED);
+
+		    /* Start receive for both */
+		    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_RESP, &rxBuff);
+		    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_SPEED, &rxBuff);
+
+		    /* Install callback and pass pointer to rxBuff */
+		    FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
+		}
+
+
+
+
+
+
+/*
+ *
+ * UART
+ *
+ *
+ *
+ *
+ */
+
+
+	  /* Receive buffer size */
+		#define RX_BUFFER_SIZE 512
+
+	  /* Buffer used to receive data from the console */
+		uint8_t rxByte;
+		char rxBuffer[RX_BUFFER_SIZE];
+		volatile uint16_t rxIndex = 0;
+
+		char txBuffer[128];
 
   /* UART rx callback for continuous reception, byte by byte */
 void RxCallback(void *driverState, uart_event_t event, void *userData) {
@@ -192,6 +341,11 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	        }
 	        else if (strstr(rxBuffer, "STOP") != NULL) {
 
+	        	 /* Gửi 1 frame yêu cầu phanh */
+	        	 uint8_t reqData[1] = {0x01};
+	        	 SendCANData(TX_MAILBOX_REQ, TX_MSG_ID_REQ, reqData, 1);
+
+
 
 	        	PINS_DRV_TogglePins(PTD, 1 << 16);
 	        	PINS_DRV_TogglePins(PTD, 1 << 15);
@@ -208,16 +362,38 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	            // Ép kiểu float -> int
 	            speedL = (int)speedLf;
 	            speedR = (int)speedRf;
+//	            l_rps = speedLf;
+//	            r_rps = speedRf;
+//	            flag_speed_changed = 1;
 
 	            // Gửi dữ liệu qua CAN hoặc xử lý tiếp
 	            // ví dụ: gửi speedL và speedR
-	            if(speedL > 0) PINS_DRV_TogglePins(PTD, 1 << 16);
-	            if(speedR > 0) PINS_DRV_TogglePins(PTD, 1 << 15);
+
+//	            if(speedL > 0) PINS_DRV_TogglePins(PTD, 1 << 16);
+//
+//
+//	            if(speedR < 0) PINS_DRV_TogglePins(PTD, 1 << 15);
+
+
+	            uint8_t payload[2];
+				payload[0] = 0;
+				payload[1] = speedL;
+				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				for(int i = 0 ; i < 9600000; i++);
+				payload[0] = 1;
+				payload[1] = speedR;
+				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				for(int i = 0 ; i < 9600000; i++);
+
+
+	            rxIndex = 0; rxBuffer[0] = '\0';
+
 	        }
 
 	        // nhận tiếp byte sau
 	        LPUART_DRV_SetRxBuffer(INST_LPUART1, &rxByte, 1U);
 	    }
+
 }
 
   /*
@@ -233,6 +409,117 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	   /*Start receive uart data */
 	   LPUART_DRV_ReceiveData(INST_LPUART1, &rxByte, 1);
   }
+
+
+	/**/
+	void sendSpeed(void) {
+
+	  sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
+	  LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer),100);
+	}
+
+
+	/**/
+	void sendBrake(void) {
+
+
+	    // Chuyển trạng thái sang chuỗi
+	    const char* leftStatus;
+	    const char* rightStatus;
+
+	    switch (l_brake_state) {
+	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
+	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
+	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
+	        default:                   leftStatus = "UNKNOWN";    break;
+	    }
+
+	    switch (r_brake_state) {
+	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
+	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
+	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
+	        default:                   rightStatus = "UNKNOWN";    break;
+	    }
+
+	    // Tạo chuỗi dữ liệu
+	    snprintf(txBuffer, sizeof(txBuffer), "BRAKE:%s;%s\n", leftStatus, rightStatus);
+
+	    // Gửi qua LPUART
+	    LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	}
+
+
+	/**/
+	void sendSensors(void) {
+	    const char *distanceStr;
+	    const char *lightStr;
+	    const char *humidityStr;
+	    const char *doorStr;
+
+	    // Xử lý Distance
+	    switch (distance_state) {
+	        case SENSOR_DISTANCE_NEAR:   distanceStr = "NEAR";   break;
+	        case SENSOR_DISTANCE_MEDIUM: distanceStr = "MEDIUM"; break;
+	        case SENSOR_DISTANCE_FAR:    distanceStr = "FAR";    break;
+	        default:                     distanceStr = "ERROR";  break;
+	    }
+
+	    // Xử lý Light
+	    switch (light_state) {
+	        case SENSOR_LIGHT_DARK:   lightStr = "DARK";   break;
+	        case SENSOR_LIGHT_DIM:    lightStr = "DIM";    break;
+	        case SENSOR_LIGHT_BRIGHT: lightStr = "BRIGHT"; break;
+	        default:                  lightStr = "ERROR";  break;
+	    }
+
+	    // Xử lý Humidity (dùng temperature_sensor_state)
+	    switch (temperature_sensor_state) {
+	        case 0:  humidityStr = "NORMAL"; break;
+	        case 1:  humidityStr = "HIGH";   break;
+	        default: humidityStr = "ERROR";  break;
+	    }
+
+	    // Xử lý Door
+	    switch (door_state) {
+	        case DOOR_CLOSED:  doorStr = "CLOSED";  break;
+	        case DOOR_OPEN:    doorStr = "OPENED";  break;
+	        case DOOR_OPENING: doorStr = "OPENING"; break;
+	        case DOOR_LOCKED:  doorStr = "LOCKED";  break;
+	        default:           doorStr = "ERROR";   break;
+	    }
+
+	    snprintf(txBuffer, sizeof(txBuffer),
+	             "DISTANCE:%s;LIGHT:%s;HUMIDITY:%s;DOOR:%s\n",
+	             distanceStr, lightStr, humidityStr, doorStr);
+	    LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer), 100);
+	}
+
+	/**/
+	void sendDevices(void) {
+
+	    snprintf(txBuffer, sizeof(txBuffer),
+	             "LIGHT:%s;AC:%s;WIPER:%s\n",
+	             (headlight_state) ? "ON" : "OFF",
+	             (air_conditioning_state) ? "ON" : "OFF",
+	             (wiper_state) ? "ON" : "OFF");
+
+	    LPUART_DRV_SendDataBlocking(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer), 100);
+	}
+
+
+
+
+	/*
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * port c
+	 */
 
 
   void PORTC_IRQHandler(void) {
@@ -278,6 +565,8 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   }
 
 
+
+
     /*
      * Initialize interrupt
      * install interrupt handler
@@ -304,100 +593,32 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
   	}
 
 
-  	/**/
-  	void sendSpeed(void) {
+	/*
+	 * @brief : Initialize clocks, pins and power modes
+	 */
+	void BoardInit(void) {
 
-  	  sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
-  	  LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
+		/* Initialize and configure clocks
+		 *  -   Setup system clocks, dividers
+		 *  -   Configure FlexCAN clock, GPIO
+		 *  -   see clock manager component for more details
+		 */
+		CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
+				g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
+		CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_FORCIBLE);
 
-
-  	/**/
-  	void sendBrake(void) {
-
-
-  	    // Chuyển trạng thái sang chuỗi
-  	    const char* leftStatus;
-  	    const char* rightStatus;
-
-  	    switch (l_brake_state) {
-  	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
-  	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
-  	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
-  	        default:                   leftStatus = "UNKNOWN";    break;
-  	    }
-
-  	    switch (r_brake_state) {
-  	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
-  	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
-  	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
-  	        default:                   rightStatus = "UNKNOWN";    break;
-  	    }
-
-  	    // Tạo chuỗi dữ liệu
-  	    snprintf(txBuffer, sizeof(txBuffer), "BRAKE:%s;%s\n", leftStatus, rightStatus);
-
-  	    // Gửi qua LPUART
-  	    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
+		/* Initialize pins
+		 *  -   Init FlexCAN and GPIO pins
+		 *  -   See PinSettings component for more info
+		 */
+		PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+	}
 
 
-  	/**/
-  	void sendSensors(void) {
-  	    const char *distanceStr;
-  	    const char *lightStr;
-  	    const char *humidityStr;
-  	    const char *doorStr;
 
-  	    // Xử lý Distance
-  	    switch (distance_state) {
-  	        case SENSOR_DISTANCE_NEAR:   distanceStr = "NEAR";   break;
-  	        case SENSOR_DISTANCE_MEDIUM: distanceStr = "MEDIUM"; break;
-  	        case SENSOR_DISTANCE_FAR:    distanceStr = "FAR";    break;
-  	        default:                     distanceStr = "ERROR";  break;
-  	    }
 
-  	    // Xử lý Light
-  	    switch (light_state) {
-  	        case SENSOR_LIGHT_DARK:   lightStr = "DARK";   break;
-  	        case SENSOR_LIGHT_DIM:    lightStr = "DIM";    break;
-  	        case SENSOR_LIGHT_BRIGHT: lightStr = "BRIGHT"; break;
-  	        default:                  lightStr = "ERROR";  break;
-  	    }
 
-  	    // Xử lý Humidity (dùng temperature_sensor_state)
-  	    switch (temperature_sensor_state) {
-  	        case 0:  humidityStr = "NORMAL"; break;
-  	        case 1:  humidityStr = "HIGH";   break;
-  	        default: humidityStr = "ERROR";  break;
-  	    }
 
-  	    // Xử lý Door
-  	    switch (door_state) {
-  	        case DOOR_CLOSED:  doorStr = "CLOSED";  break;
-  	        case DOOR_OPEN:    doorStr = "OPENED";  break;
-  	        case DOOR_OPENING: doorStr = "OPENING"; break;
-  	        case DOOR_LOCKED:  doorStr = "LOCKED";  break;
-  	        default:           doorStr = "ERROR";   break;
-  	    }
-
-  	    snprintf(txBuffer, sizeof(txBuffer),
-  	             "DISTANCE:%s;LIGHT:%s;HUMIDITY:%s;DOOR:%s\n",
-  	             distanceStr, lightStr, humidityStr, doorStr);
-  	    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
-
-  	/**/
-  	void sendDevices(void) {
-
-  	    snprintf(txBuffer, sizeof(txBuffer),
-  	             "LIGHT:%s;AC:%s;WIPER:%s\n",
-  	             (headlight_state) ? "ON" : "OFF",
-  	             (air_conditioning_state) ? "ON" : "OFF",
-  	             (wiper_state) ? "ON" : "OFF");
-
-  	    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
-  	}
 
 /*!
   \brief The main function for the project.
@@ -423,6 +644,10 @@ int main(void)
     BoardInit();
     LpuartInit();
     InterruptInit();
+	FlexCANInit();
+
+
+
 
 
 
@@ -436,31 +661,31 @@ int main(void)
 
 //				sprintf(txBuffer, "SPEED:%.2f;%.2f\n", 2.51, 3.02);
 				sendSpeed();
-//				flag_speed_changed = 0;
+				flag_speed_changed = 0;
 
 			}
-			for(int i = 0; i < 4800000; i++);
+//			for(int i = 0; i < 4800000; i++);
 			if (flag_brake_changed) {
 				sendBrake();
-//				flag_brake_changed = 0;
+				flag_brake_changed = 0;
 
 			}
-			for(int i = 0; i < 4800000; i++);
+//			for(int i = 0; i < 4800000; i++);
 			if (flag_sensor_changed) {
 				sendSensors();
-//				flag_sensor_changed = 0;
+				flag_sensor_changed = 0;
 
 			}
-			for(int i = 0; i < 4800000; i++);
+//			for(int i = 0; i < 4800000; i++);
 			if (flag_device_changed) {
 				sendDevices();
-//				flag_device_changed = 0;
+				flag_device_changed = 0;
 
 			}
 //			for(int i = 0; i < 4800000; i++);
 //			char* str = "DISTANCE:FAR;LIGHT:NORMAL;HUMIDITY:NORMAL;DOOR:OPENED\n";
 //			LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)str, strlen(str));
-			for(int i = 0; i < 4800000; i++);
+//			for(int i = 0; i < 4800000; i++);
 //	  		PINS_DRV_TogglePins(PTD, 1 << 15);
 //			lastSendTime = now;
 //		}

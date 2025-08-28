@@ -1,19 +1,21 @@
-21:40:38 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
+13:44:25 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
 make -j12 all 
 Building file: ../Sources/main.c
 Invoking: Standard S32DS C Compiler
 arm-none-eabi-gcc "@Sources/main.args" -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -o "Sources/main.o" "../Sources/main.c"
 ../Sources/main.c: In function 'Can_RequestHandler':
-../Sources/main.c:303:52: warning: unused parameter 'data' [-Wunused-parameter]
+../Sources/main.c:311:52: warning: unused parameter 'data' [-Wunused-parameter]
   void Can_RequestHandler(uint8_t request, uint16_t data)
                                                     ^~~~
-../Sources/main.c: In function 'Lin_RequestHandler':
-../Sources/main.c:333:34: warning: unused parameter 'request' [-Wunused-parameter]
-  void Lin_RequestHandler(uint8_t request, uint16_t data)
-                                  ^~~~~~~
-../Sources/main.c:333:52: warning: unused parameter 'data' [-Wunused-parameter]
-  void Lin_RequestHandler(uint8_t request, uint16_t data)
-                                                    ^~~~
+../Sources/main.c: In function 'FlexCANInit':
+../Sources/main.c:492:57: warning: passing argument 2 of 'FLEXCAN_DRV_InstallEventCallback' from incompatible pointer type [-Wincompatible-pointer-types]
+          FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
+                                                         ^~~~~~~~~~~~~~
+In file included from C:/Users/LEGION/Documents/GitHub/Fsoft_phase2_G8/OBD2_KIT3/Generated_Code/Cpu.h:64:0,
+                 from ../Sources/main.c:27:
+C:/Users/LEGION/Documents/GitHub/Fsoft_phase2_G8/OBD2_KIT3/SDK/platform/drivers/inc/flexcan_driver.h:850:6: note: expected 'flexcan_callback_t {aka void (*)(unsigned char,  enum <anonymous>,  long unsigned int,  struct FlexCANState *)}' but argument is of type 'void (*)(uint8_t,  flexcan_event_type_t,  uint32_t,  void *) {aka void (*)(unsigned char,  enum <anonymous>,  long unsigned int,  void *)}'
+ void FLEXCAN_DRV_InstallEventCallback(uint8_t instance,
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Finished building: ../Sources/main.c
  
 Building target: OBD2_KIT3.elf
@@ -24,9 +26,9 @@ Finished building target: OBD2_KIT3.elf
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT3.elf
    text	   data	    bss	    dec	    hex	filename
-  15312	    888	   3208	  19408	   4bd0	OBD2_KIT3.elf
+  29464	   1300	   3576	  34340	   8624	OBD2_KIT3.elf
 Finished building: OBD2_KIT3.siz
  
 
-21:40:39 Build Finished (took 654ms)
+13:44:25 Build Finished (took 666ms)
 

@@ -7,7 +7,7 @@
 **     Version     : Component 01.197, Driver 01.00, CPU db: 3.00.000
 **     Datasheet   : S32K14XRM Rev. 2, 02/2017
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-17, 11:22, # CodeGen: 2
+**     Date/Time   : 2025-08-27, 16:06, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
@@ -65,6 +65,7 @@
 #include "lin_driver.h"
 #include "lin_common_api.h"
 #include "ftm_ic_driver.h"
+#include "lpuart_driver.h"
 #include "system_S32K144.h"
 
 /* Including needed modules to compile this module/procedure */
@@ -76,6 +77,7 @@
 #include "lin1.h"
 #include "flexTimer_ic1.h"
 #include "flexTimer_ic2.h"
+#include "lpuart1.h"
 
 #ifdef __cplusplus
 extern "C" {

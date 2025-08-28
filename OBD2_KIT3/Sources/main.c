@@ -26,6 +26,8 @@
 /* Including necessary module. Cpu.h contains other modules needed for compiling.*/
 #include "Cpu.h"
 #include <stdlib.h>
+#include <string.h>
+#include "stdio.h"
 
   volatile int exit_code = 0;
 
@@ -97,6 +99,12 @@ typedef enum{
 	control_right_motor		  //  send to KIT2
 
 }Can_Request;
+
+
+
+
+
+
 
 /**/
 int randomInt(int a, int b) {
@@ -187,7 +195,7 @@ int randomInt(int a, int b) {
   {
       uint32_t flags = PINS_DRV_GetPortIntFlag(PORTA) & ((1 << 15U) | (1 << 17U));
 
-      // PA14
+      // PA15
       if (flags & (1 << 15)) {
           // Xử lý ngắt từ PA15
     	  if(l_BrakeState == BRAKE_WAIT_RESPONSE)
@@ -198,7 +206,7 @@ int randomInt(int a, int b) {
 
 
 
-      // PA16
+      // PA17
       if (flags & (1 << 17)) {
           // Xử lý ngắt từ PA17
     	  if(r_BrakeState == BRAKE_WAIT_RESPONSE)
@@ -283,7 +291,7 @@ int randomInt(int a, int b) {
 		INT_SYS_EnableIRQ(PORTA_IRQn);
 
 		/* enable interrupt port C and init handler */
-		INT_SYS_InstallHandler(PORTA_IRQn, &PORTC_IRQHandler, NULL);
+		INT_SYS_InstallHandler(PORTC_IRQn, &PORTC_IRQHandler, NULL);
 		INT_SYS_SetPriority(PORTC_IRQn, 3);
 		INT_SYS_EnableIRQ(PORTC_IRQn);
 
@@ -330,10 +338,167 @@ int randomInt(int a, int b) {
 	}
 
 
-	void Lin_RequestHandler(uint8_t request, uint16_t data)
-	{
+//	void Lin_RequestHandler(uint8_t request, uint16_t data)
+//	{
+//
+//	}
 
-	}
+
+
+	/*
+	   *
+	   */
+	  void LpuartInit(void)
+	  {
+
+		  /* Initialize LPUART instance */
+		   LPUART_DRV_Init(INST_LPUART1, &lpuart1_State, &lpuart1_InitConfig0);
+//		   /* Install the callback for rx events */
+//		   LPUART_DRV_InstallRxCallback(INST_LPUART1, RxCallback, NULL);
+//		   /*Start receive uart data */
+//		   LPUART_DRV_ReceiveData(INST_LPUART1, &rxByte, 1);
+	  }
+
+
+
+
+	  /*
+	   *
+	   * Can
+	   *
+	   */
+
+	  #define CAN_SLAVE
+
+	  	/* CAN ID và Mailbox */
+	  	#if defined(CAN_MASTER)
+	  	#define TX_MAILBOX_REQ    (0UL)
+	  	#define TX_MSG_ID_REQ     (0x4UL)   // Gửi yêu cầu phanh
+
+	  	#define RX_MAILBOX_RESP   (1UL)
+	  	#define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
+
+	  	#define RX_MAILBOX_SPEED   (2UL)
+	  	#define RX_MSG_ID_SPEED    (0x5UL)   // Nhận tốc độ từ Slave
+
+	  	#define TX_MAILBOX  (3UL)
+	  	#define TX_MSG_ID   (7UL)
+	  //	#define RX_MAILBOX  (8UL)
+	  //	#define RX_MSG_ID   (9UL)
+	  	#endif
+
+	  	#if defined(CAN_SLAVE)
+	  	#define RX_MAILBOX_REQ    (0UL)
+	  	#define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
+
+	  	#define TX_MAILBOX_SPEED  (1UL)
+	  	#define TX_MSG_ID_SPEED   (0x5UL)   // Gửi tốc độ 2 bánh
+
+	  	#define TX_MAILBOX_BRAKE  (2UL)
+	  	#define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
+
+	  //	#define TX_MAILBOX  (8UL)
+	  //	#define TX_MSG_ID   (9UL)
+	  	#define RX_MAILBOX  (3UL)
+	  	#define RX_MSG_ID   (7UL)
+	  	#endif
+
+	  //	/* Definition of the TX and RX message buffers depending on the bus role */
+	  //	#if defined(MASTER)
+	  //	#define TX_MAILBOX  (1UL)
+	  //	#define TX_MSG_ID   (1UL)
+	  //	#define RX_MAILBOX  (0UL)
+	  //	#define RX_MSG_ID   (2UL)
+	  //
+	  //	#elif defined(SLAVE)
+	  //	#define TX_MAILBOX  (0UL)
+	  //	#define TX_MSG_ID   (2UL)
+	  //	#define RX_MAILBOX  (1UL)
+	  //	#define RX_MSG_ID   (1UL)
+	  //	#endif
+
+
+
+
+	  	/* Hàm gửi dữ liệu CAN */
+	  	void SendCANData(uint32_t mailbox, uint32_t messageId, uint8_t * data, uint32_t len)
+	  	{
+	  	    flexcan_data_info_t dataInfo =
+	  	    {
+	  	        .data_length = len,
+	  	        .msg_id_type = FLEXCAN_MSG_ID_STD,
+	  	        .enable_brs  = false,
+	  	        .fd_enable   = false,
+	  	        .fd_padding  = 0U
+	  	    };
+
+	  	    FLEXCAN_DRV_ConfigTxMb(INST_CANCOM1, mailbox, &dataInfo, messageId);
+	  	    FLEXCAN_DRV_Send(INST_CANCOM1, mailbox, &dataInfo, messageId, data);
+	  	}
+
+
+
+	  	/*
+	  		 *
+	  		 *  Callback CAN RX
+	  		 */
+	  	void CAN_RxCallback(uint8_t instance,
+	  	                    flexcan_event_type_t eventType,
+	  	                    uint32_t mbIdx,
+	  	                    void *userData)
+	  	{
+	  	    (void) instance;
+
+	  	    if (eventType == FLEXCAN_EVENT_RX_COMPLETE)
+	  	    {
+	  	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
+
+	  		#if defined(CAN_SLAVE)
+	  			if (rxBuff->msgId == RX_MSG_ID_REQ && rxBuff->dataLen >= 2) {
+
+	  				Can_RequestHandler(Brake, 0);
+	  			}
+	  		#endif
+	  	        /* Re-arm only the mailbox that triggered */
+	  	        FLEXCAN_DRV_Receive(INST_CANCOM1, mbIdx, rxBuff);
+	  	    }
+	  	}
+
+
+
+
+	  	/*
+	  	 *  Init CAN
+	  	 *
+	  	 */
+	  		void FlexCANInit(void)
+	  		{
+	  		    FLEXCAN_DRV_Init(INST_CANCOM1, &canCom1_State, &canCom1_InitConfig0);
+
+	  		    /* Cấu hình thông tin nhận */
+	  		    flexcan_data_info_t dataInfo = {
+	  		        .data_length = 2U,
+	  		        .msg_id_type = FLEXCAN_MSG_ID_STD,
+	  		        .enable_brs = false,
+	  		        .fd_enable = false,
+	  		        .fd_padding = 0U
+	  		    };
+
+	  		    static flexcan_msgbuff_t rxBuff;
+	  		       /* Configure RX message buffer with index RX_MSG_ID and RX_MAILBOX */
+	  		       FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_REQ, &dataInfo, RX_MSG_ID);
+	  		       FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_REQ, &rxBuff);
+	  		    /* Install callback and pass pointer to rxBuff */
+	  		    FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
+	  		}
+
+
+
+
+
+
+
+
 
 
 
@@ -360,6 +525,7 @@ int main(void)
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
+    OSIF_TimeDelay(1);
 
     BoardInit();
 
@@ -369,8 +535,17 @@ int main(void)
 
     InterruptInit();
 
+    FlexCANInit();
+
+//    LpuartInit();
+
+
 
   /* For example: for(;;) { } */
+    char txBuffer[128];
+
+    sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
+    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
 
 
 	while (1) {
@@ -398,6 +573,10 @@ int main(void)
 		   FTM_DRV_StartNewSignalMeasurement(INST_FLEXTIMER_IC1, 0U);
 		   FTM_DRV_StartNewSignalMeasurement(INST_FLEXTIMER_IC2, 0U);
 		   measurement_start = OSIF_GetMilliseconds(); // reset start time
+
+
+		   sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
+		   LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
 		}
 
 
@@ -408,7 +587,8 @@ int main(void)
 					l_BrakeState = BRAKE_FAULT_SIGNAL;
 
 					// send error to KIT1 by CAN
-
+					 uint8_t brakeData[2] = {0, l_BrakeState};
+					 SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
 
 
 
@@ -419,7 +599,8 @@ int main(void)
 					l_BrakeState = Brake_SUCCESSFUL;
 
 					// send state to KIT1 by CAN
-
+					uint8_t brakeData[2] = {0, l_BrakeState};
+					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
 
 
 
@@ -429,7 +610,8 @@ int main(void)
 						l_BrakeState = BRAKE_FAULT_ACTUATOR;
 
 						// send state to KIT1 by CAN
-
+						uint8_t brakeData[2] = {0, l_BrakeState};
+						SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
 
 
 						l_brake_flag = 0;
@@ -447,7 +629,8 @@ int main(void)
 					r_BrakeState = BRAKE_FAULT_SIGNAL;
 
 					// send error to KIT1 by CAN
-
+					uint8_t brakeData[2] = {1, r_BrakeState};
+					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
 
 
 
@@ -458,7 +641,8 @@ int main(void)
 					r_BrakeState = Brake_SUCCESSFUL;
 
 					// send state to KIT1 by CAN
-
+					uint8_t brakeData[2] = {1, r_BrakeState};
+					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
 
 
 
@@ -468,8 +652,8 @@ int main(void)
 						r_BrakeState = BRAKE_FAULT_ACTUATOR;
 
 						// send state to KIT1 by CAN
-
-
+						uint8_t brakeData[2] = {1, r_BrakeState};
+						SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
 
 						r_brake_flag = 0;
 					}
@@ -484,7 +668,11 @@ int main(void)
 		if (OSIF_GetMilliseconds() >= reportSpeed_current + speed_Report_Interval)
 		{
 			/* report speed both motor by Can*/
+			uint8_t speed_left = (uint8_t)l_rps*50;
+			uint8_t speed_right = (uint8_t)r_rps*50;
 
+			uint8_t speedData[2] = {speed_left, speed_right};
+			SendCANData(TX_MAILBOX_SPEED, TX_MSG_ID_SPEED, speedData, 2);
 
 			reportSpeed_current = OSIF_GetMilliseconds();
 		}

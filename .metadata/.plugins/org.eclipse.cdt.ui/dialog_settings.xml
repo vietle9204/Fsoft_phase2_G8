@@ -6,6 +6,10 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="RX_MAILBOX"/>
+			<item value="TX_MAILBOX"/>
+			<item value="MASTER"/>
+			<item value="PINS_DRV_TogglePins"/>
 			<item value="osif_UpdateTickConfig"/>
 			<item value="flexTimer_ic2_InputCaptureChannelConfig"/>
 			<item value="Measurement_IC2_Done"/>
