@@ -15,11 +15,11 @@
 ** @brief
 **         Main module.
 **         This module contains user's application code.
-*/         
+*/
 /*!
 **  @addtogroup main_module main module documentation
 **  @{
-*/         
+*/
 /* MODULE main */
 
 
@@ -426,57 +426,13 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
  *
  */
 
-#define CAN_SLAVE
+	#define CAN_SLAVE_1
 
-	/* CAN ID và Mailbox */
-	#if defined(CAN_MASTER)
-	#define TX_MAILBOX_REQ    (0UL)
-	#define TX_MSG_ID_REQ     (0x4UL)   // Gửi yêu cầu phanh
+	#if defined(CAN_SLAVE_1)
+	#define RX_MAILBOX_SPEED_CMD   (0UL)
+	#define RX_MSG_ID_SPEED_CMD    (2UL)
 
-	#define RX_MAILBOX_RESP   (1UL)
-	#define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
-
-	#define RX_MAILBOX_SPEED   (2UL)
-	#define RX_MSG_ID_SPEED    (0x5UL)   // Nhận tốc độ từ Slave
-
-	#define TX_MAILBOX  (3UL)
-	#define TX_MSG_ID   (7UL)
-//	#define RX_MAILBOX  (8UL)
-//	#define RX_MSG_ID   (9UL)
 	#endif
-
-	#if defined(CAN_SLAVE)
-	#define RX_MAILBOX_REQ    (0UL)
-	#define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
-
-	#define TX_MAILBOX_SPEED  (1UL)
-	#define TX_MSG_ID_SPEED   (0x5UL)   // Gửi tốc độ 2 bánh
-
-	#define TX_MAILBOX_BRAKE  (2UL)
-	#define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
-
-//	#define TX_MAILBOX  (8UL)
-//	#define TX_MSG_ID   (9UL)
-	#define RX_MAILBOX  (3UL)
-	#define RX_MSG_ID   (7UL)
-	#endif
-
-//	/* Definition of the TX and RX message buffers depending on the bus role */
-//	#if defined(MASTER)
-//	#define TX_MAILBOX  (1UL)
-//	#define TX_MSG_ID   (1UL)
-//	#define RX_MAILBOX  (0UL)
-//	#define RX_MSG_ID   (2UL)
-//
-//	#elif defined(SLAVE)
-//	#define TX_MAILBOX  (0UL)
-//	#define TX_MSG_ID   (2UL)
-//	#define RX_MAILBOX  (1UL)
-//	#define RX_MSG_ID   (1UL)
-//	#endif
-
-
-
 
 	/* Hàm gửi dữ liệu CAN */
 	void SendCANData(uint32_t mailbox, uint32_t messageId, uint8_t * data, uint32_t len)
@@ -514,7 +470,7 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 	    {
 	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
 
-		#if defined(CAN_SLAVE)
+		#if defined(CAN_SLAVE_1)
 			if (rxBuff->msgId == RX_MSG_ID && rxBuff->dataLen >= 2) {
 
 				if(rxBuff->data[0] == 0)
@@ -568,7 +524,7 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 
 
 
-/*! 
+/*!
   \brief The main function for the project.
   \details The startup initialization sequence is the following:
  * - startup asm routine
