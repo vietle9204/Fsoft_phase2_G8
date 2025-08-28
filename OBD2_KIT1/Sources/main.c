@@ -163,7 +163,7 @@
 	#define RX_MAILBOX_SPEED_1   (2UL)
 	#define RX_MSG_ID_SPEED_1    (0x5UL)   // Nhận tốc độ từ Slave_2
 
-	#define TX_MAILBOX_SPEED_2  (3UL)		// Điều khiển tốc độ đến slave_1
+	#define TX_MAILBOX_SPEED_2  (3UL)		// Đi
 	#define TX_MSG_ID_SPEED_2   (0x2UL)
 
 	#endif
@@ -204,7 +204,9 @@
 	#if defined(CAN_MASTER)
 	        if (rxBuff->msgId == RX_MSG_ID_RESP)
 	        {
-	            	l_brake_state = rxBuff->data[0];
+	            if (rxBuff->data[0] == 0)
+	            	l_brake_state = rxBuff->data[1];
+	            else
 	            	r_brake_state = rxBuff->data[1];
 	        }
 	        else if (rxBuff->msgId == RX_MSG_ID_SPEED)
@@ -241,7 +243,7 @@
 		    static flexcan_msgbuff_t rxBuff;
 		    /* Config RX MBs */
 		    FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_RESP, &dataInfo, RX_MSG_ID_RESP);
-		    FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_SPEED, &dataInfo, RX_MSG_ID_SPEED);
+		    FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_SPEED_1, &dataInfo, RX_MSG_ID_SPEED_1);
 
 		    /* Start receive for both */
 		    FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_RESP, &rxBuff);
@@ -342,11 +344,11 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	            uint8_t payload[2];
 				payload[0] = 0;
 				payload[1] = speedL;
-				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				SendCANData(TX_MAILBOX_SPEED_2, TX_MSG_ID_SPEED_2, payload, 2U);
 				for(int i = 0 ; i < 9600000; i++);
 				payload[0] = 1;
 				payload[1] = speedR;
-				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				SendCANData(TX_MAILBOX_SPEED_2, TX_MSG_ID_SPEED_2, payload, 2U);
 				for(int i = 0 ; i < 9600000; i++);
 
 
@@ -686,4 +688,3 @@ int main(void)
 **
 ** ###################################################################
 */
-
