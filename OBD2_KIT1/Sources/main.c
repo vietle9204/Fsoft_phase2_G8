@@ -160,47 +160,13 @@
 	#define RX_MAILBOX_RESP   (1UL)
 	#define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
 
-	#define RX_MAILBOX_SPEED   (2UL)
-	#define RX_MSG_ID_SPEED    (0x5UL)   // Nhận tốc độ từ Slave
+	#define RX_MAILBOX_SPEED_1   (2UL)
+	#define RX_MSG_ID_SPEED_1    (0x5UL)   // Nhận tốc độ từ Slave_2
 
-	#define TX_MAILBOX  (3UL)
-	#define TX_MSG_ID   (7UL)
-//	#define RX_MAILBOX  (8UL)
-//	#define RX_MSG_ID   (9UL)
+	#define TX_MAILBOX_SPEED_2  (3UL)		// Điều khiển tốc độ đến slave_1
+	#define TX_MSG_ID_SPEED_2   (0x2UL)
+
 	#endif
-
-	#if defined(SLAVE)
-	#define RX_MAILBOX_REQ    (0UL)
-	#define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
-
-	#define TX_MAILBOX_SPEED  (1UL)
-	#define TX_MSG_ID_SPEED   (0x5UL)   // Gửi tốc độ 2 bánh
-
-	#define TX_MAILBOX_BRAKE  (2UL)
-	#define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
-
-//	#define TX_MAILBOX  (8UL)
-//	#define TX_MSG_ID   (9UL)
-	#define RX_MAILBOX  (3UL)
-	#define RX_MSG_ID   (7UL)
-	#endif
-
-//	/* Definition of the TX and RX message buffers depending on the bus role */
-//	#if defined(MASTER)
-//	#define TX_MAILBOX  (1UL)
-//	#define TX_MSG_ID   (1UL)
-//	#define RX_MAILBOX  (0UL)
-//	#define RX_MSG_ID   (2UL)
-//
-//	#elif defined(SLAVE)
-//	#define TX_MAILBOX  (0UL)
-//	#define TX_MSG_ID   (2UL)
-//	#define RX_MAILBOX  (1UL)
-//	#define RX_MSG_ID   (1UL)
-//	#endif
-
-
-
 
 	/* Hàm gửi dữ liệu CAN */
 	void SendCANData(uint32_t mailbox, uint32_t messageId, uint8_t * data, uint32_t len)
@@ -238,9 +204,7 @@
 	#if defined(CAN_MASTER)
 	        if (rxBuff->msgId == RX_MSG_ID_RESP)
 	        {
-	            if (rxBuff->data[0] == 0)
-	            	l_brake_state = rxBuff->data[1];
-	            else
+	            	l_brake_state = rxBuff->data[0];
 	            	r_brake_state = rxBuff->data[1];
 	        }
 	        else if (rxBuff->msgId == RX_MSG_ID_SPEED)
@@ -722,3 +686,4 @@ int main(void)
 **
 ** ###################################################################
 */
+
