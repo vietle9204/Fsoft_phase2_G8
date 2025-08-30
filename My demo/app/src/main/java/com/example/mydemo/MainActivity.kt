@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         btnBrakeRight.setOnClickListener { sendBluetoothMessage("BRAKE RIGHT") }
         // Nút Stop
         btnStop.setOnClickListener { sendBluetoothMessage("STOP") }
-        // Nút Apply Speed ✅ ĐÃ CHỈNH LẠI
+        // Nút Apply Speed
         btnApplySpeed.setOnClickListener {
             val leftStr = inputLeftSpeed.text.toString().ifBlank { "0" }
             val rightStr = inputRightSpeed.text.toString().ifBlank { "0" }
@@ -113,8 +113,8 @@ class MainActivity : AppCompatActivity() {
                 val left = leftStr.toDouble()
                 val right = rightStr.toDouble()
 
-                if (left < 0 || left > 5 || right < 0 || right > 5) {
-                    showToast("⚠️ Speed phải nằm trong khoảng 0 - 5 RPS")
+                if (left < -100 || left > 100 || right < -100 || right > 100) {
+                    showToast("⚠️ Speed phải nằm trong khoảng -100 đến 100 RPS")
                     return@setOnClickListener
                 }
 
@@ -232,6 +232,8 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 } catch (e: IOException) {
+                    // 🔴 Khi HC-05 tắt hoặc mất kết nối → xử lý ở đây
+                    onConnectionLost()
                     break
                 }
             }
@@ -338,6 +340,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ================== Helper ===================
+    private fun onConnectionLost() {
+        closeSocket()
+        updateUiStatus("❌ Mất kết nối Bluetooth")
+        handler.post {
+            btnConnect.text = "Connect"
+            btnConnect.isEnabled = true
+        }
+        showToast("Mất kết nối Bluetooth")
+    }
+
     private fun closeSocket() {
         try { bluetoothSocket?.close() } catch (_: IOException) {}
         bluetoothSocket = null
