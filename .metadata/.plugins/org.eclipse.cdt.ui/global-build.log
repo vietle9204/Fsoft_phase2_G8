@@ -1,55 +1,35 @@
-13:44:25 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT3 ****
+21:22:16 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT2 ****
 make -j12 all 
 Building file: ../Sources/main.c
 Invoking: Standard S32DS C Compiler
 arm-none-eabi-gcc "@Sources/main.args" -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -o "Sources/main.o" "../Sources/main.c"
-../Sources/main.c: In function 'Can_RequestHandler':
-../Sources/main.c:311:52: warning: unused parameter 'data' [-Wunused-parameter]
-  void Can_RequestHandler(uint8_t request, uint16_t data)
-                                                    ^~~~
 ../Sources/main.c: In function 'FlexCANInit':
-../Sources/main.c:492:57: warning: passing argument 2 of 'FLEXCAN_DRV_InstallEventCallback' from incompatible pointer type [-Wincompatible-pointer-types]
-          FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
-                                                         ^~~~~~~~~~~~~~
-In file included from C:/Users/LEGION/Documents/GitHub/Fsoft_phase2_G8/OBD2_KIT3/Generated_Code/Cpu.h:64:0,
+../Sources/main.c:570:54: warning: passing argument 2 of 'FLEXCAN_DRV_InstallEventCallback' from incompatible pointer type [-Wincompatible-pointer-types]
+       FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
+                                                      ^~~~~~~~~~~~~~
+In file included from C:/Users/LEGION/Documents/GitHub/Fsoft_phase2_G8/OBD2_KIT2/Generated_Code/Cpu.h:64:0,
                  from ../Sources/main.c:27:
-C:/Users/LEGION/Documents/GitHub/Fsoft_phase2_G8/OBD2_KIT3/SDK/platform/drivers/inc/flexcan_driver.h:850:6: note: expected 'flexcan_callback_t {aka void (*)(unsigned char,  enum <anonymous>,  long unsigned int,  struct FlexCANState *)}' but argument is of type 'void (*)(uint8_t,  flexcan_event_type_t,  uint32_t,  void *) {aka void (*)(unsigned char,  enum <anonymous>,  long unsigned int,  void *)}'
+C:/Users/LEGION/Documents/GitHub/Fsoft_phase2_G8/OBD2_KIT2/SDK/platform/drivers/inc/flexcan_driver.h:850:6: note: expected 'flexcan_callback_t {aka void (*)(unsigned char,  enum <anonymous>,  long unsigned int,  struct FlexCANState *)}' but argument is of type 'void (*)(uint8_t,  flexcan_event_type_t,  uint32_t,  void *) {aka void (*)(unsigned char,  enum <anonymous>,  long unsigned int,  void *)}'
  void FLEXCAN_DRV_InstallEventCallback(uint8_t instance,
       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Finished building: ../Sources/main.c
  
-Building target: OBD2_KIT3.elf
+Building target: OBD2_KIT2.elf
 Invoking: Standard S32DS C Linker
-arm-none-eabi-gcc -o "OBD2_KIT3.elf" "@OBD2_KIT3.args"   
-Finished building target: OBD2_KIT3.elf
+arm-none-eabi-gcc -o "OBD2_KIT2.elf" "@OBD2_KIT2.args"   
+Finished building target: OBD2_KIT2.elf
  
-Invoking: Standard S32DS Print Size
-arm-none-eabi-size --format=berkeley OBD2_KIT3.elf
-   text	   data	    bss	    dec	    hex	filename
-  29464	   1300	   3576	  34340	   8624	OBD2_KIT3.elf
-Finished building: OBD2_KIT3.siz
- 
-14:08:09 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT1 ****
-make -j12 all 
-Invoking: Standard S32DS Print Size
-arm-none-eabi-size --format=berkeley OBD2_KIT1.elf
-   text	   data	    bss	    dec	    hex	filename
-  39068	   1088	   4240	  44396	   ad6c	OBD2_KIT1.elf
-Finished building: OBD2_KIT1.siz
- 
-14:09:57 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT2 ****
-make -j12 all 
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT2.elf
    text	   data	    bss	    dec	    hex	filename
-  25064	   1384	   3640	  30088	   7588	OBD2_KIT2.elf
+  25032	   1332	   3640	  30004	   7534	OBD2_KIT2.elf
 Finished building: OBD2_KIT2.siz
  
-14:10:56 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT2 ****
+21:25:00 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT2 ****
 make -j12 all 
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT2.elf
    text	   data	    bss	    dec	    hex	filename
-  25064	   1384	   3640	  30088	   7588	OBD2_KIT2.elf
+  25032	   1332	   3640	  30004	   7534	OBD2_KIT2.elf
 Finished building: OBD2_KIT2.siz
  

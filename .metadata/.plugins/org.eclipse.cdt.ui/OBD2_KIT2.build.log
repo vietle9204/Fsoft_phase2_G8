@@ -1,11 +1,11 @@
-14:10:56 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT2 ****
+21:25:00 **** Incremental Build of configuration Debug_FLASH for project OBD2_KIT2 ****
 make -j12 all 
 Invoking: Standard S32DS Print Size
 arm-none-eabi-size --format=berkeley OBD2_KIT2.elf
    text	   data	    bss	    dec	    hex	filename
-  25064	   1384	   3640	  30088	   7588	OBD2_KIT2.elf
+  25032	   1332	   3640	  30004	   7534	OBD2_KIT2.elf
 Finished building: OBD2_KIT2.siz
  
 
-14:10:56 Build Finished (took 324ms)
+21:25:00 Build Finished (took 212ms)
 

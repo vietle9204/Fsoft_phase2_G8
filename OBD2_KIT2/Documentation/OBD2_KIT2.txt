@@ -159,8 +159,6 @@ Module "osif1"     (component osif)
    - osif1_OSIF_GetMilliseconds -Returns the number of miliseconds elapsed since starting the internal timer or starting the 
                 scheduler.
 
-Module "lin_cfg"   (component LinStack)
-
 Module "flexTimer_pwm1" (component ftm_pwm)
    - flexTimer_pwm1_FTM_DRV_Init -Initializes the FTM driver.
    - flexTimer_pwm1_FTM_DRV_Deinit -Shuts down the FTM driver.

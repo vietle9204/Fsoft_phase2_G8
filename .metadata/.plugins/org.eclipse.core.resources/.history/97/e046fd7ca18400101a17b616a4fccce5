@@ -1,0 +1,93 @@
+<CodeGenerationInfo>
+  <ToolchainSettings>
+    <option>
+      <name>PE_G_4PEx_ToolChain_C_Compiler_Includes</name>
+      <values lines_count="9">
+        <Line>"${ProjDirPath}/SDK/platform/drivers/src/clock/S32K1xx"</Line>
+        <Line>"${ProjDirPath}/SDK/rtos/osif/"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/drivers/src/ftm"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/drivers/src/ftm"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/devices"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/devices/common"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/devices/S32K144/include"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/devices/S32K144/startup"</Line>
+        <Line>"${ProjDirPath}/SDK/platform/drivers/inc"</Line>
+      </values>
+    </option>
+    <option>
+      <name>PE_G_4PEx_ilg_gnuarmeclipse_managedbuild_cross_option_c_compiler_defs</name>
+      <values lines_count="1">
+        <Line>"CPU_S32K144_100"</Line>
+      </values>
+    </option>
+  </ToolchainSettings>
+  <GeneratedFilesList>
+    <GeneratedByPE>
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/smc_hw_access.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001141" FileType="1048576" CompNumb="3" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001045" FileType="1048576" CompNumb="3" />
+      <File Name="Generated_Code/flexTimer_ic1.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622746" FileType="45637" CompNumb="9" />
+      <File Name="SDK/platform/drivers/src/interrupt/interrupt_manager.c" FileDate="2025-08-28, 21:40:00" FileAge="1756392000956" FileType="1048576" CompNumb="4" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.c" FileDate="2025-08-28, 21:40:01" FileAge="1756392001023" FileType="1048576" CompNumb="3" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/sim_hw_access.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001129" FileType="1048576" CompNumb="3" />
+      <File Name="Generated_Code/flexTimer_ic1.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622744" FileType="45637" CompNumb="9" />
+      <File Name="SDK/platform/drivers/src/ftm/ftm_hw_access.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622693" FileType="1048576" CompNumb="0" />
+      <File Name="Documentation/OBD2_KIT3_Settings.xml" FileDate="2025-08-28, 21:50:22" FileAge="1756392622809" FileType="3072" />
+      <File Name="SDK/platform/drivers/src/ftm/ftm_hw_access.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622664" FileType="1048576" CompNumb="0" />
+      <File Name="SDK/rtos/osif/osif_baremetal.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622597" FileType="1048576" CompNumb="8" />
+      <File Name="SDK/platform/drivers/inc/ftm_ic_driver.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622714" FileType="1048576" CompNumb="0" />
+      <File Name="Generated_Code/canCom1.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622751" FileType="45637" CompNumb="5" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/pmc_hw_access.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001083" FileType="1048576" CompNumb="3" />
+      <File Name="Generated_Code/dmaController1.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622756" FileType="45637" CompNumb="6" />
+      <File Name="Generated_Code/canCom1.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622749" FileType="45637" CompNumb="5" />
+      <File Name="SDK/platform/drivers/src/pins/pins_driver.c" FileDate="2025-08-28, 21:40:00" FileAge="1756392000791" FileType="1048576" CompNumb="2" />
+      <File Name="Generated_Code/Cpu.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622780" FileType="45637" CompNumb="1" />
+      <File Name="SDK/platform/drivers/inc/flexcan_driver.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622658" FileType="1048576" CompNumb="5" />
+      <File Name="Generated_Code/dmaController1.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622753" FileType="45637" CompNumb="6" />
+      <File Name="SDK/platform/devices/startup.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001298" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/devices/device_registers.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001236" FileType="1048576" CompNumb="1" />
+      <File Name="Generated_Code/Cpu.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622783" FileType="45637" CompNumb="1" />
+      <File Name="SDK/platform/drivers/src/ftm/ftm_common.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622683" FileType="1048576" CompNumb="0" />
+      <File Name="SDK/platform/drivers/src/edma/edma_hw_access.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622558" FileType="1048576" CompNumb="6" />
+      <File Name="Generated_Code/clockMan1.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622771" FileType="45637" CompNumb="3" />
+      <File Name="SDK/platform/devices/startup.c" FileDate="2025-08-28, 21:40:01" FileAge="1756392001320" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/drivers/src/edma/edma_hw_access.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622529" FileType="1048576" CompNumb="6" />
+      <File Name="Generated_Code/clockMan1.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622775" FileType="45637" CompNumb="3" />
+      <File Name="SDK/platform/drivers/inc/pins_driver.h" FileDate="2025-08-28, 21:40:00" FileAge="1756392000868" FileType="1048576" CompNumb="2" />
+      <File Name="SDK/platform/devices/status.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001215" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/drivers/src/pins/pins_gpio_hw_access.h" FileDate="2025-08-28, 21:40:00" FileAge="1756392000836" FileType="1048576" CompNumb="2" />
+      <File Name="SDK/platform/drivers/src/ftm/ftm_ic_driver.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622673" FileType="1048576" CompNumb="0" />
+      <File Name="SDK/platform/drivers/inc/ftm_common.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622705" FileType="1048576" CompNumb="0" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/scg_hw_access.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001107" FileType="1048576" CompNumb="3" />
+      <File Name="SDK/rtos/osif/osif.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622587" FileType="1048576" CompNumb="8" />
+      <File Name="SDK/platform/drivers/src/pins/pins_port_hw_access.h" FileDate="2025-08-28, 21:40:00" FileAge="1756392000922" FileType="1048576" CompNumb="2" />
+      <File Name="SDK/platform/drivers/src/flexcan/flexcan_irq.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622639" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/drivers/src/pins/pins_port_hw_access.c" FileDate="2025-08-28, 21:40:00" FileAge="1756392000894" FileType="1048576" CompNumb="2" />
+      <File Name="SDK/platform/drivers/inc/clock.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001153" FileType="1048576" CompNumb="3" />
+      <File Name="SDK/platform/devices/S32K144/include/S32K144.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001405" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/drivers/src/flexcan/flexcan_irq.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622649" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/drivers/inc/interrupt_manager.h" FileDate="2025-08-28, 21:40:00" FileAge="1756392000978" FileType="1048576" CompNumb="4" />
+      <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622620" FileType="1048576" CompNumb="5" />
+      <File Name="Sources/main.c" FileDate="2025-08-29, 11:21:46" FileAge="1756441306207" FileType="128" />
+      <File Name="SDK/platform/devices/callbacks.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001247" FileType="1048576" CompNumb="1" />
+      <File Name="Documentation/OBD2_KIT3.txt" FileDate="2025-08-28, 21:50:22" FileAge="1756392622820" FileType="3072" />
+      <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622610" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/drivers/inc/clock_manager.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001172" FileType="1048576" CompNumb="3" />
+      <File Name="SDK/platform/drivers/src/flexcan/flexcan_driver.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622626" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/devices/S32K144/startup/system_S32K144.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001345" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/devices/S32K144/include/S32K144_features.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001389" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/drivers/src/edma/edma_irq.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622566" FileType="1048576" CompNumb="6" />
+      <File Name="SDK/platform/devices/S32K144/startup/system_S32K144.c" FileDate="2025-08-28, 21:40:01" FileAge="1756392001356" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/devices/common/s32_core_cm4.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001276" FileType="1048576" CompNumb="1" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/pcc_hw_access.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001071" FileType="1048576" CompNumb="3" />
+      <File Name="Generated_Code/pin_mux.h" FileDate="2025-08-29, 11:21:49" FileAge="1756441309756" FileType="45637" CompNumb="2" />
+      <File Name="SDK/platform/drivers/inc/edma_driver.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622576" FileType="1048576" CompNumb="6" />
+      <File Name="SDK/platform/drivers/src/edma/edma_irq.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622547" FileType="1048576" CompNumb="6" />
+      <File Name="Generated_Code/flexTimer_ic2.h" FileDate="2025-08-28, 21:50:22" FileAge="1756392622741" FileType="45637" CompNumb="10" />
+      <File Name="SDK/platform/drivers/src/edma/edma_driver.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622519" FileType="1048576" CompNumb="6" />
+      <File Name="Generated_Code/pin_mux.c" FileDate="2025-08-29, 11:21:49" FileAge="1756441309764" FileType="45637" CompNumb="2" />
+      <File Name="SDK/platform/devices/devassert.h" FileDate="2025-08-28, 21:40:01" FileAge="1756392001199" FileType="1048576" CompNumb="1" />
+      <File Name="Generated_Code/flexTimer_ic2.c" FileDate="2025-08-28, 21:50:22" FileAge="1756392622738" FileType="45637" CompNumb="10" />
+    </GeneratedByPE>
+  </GeneratedFilesList>
+  <CodeGenReference>4</CodeGenReference>
+</CodeGenerationInfo>

@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-17, 11:22, # CodeGen: 2
+**     Date/Time   : 2025-08-28, 21:50, # CodeGen: 1
 **     Contents    :
 **         FLEXCAN_DRV_SetBitrate             - void FLEXCAN_DRV_SetBitrate(uint8_t instance,const flexcan_time_segment_t *...
 **         FLEXCAN_DRV_GetBitrate             - void FLEXCAN_DRV_GetBitrate(uint8_t instance,flexcan_time_segment_t * bitrate);

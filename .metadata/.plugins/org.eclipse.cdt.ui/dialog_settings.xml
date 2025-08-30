@@ -6,6 +6,8 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="set_speed_flag"/>
+			<item value="RX_MAILBOX_"/>
 			<item value="RX_MAILBOX"/>
 			<item value="TX_MAILBOX"/>
 			<item value="MASTER"/>

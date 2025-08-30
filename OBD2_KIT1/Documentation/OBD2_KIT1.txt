@@ -159,8 +159,6 @@ Module "osif1"     (component osif)
    - osif1_OSIF_GetMilliseconds -Returns the number of miliseconds elapsed since starting the internal timer or starting the 
                 scheduler.
 
-Module "lin_cfg"   (component LinStack)
-
 Module "lpuart1"   (component lpuart)
    - lpuart1_LPUART_DRV_GetDefaultConfig -Initializes the LPUART configuration structure with default values.
    - lpuart1_LPUART_DRV_Init -Initializes an LPUART operation instance.

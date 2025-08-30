@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-26, 20:23, # CodeGen: 1
+**     Date/Time   : 2025-08-29, 16:38, # CodeGen: 16
 **     Abstract    :
 **
 **     Settings    :
@@ -58,8 +58,8 @@
 **              Peripheral Type CAN                        : 
 **                Custom name                              : CAN0
 **                CAN0                                     : 
-**                  Receiver Input                         : PTB0
-**                  Transmitter Output                     : PTB1
+**                  Receiver Input                         : PTE4
+**                  Transmitter Output                     : PTE5
 **                Custom name                              : CAN1
 **                CAN1                                     : 
 **                  Receiver Input                         : <Automatic>
@@ -488,8 +488,8 @@
 **                LPUART2                                  : 
 **                  Clear to Send                          : <Automatic>
 **                  Request to Send                        : <Automatic>
-**                  Receive Data                           : PTD6
-**                  Transmit Data                          : PTD7
+**                  Receive Data                           : <Automatic>
+**                  Transmit Data                          : <Automatic>
 **                  Direction                              : Output
 **              Peripheral Type MCM                        : 
 **                Custom name                              : MCM
@@ -1583,7 +1583,7 @@
 
 
 /*! @brief User number of configured pins */
-#define NUM_OF_CONFIGURED_PINS 11
+#define NUM_OF_CONFIGURED_PINS 9
 
 /*! @brief User configuration structure */
 extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];

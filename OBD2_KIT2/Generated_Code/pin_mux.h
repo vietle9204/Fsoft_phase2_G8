@@ -7,7 +7,7 @@
 **     Version     : Component 1.2.0, Driver 1.4, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2025-08-23, 21:26, # CodeGen: 9
+**     Date/Time   : 2025-08-29, 15:58, # CodeGen: 17
 **     Abstract    :
 **
 **     Settings    :
@@ -58,8 +58,8 @@
 **              Peripheral Type CAN                        : 
 **                Custom name                              : CAN0
 **                CAN0                                     : 
-**                  Receiver Input                         : PTB0
-**                  Transmitter Output                     : PTB1
+**                  Receiver Input                         : PTE4
+**                  Transmitter Output                     : PTE5
 **                Custom name                              : CAN1
 **                CAN1                                     : 
 **                  Receiver Input                         : <Automatic>
@@ -488,9 +488,9 @@
 **                LPUART2                                  : 
 **                  Clear to Send                          : <Automatic>
 **                  Request to Send                        : <Automatic>
-**                  Receive Data                           : PTD6
-**                  Transmit Data                          : PTD7
-**                  Direction                              : Output
+**                  Receive Data                           : <Automatic>
+**                  Transmit Data                          : <Automatic>
+**                  Direction                              : <Automatic>
 **              Peripheral Type MCM                        : 
 **                Custom name                              : MCM
 **              Peripheral Type MPU                        : 
@@ -1583,7 +1583,7 @@
 
 
 /*! @brief User number of configured pins */
-#define NUM_OF_CONFIGURED_PINS 17
+#define NUM_OF_CONFIGURED_PINS 15
 
 /*! @brief User configuration structure */
 extern pin_settings_config_t g_pin_mux_InitConfigArr[NUM_OF_CONFIGURED_PINS];

@@ -15,11 +15,11 @@
 ** @brief
 **         Main module.
 **         This module contains user's application code.
-*/         
+*/
 /*!
 **  @addtogroup main_module main module documentation
 **  @{
-*/         
+*/
 /* MODULE main */
 
 
@@ -34,9 +34,9 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
 #define measurement_Interval 1000
-#define speed_Report_Interval 10000
-#define brake_signal_timeout 5000
-#define brake_actuator_timeout 10000
+#define speed_Report_Interval 3000
+#define brake_signal_timeout 2000
+#define brake_actuator_timeout 5000
 
 typedef enum{
 	BRAKE_WAIT_RESPONSE = 0x00,
@@ -146,6 +146,7 @@ int randomInt(int a, int b) {
   	 *  -   See PinSettings component for more info
   	 */
   	PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+  	PINS_DRV_ClearPins(PTA, 1 << 14 | 1 << 16);
   }
 
 
@@ -277,13 +278,13 @@ int randomInt(int a, int b) {
    * manager priority
    */
 	void InterruptInit(void) {
-		/*Can    */
-		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
-		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
-
-		/*Lin	   */
-		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 1);
-		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
+//		/*Can    */
+//		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+//		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
+//
+//		/*Lin	   */
+//		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 1);
+//		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
 
 		/* enable interrupt port A and init handler */
 		INT_SYS_InstallHandler(PORTA_IRQn, &PORTA_IRQHandler, NULL);
@@ -310,17 +311,19 @@ int randomInt(int a, int b) {
 
 	void Can_RequestHandler(uint8_t request, uint16_t data)
 	{
+		(void)data;
 		switch(request)
 		{
 			case Brake:
-
+				PINS_DRV_SetPins(PTD, 1 << 15 | 1 << 16);
 				l_BrakeState = BRAKE_WAIT_RESPONSE;
 				r_BrakeState = BRAKE_WAIT_RESPONSE;
-				PINS_DRV_SetPins(PTA, 1 << 14U);
-				PINS_DRV_SetPins(PTA, 1 << 16U);
-				OSIF_TimeDelay(100);
-				PINS_DRV_ClearPins(PTA, 1 << 14U);
-				PINS_DRV_ClearPins(PTA, 1 << 16U);
+				PINS_DRV_SetPins(PTA, 1 << 14);
+				PINS_DRV_SetPins(PTA, 1 << 16);
+
+				for(int i = 0; i < 480000; i++);
+				PINS_DRV_ClearPins(PTA, 1 << 14);
+				PINS_DRV_ClearPins(PTA, 1 << 16);
 				l_brake_flag = 1;
 				r_brake_flag = 1;
 				Brake_start = OSIF_GetMilliseconds();
@@ -338,6 +341,10 @@ int randomInt(int a, int b) {
 	}
 
 
+
+
+
+
 //	void Lin_RequestHandler(uint8_t request, uint16_t data)
 //	{
 //
@@ -345,19 +352,7 @@ int randomInt(int a, int b) {
 
 
 
-	/*
-	   *
-	   */
-	  void LpuartInit(void)
-	  {
 
-		  /* Initialize LPUART instance */
-		   LPUART_DRV_Init(INST_LPUART1, &lpuart1_State, &lpuart1_InitConfig0);
-//		   /* Install the callback for rx events */
-//		   LPUART_DRV_InstallRxCallback(INST_LPUART1, RxCallback, NULL);
-//		   /*Start receive uart data */
-//		   LPUART_DRV_ReceiveData(INST_LPUART1, &rxByte, 1);
-	  }
 
 
 
@@ -368,26 +363,9 @@ int randomInt(int a, int b) {
 	   *
 	   */
 
-	  #define CAN_SLAVE
+	  #define CAN_SLAVE_2
 
-	  	/* CAN ID và Mailbox */
-	  	#if defined(CAN_MASTER)
-	  	#define TX_MAILBOX_REQ    (0UL)
-	  	#define TX_MSG_ID_REQ     (0x4UL)   // Gửi yêu cầu phanh
-
-	  	#define RX_MAILBOX_RESP   (1UL)
-	  	#define RX_MSG_ID_RESP    (0x6UL)   // Nhận phản hồi trạng thái phanh
-
-	  	#define RX_MAILBOX_SPEED   (2UL)
-	  	#define RX_MSG_ID_SPEED    (0x5UL)   // Nhận tốc độ từ Slave
-
-	  	#define TX_MAILBOX  (3UL)
-	  	#define TX_MSG_ID   (7UL)
-	  //	#define RX_MAILBOX  (8UL)
-	  //	#define RX_MSG_ID   (9UL)
-	  	#endif
-
-	  	#if defined(CAN_SLAVE)
+	  	#if defined(CAN_SLAVE_2)
 	  	#define RX_MAILBOX_REQ    (0UL)
 	  	#define RX_MSG_ID_REQ     (0x4UL)   // Nhận yêu cầu phanh
 
@@ -397,26 +375,7 @@ int randomInt(int a, int b) {
 	  	#define TX_MAILBOX_BRAKE  (2UL)
 	  	#define TX_MSG_ID_BRAKE   (0x6UL)   // Phản hồi trạng thái phanh
 
-	  //	#define TX_MAILBOX  (8UL)
-	  //	#define TX_MSG_ID   (9UL)
-	  	#define RX_MAILBOX  (3UL)
-	  	#define RX_MSG_ID   (7UL)
 	  	#endif
-
-	  //	/* Definition of the TX and RX message buffers depending on the bus role */
-	  //	#if defined(MASTER)
-	  //	#define TX_MAILBOX  (1UL)
-	  //	#define TX_MSG_ID   (1UL)
-	  //	#define RX_MAILBOX  (0UL)
-	  //	#define RX_MSG_ID   (2UL)
-	  //
-	  //	#elif defined(SLAVE)
-	  //	#define TX_MAILBOX  (0UL)
-	  //	#define TX_MSG_ID   (2UL)
-	  //	#define RX_MAILBOX  (1UL)
-	  //	#define RX_MSG_ID   (1UL)
-	  //	#endif
-
 
 
 
@@ -442,6 +401,7 @@ int randomInt(int a, int b) {
 	  		 *
 	  		 *  Callback CAN RX
 	  		 */
+	  	int brake_flag = 0;
 	  	void CAN_RxCallback(uint8_t instance,
 	  	                    flexcan_event_type_t eventType,
 	  	                    uint32_t mbIdx,
@@ -453,10 +413,11 @@ int randomInt(int a, int b) {
 	  	    {
 	  	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
 
-	  		#if defined(CAN_SLAVE)
-	  			if (rxBuff->msgId == RX_MSG_ID_REQ && rxBuff->dataLen >= 2) {
+	  		#if defined(CAN_SLAVE_2)
+	  			if (rxBuff->msgId == RX_MSG_ID_REQ) {
 
-	  				Can_RequestHandler(Brake, 0);
+	  				brake_flag = 1;
+
 	  			}
 	  		#endif
 	  	        /* Re-arm only the mailbox that triggered */
@@ -486,7 +447,7 @@ int randomInt(int a, int b) {
 
 	  		    static flexcan_msgbuff_t rxBuff;
 	  		       /* Configure RX message buffer with index RX_MSG_ID and RX_MAILBOX */
-	  		       FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_REQ, &dataInfo, RX_MSG_ID);
+	  		       FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_REQ, &dataInfo, RX_MSG_ID_REQ);
 	  		       FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_REQ, &rxBuff);
 	  		    /* Install callback and pass pointer to rxBuff */
 	  		    FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
@@ -497,12 +458,40 @@ int randomInt(int a, int b) {
 
 
 
+	  		void HandleBrake(uint8_t wheel, uint8_t *brake_flag, uint8_t *state, float rps) {
+	  			    if (*brake_flag == 1) {
+	  			        if (*state == BRAKE_WAIT_RESPONSE) {
+	  			            if ((OSIF_GetMilliseconds() - Brake_start) >= brake_signal_timeout) {
+	  			                *state = BRAKE_FAULT_SIGNAL;
+	  			                uint8_t brakeData[2] = {wheel, *state};
+	  			                SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE, brakeData, 2);
+	  			                *brake_flag = 0;
+	  			                for(int i = 0; i < 480000; i++);
+	  			            }
+	  			        } else if (*state == BRAKE_RESPONSED) {
+	  			            if (rps == 0.00f) {
+	  			                *state = Brake_SUCCESSFUL;
+	  			                uint8_t brakeData[2] = {wheel, *state};
+	  			                SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE, brakeData, 2);
+	  			              for(int i = 0; i < 480000; i++)
+	  			            	  ;
+	  			                *brake_flag = 0;
+	  			            } else if ((OSIF_GetMilliseconds() - Brake_start) >= brake_actuator_timeout) {
+	  			                *state = BRAKE_FAULT_ACTUATOR;
+	  			                uint8_t brakeData[2] = {wheel, *state};
+	  			                SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE, brakeData, 2);
+	  			              for(int i = 0; i < 480000; i++)
+	  			            	  ;
+	  			                *brake_flag = 0;
+	  			            }
+	  			        }
+	  			    }
+	  			}
 
 
 
 
-
-/*! 
+/*!
   \brief The main function for the project.
   \details The startup initialization sequence is the following:
  * - startup asm routine
@@ -542,10 +531,7 @@ int main(void)
 
 
   /* For example: for(;;) { } */
-    char txBuffer[128];
 
-    sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
-    LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
 
 
 	while (1) {
@@ -575,92 +561,107 @@ int main(void)
 		   measurement_start = OSIF_GetMilliseconds(); // reset start time
 
 
-		   sprintf(txBuffer, "SPEED:%.2f;%.2f\n", l_rps, r_rps);
-		   LPUART_DRV_SendData(INST_LPUART1, (const uint8_t *)txBuffer, strlen(txBuffer));
 		}
 
-
-		/*               */
-		if (l_brake_flag == 1) {
-			if (l_BrakeState == BRAKE_WAIT_RESPONSE) {
-				if (OSIF_GetMilliseconds() >= Brake_start + brake_signal_timeout) {
-					l_BrakeState = BRAKE_FAULT_SIGNAL;
-
-					// send error to KIT1 by CAN
-					 uint8_t brakeData[2] = {0, l_BrakeState};
-					 SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
-
-
-
-					l_brake_flag = 0;
-				}
-			} else if (l_BrakeState == BRAKE_RESPONSED) {
-				if (l_rps == 0.00) {
-					l_BrakeState = Brake_SUCCESSFUL;
-
-					// send state to KIT1 by CAN
-					uint8_t brakeData[2] = {0, l_BrakeState};
-					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
-
-
-
-					l_brake_flag = 0;
-				} else {
-					if (OSIF_GetMilliseconds() >= Brake_start + brake_actuator_timeout) {
-						l_BrakeState = BRAKE_FAULT_ACTUATOR;
-
-						// send state to KIT1 by CAN
-						uint8_t brakeData[2] = {0, l_BrakeState};
-						SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
-
-
-						l_brake_flag = 0;
-					}
-				}
-			}
-
+		if(brake_flag)
+		{
+				Can_RequestHandler(Brake, 0);
+				brake_flag = 0;
 		}
 
-
-		/*               */
-		if (r_brake_flag == 1) {
-			if (r_BrakeState == BRAKE_WAIT_RESPONSE) {
-				if (OSIF_GetMilliseconds() >= Brake_start + brake_signal_timeout) {
-					r_BrakeState = BRAKE_FAULT_SIGNAL;
-
-					// send error to KIT1 by CAN
-					uint8_t brakeData[2] = {1, r_BrakeState};
-					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
-
-
-
-					r_brake_flag = 0;
-				}
-			} else if (r_BrakeState == BRAKE_RESPONSED) {
-				if (r_rps == 0.00) {
-					r_BrakeState = Brake_SUCCESSFUL;
-
-					// send state to KIT1 by CAN
-					uint8_t brakeData[2] = {1, r_BrakeState};
-					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
-
-
-
-					r_brake_flag = 0;
-				} else {
-					if (OSIF_GetMilliseconds() >= Brake_start + brake_actuator_timeout) {
-						r_BrakeState = BRAKE_FAULT_ACTUATOR;
-
-						// send state to KIT1 by CAN
-						uint8_t brakeData[2] = {1, r_BrakeState};
-						SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
-
-						r_brake_flag = 0;
-					}
-				}
-			}
-
+		if (l_brake_flag == 1)
+		{
+			PINS_DRV_TogglePins(PTD, 1 << 15);
+			HandleBrake(0, (uint8_t*) &l_brake_flag, (uint8_t*) &l_BrakeState, l_rps);
 		}
+		if (r_brake_flag == 1)
+		{
+			PINS_DRV_TogglePins(PTD, 1 << 16);
+			HandleBrake(1, (uint8_t*) &r_brake_flag, (uint8_t*) &r_BrakeState, r_rps);
+		}
+
+//		/*               */
+//		if (l_brake_flag == 1) {
+//			PINS_DRV_TogglePins(PTD, 1<<16);
+//			if (l_BrakeState == BRAKE_WAIT_RESPONSE) {
+//				if (OSIF_GetMilliseconds() >= Brake_start + brake_signal_timeout) {
+//					l_BrakeState = BRAKE_FAULT_SIGNAL;
+//
+//					// send error to KIT1 by CAN
+//					 uint8_t brakeData[2] = {0, l_BrakeState};
+//					 SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
+//
+//
+//
+//					l_brake_flag = 0;
+//				}
+//			} else if (l_BrakeState == BRAKE_RESPONSED) {
+//				if (l_rps == 0.00) {
+//					l_BrakeState = Brake_SUCCESSFUL;
+//
+//					// send state to KIT1 by CAN
+//					uint8_t brakeData[2] = {0, l_BrakeState};
+//					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
+//
+//
+//
+//					l_brake_flag = 0;
+//				} else {
+//					if (OSIF_GetMilliseconds() >= Brake_start + brake_actuator_timeout) {
+//						l_BrakeState = BRAKE_FAULT_ACTUATOR;
+//
+//						// send state to KIT1 by CAN
+//						uint8_t brakeData[2] = {0, l_BrakeState};
+//						SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
+//
+//
+//						l_brake_flag = 0;
+//					}
+//				}
+//			}
+//
+//		}
+//
+//
+//		/*               */
+//		if (r_brake_flag == 1) {
+//			if (r_BrakeState == BRAKE_WAIT_RESPONSE) {
+//				if (OSIF_GetMilliseconds() >= Brake_start + brake_signal_timeout) {
+//					r_BrakeState = BRAKE_FAULT_SIGNAL;
+//
+//					// send error to KIT1 by CAN
+//					uint8_t brakeData[2] = {1, r_BrakeState};
+//					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
+//
+//
+//
+//					r_brake_flag = 0;
+//				}
+//			} else if (r_BrakeState == BRAKE_RESPONSED) {
+//				if (r_rps == 0.00) {
+//					r_BrakeState = Brake_SUCCESSFUL;
+//
+//					// send state to KIT1 by CAN
+//					uint8_t brakeData[2] = {1, r_BrakeState};
+//					SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
+//
+//
+//
+//					r_brake_flag = 0;
+//				} else {
+//					if (OSIF_GetMilliseconds() >= Brake_start + brake_actuator_timeout) {
+//						r_BrakeState = BRAKE_FAULT_ACTUATOR;
+//
+//						// send state to KIT1 by CAN
+//						uint8_t brakeData[2] = {1, r_BrakeState};
+//						SendCANData(TX_MAILBOX_BRAKE, TX_MSG_ID_BRAKE,  brakeData, 2);
+//
+//						r_brake_flag = 0;
+//					}
+//				}
+//			}
+//
+//		}
 
 
 
@@ -675,6 +676,8 @@ int main(void)
 			SendCANData(TX_MAILBOX_SPEED, TX_MSG_ID_SPEED, speedData, 2);
 
 			reportSpeed_current = OSIF_GetMilliseconds();
+			for(int i = 0; i < 48000; i++);
+
 		}
 
 

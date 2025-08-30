@@ -278,11 +278,11 @@ void PORTA_IRQHandler(void)
     // PA14
     if (flags & (1 << 14)) {
         // Xử lý ngắt từ PA14
-//    	PINS_DRV_SetPins(PTA, 1 << 15U);
+    	PINS_DRV_SetPins(PTA, 1 << 15U);
 
 
     	delayCycles(480000);
-//    	PINS_DRV_ClearPins(PTA, 1 << 15U);
+    	PINS_DRV_ClearPins(PTA, 1 << 15U);
 
 
     	Motor_Stop(Left_motor);
@@ -295,12 +295,12 @@ void PORTA_IRQHandler(void)
     // PA16
     if (flags & (1 << 16)) {
         // Xử lý ngắt từ PA16
-//    	PINS_DRV_SetPins(PTA, 1 << 17U);
+    	PINS_DRV_SetPins(PTA, 1 << 17U);
 
 
 
     	delayCycles(480000);
-//    	PINS_DRV_ClearPins(PTA, 1 << 17U);
+    	PINS_DRV_ClearPins(PTA, 1 << 17U);
 
 
     	Motor_Stop(Right_motor);
@@ -364,13 +364,13 @@ void PORTA_IRQHandler(void)
  */
 void InterruptInit(void)
 {
-		/*Can    */
-		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
-		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
-
-		/*Lin	   */
-		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 1);
-		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
+//		/*Can    */
+//		INT_SYS_SetPriority(CAN0_ORed_IRQn, 0);
+//		INT_SYS_EnableIRQ(CAN0_ORed_IRQn);
+//
+//		/*Lin	   */
+//		INT_SYS_SetPriority(LPUART2_RxTx_IRQn, 1);
+//		INT_SYS_EnableIRQ(LPUART2_RxTx_IRQn);
 
 
 	  /* enable interrupt port A and init handler */
@@ -457,8 +457,8 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 
 //	#define TX_MAILBOX  (8UL)
 //	#define TX_MSG_ID   (9UL)
-	#define RX_MAILBOX  (3UL)
-	#define RX_MSG_ID   (7UL)
+	#define RX_MAILBOX_MCT  (3UL)
+	#define RX_MSG_ID_MCT  (7UL)
 	#endif
 
 //	/* Definition of the TX and RX message buffers depending on the bus role */
@@ -500,9 +500,10 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 		 *
 		 *  Callback CAN RX
 		 */
-	float l_speed;
-	float r_speed;
-	int set_speed_flag = 1;
+	int l_speed;
+	int r_speed;
+//	int set_speed_flag = 0;
+
 	void CAN_RxCallback(uint8_t instance,
 	                    flexcan_event_type_t eventType,
 	                    uint32_t mbIdx,
@@ -515,14 +516,25 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 	        flexcan_msgbuff_t *rxBuff = (flexcan_msgbuff_t *)userData;
 
 		#if defined(CAN_SLAVE)
-			if (rxBuff->msgId == RX_MSG_ID && rxBuff->dataLen >= 2) {
+			if (rxBuff->msgId == RX_MSG_ID_MCT) {
 
 				if(rxBuff->data[0] == 0)
-					l_speed = rxBuff->data[1];
-				else
-					r_speed = rxBuff->data[1];
+				{
+					l_speed =(int) (rxBuff->data[1]) - 128;
+					set_speed_motor(Left_motor,(float) l_speed);
+					Motor_Start(Left_motor);
 
-				set_speed_flag = 1;
+//					set_speed_flag = 1;
+				}
+				else
+				{
+					r_speed =(int) (rxBuff->data[1]) - 128;
+					set_speed_motor(Right_motor,(float) r_speed);
+					Motor_Start(Right_motor);
+//					set_speed_flag = 1;
+				}
+
+
 			}
 		#endif
 	        /* Re-arm only the mailbox that triggered */
@@ -552,8 +564,8 @@ void Can_RequestHandler(uint8_t request, uint16_t data) {
 
 		    static flexcan_msgbuff_t rxBuff;
 		       /* Configure RX message buffer with index RX_MSG_ID and RX_MAILBOX */
-		       FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX, &dataInfo, RX_MSG_ID);
-		       FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX, &rxBuff);
+		       FLEXCAN_DRV_ConfigRxMb(INST_CANCOM1, RX_MAILBOX_MCT, &dataInfo, RX_MSG_ID_MCT);
+		       FLEXCAN_DRV_Receive(INST_CANCOM1, RX_MAILBOX_MCT, &rxBuff);
 		    /* Install callback and pass pointer to rxBuff */
 		    FLEXCAN_DRV_InstallEventCallback(INST_CANCOM1, CAN_RxCallback, &rxBuff);
 		}
@@ -600,17 +612,20 @@ int main(void)
 						Right_motor_reverse_GPIO_port, Right_motor_reverse_GPIO_PIN);
 
 	FlexCANInit();
+
   /* For example: for(;;) { } */
 
 	while (1) {
 
-		if(set_speed_flag)
-		{
-			set_speed_motor(Left_motor, l_speed);
-			set_speed_motor(Right_motor, r_speed);
-			Motor_Start(Left_motor);
-			Motor_Start(Right_motor);
-		}
+//		if(set_speed_flag)
+//		{
+//			PINS_DRV_TogglePins(PTD, 1 << 15 | 1 << 16 | 1 << 0);
+//			set_speed_motor(Left_motor,(float) l_speed);
+//			set_speed_motor(Right_motor,(float) r_speed);
+//			Motor_Start(Left_motor);
+//			Motor_Start(Right_motor);
+//			set_speed_flag = 0;
+//		}
 
 
 //	        // Tăng tốc tới 50%
@@ -645,6 +660,7 @@ int main(void)
 //	        // Dừng động cơ
 //	        stop();
 //	        delayCycles(48000000);
+
 	    }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

@@ -238,15 +238,22 @@
 	#if defined(CAN_MASTER)
 	        if (rxBuff->msgId == RX_MSG_ID_RESP)
 	        {
-	            if (rxBuff->data[0] == 0)
+	            if (rxBuff->data[0] == 0){
 	            	l_brake_state = rxBuff->data[1];
-	            else
+
+	            } else {
 	            	r_brake_state = rxBuff->data[1];
+
+	            }
+	            flag_brake_changed = 1;
 	        }
 	        else if (rxBuff->msgId == RX_MSG_ID_SPEED)
 	        {
 	            l_rps = rxBuff->data[0] / 50.0f;
 	            r_rps = rxBuff->data[1] / 50.0f;
+	            flag_speed_changed = 1;
+
+
 	        }
 	#endif
 	        /* Re-arm only the mailbox that triggered */
@@ -303,16 +310,18 @@
 
 
 	  /* Receive buffer size */
-		#define RX_BUFFER_SIZE 512
+		#define RX_BUFFER_SIZE 128
 
 	  /* Buffer used to receive data from the console */
 		uint8_t rxByte;
 		char rxBuffer[RX_BUFFER_SIZE];
-		volatile uint16_t rxIndex = 0;
+		volatile uint8_t rxIndex = 0;
 
 		char txBuffer[128];
 
   /* UART rx callback for continuous reception, byte by byte */
+	int send_speed = 0;
+    int speedL = 0, speedR = 0;
 void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	 (void)driverState;
 	    (void)userData;
@@ -345,16 +354,15 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	        	 uint8_t reqData[1] = {0x01};
 	        	 SendCANData(TX_MAILBOX_REQ, TX_MSG_ID_REQ, reqData, 1);
 
+	        	 l_brake_state = 0;
+	        	 r_brake_state = 0;
 
 
-	        	PINS_DRV_TogglePins(PTD, 1 << 16);
-	        	PINS_DRV_TogglePins(PTD, 1 << 15);
 	            rxIndex = 0; rxBuffer[0] = '\0';
 	        }
 
 	        else if (strstr(rxBuffer, "SET SPEED:") != NULL) {
 	            float speedLf = 0, speedRf = 0;
-	            int speedL = 0, speedR = 0;
 	            char *pos = rxBuffer + strlen("SET SPEED:");
 
 	            sscanf(pos, "%f/%f", &speedLf, &speedRf);
@@ -362,31 +370,9 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	            // Ép kiểu float -> int
 	            speedL = (int)speedLf;
 	            speedR = (int)speedRf;
-//	            l_rps = speedLf;
-//	            r_rps = speedRf;
-//	            flag_speed_changed = 1;
 
-	            // Gửi dữ liệu qua CAN hoặc xử lý tiếp
-	            // ví dụ: gửi speedL và speedR
-
-//	            if(speedL > 0) PINS_DRV_TogglePins(PTD, 1 << 16);
-//
-//
-//	            if(speedR < 0) PINS_DRV_TogglePins(PTD, 1 << 15);
-
-
-	            uint8_t payload[2];
-				payload[0] = 0;
-				payload[1] = speedL;
-				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
-				for(int i = 0 ; i < 9600000; i++);
-				payload[0] = 1;
-				payload[1] = speedR;
-				SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
-				for(int i = 0 ; i < 9600000; i++);
-
-
-	            rxIndex = 0; rxBuffer[0] = '\0';
+	            send_speed = 1;
+//	            rxIndex = 0;
 
 	        }
 
@@ -428,15 +414,15 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 	    const char* rightStatus;
 
 	    switch (l_brake_state) {
-	        case Brake_SUCCESSFUL:     leftStatus = "OK";         break;
-	        case BRAKE_FAULT_COMM:     leftStatus = "COMM_FAULT"; break;
+	        case Brake_SUCCESSFUL:     leftStatus = "SUCCESSFUL"; break;
+	        case BRAKE_FAULT_SIGNAL:     leftStatus = "SIGNAL_FAULT"; break;
 	        case BRAKE_FAULT_ACTUATOR: leftStatus = "ACT_FAULT";  break;
 	        default:                   leftStatus = "UNKNOWN";    break;
 	    }
 
 	    switch (r_brake_state) {
-	        case Brake_SUCCESSFUL:     rightStatus = "OK";         break;
-	        case BRAKE_FAULT_COMM:     rightStatus = "COMM_FAULT"; break;
+	        case Brake_SUCCESSFUL:     rightStatus = "SUCCESSFUL"; break;
+	        case BRAKE_FAULT_SIGNAL:     rightStatus = "SIGNAL_FAULT"; break;
 	        case BRAKE_FAULT_ACTUATOR: rightStatus = "ACT_FAULT";  break;
 	        default:                   rightStatus = "UNKNOWN";    break;
 	    }
@@ -629,7 +615,6 @@ void RxCallback(void *driverState, uart_event_t event, void *userData) {
 int main(void)
 
 
-
 {
   /* Write your local variable definition here */
 
@@ -657,6 +642,22 @@ int main(void)
 //
 		// Kiểm tra th�?i gian định kỳ
 //		if (now - lastSendTime >= 100) {
+		if (send_speed) {
+			for (int i = 0; i < 48000; i++);
+			uint8_t payload[2];
+			payload[0] = 0;
+			payload[1] = (uint8_t)(speedL + 128);
+			SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+			for (int i = 0; i < 9600000; i++)
+				;
+			payload[0] = 1;
+			payload[1] = (uint8_t)(speedR + 128);
+			SendCANData(TX_MAILBOX, TX_MSG_ID, payload, 2U);
+				;
+
+			send_speed = 0;
+		}
+
 			if (flag_speed_changed) {
 
 //				sprintf(txBuffer, "SPEED:%.2f;%.2f\n", 2.51, 3.02);
