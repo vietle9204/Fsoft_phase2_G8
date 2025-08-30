@@ -46,7 +46,7 @@
       <File Name="SDK/platform/drivers/src/edma/edma_irq.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786403" FileType="1048576" CompNumb="6" />
       <File Name="SDK/platform/drivers/src/lin/lin_irq.c" FileDate="1970-01-01, 06:59:59" FileAge="-1" FileType="1048576" />
       <File Name="Generated_Code/dmaController1.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786604" FileType="45637" CompNumb="6" />
-      <File Name="Sources/main.c" FileDate="2025-08-30, 15:09:34" FileAge="1756541374686" FileType="128" />
+      <File Name="Sources/main.c" FileDate="2025-08-29, 20:36:37" FileAge="1756474597062" FileType="128" />
       <File Name="Documentation/OBD2_KIT2.txt" FileDate="2025-08-29, 13:08:28" FileAge="1756447708948" FileType="3072" />
       <File Name="Generated_Code/dmaController1.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786600" FileType="45637" CompNumb="6" />
       <File Name="SDK/platform/devices/devassert.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269082" FileType="1048576" CompNumb="1" />
@@ -93,8 +93,8 @@
       <File Name="Generated_Code/flexTimer_pwm1.h" FileDate="2025-08-16, 17:35:27" FileAge="1755340527816" FileType="45637" CompNumb="11" />
       <File Name="SDK/platform/devices/startup.c" FileDate="2025-08-16, 17:14:29" FileAge="1755339269118" FileType="1048576" CompNumb="1" />
       <File Name="SDK/middleware/lin/coreapi/lin_common_api.c" FileDate="1970-01-01, 06:59:59" FileAge="-1" FileType="1048576" />
-      <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269031" FileType="1048576" CompNumb="3" />
       <File Name="Generated_Code/flexTimer_pwm1.c" FileDate="2025-08-16, 17:35:27" FileAge="1755340527813" FileType="45637" CompNumb="11" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269031" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/inc/lpuart_driver.h" FileDate="1970-01-01, 06:59:59" FileAge="-1" FileType="1048576" />
       <File Name="SDK/platform/devices/common/s32_core_cm4.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269108" FileType="1048576" CompNumb="1" />
       <File Name="SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.c" FileDate="2025-08-16, 17:14:29" FileAge="1755339269025" FileType="1048576" CompNumb="3" />
@@ -105,8 +105,8 @@
       <File Name="SDK/rtos/osif/osif.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786420" FileType="1048576" CompNumb="8" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.h" FileDate="2025-08-16, 17:23:06" FileAge="1755339786433" FileType="1048576" CompNumb="5" />
       <File Name="SDK/platform/drivers/src/lin/lin_common.c" FileDate="1970-01-01, 06:59:59" FileAge="-1" FileType="1048576" />
-      <File Name="SDK/platform/drivers/src/clock/S32K1xx/pcc_hw_access.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269036" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/src/flexcan/flexcan_hw_access.c" FileDate="2025-08-16, 17:23:06" FileAge="1755339786429" FileType="1048576" CompNumb="5" />
+      <File Name="SDK/platform/drivers/src/clock/S32K1xx/pcc_hw_access.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269036" FileType="1048576" CompNumb="3" />
       <File Name="SDK/platform/drivers/inc/pins_driver.h" FileDate="2025-08-16, 17:14:28" FileAge="1755339268982" FileType="1048576" CompNumb="2" />
       <File Name="SDK/platform/devices/S32K144/startup/system_S32K144.h" FileDate="2025-08-16, 17:14:29" FileAge="1755339269127" FileType="1048576" CompNumb="1" />
       <File Name="Documentation/OBD2_KIT2_Settings.xml" FileDate="2025-08-29, 13:08:28" FileAge="1756447708940" FileType="3072" />
@@ -115,5 +115,5 @@
       <File Name="Generated_Code/pin_mux.h" FileDate="2025-08-29, 15:58:48" FileAge="1756457928798" FileType="45637" CompNumb="2" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>21</CodeGenReference>
+  <CodeGenReference>20</CodeGenReference>
 </CodeGenerationInfo>
